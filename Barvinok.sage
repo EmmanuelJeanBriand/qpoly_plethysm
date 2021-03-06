@@ -1,8 +1,15 @@
+r"""
+AUTHOR: Adrian Lillo. 2021.
+"""
+
 from sage.arith.functions import LCM_list
 import itertools
 import re 
 
+load("extract_coefficients.sage")
+
 # Auxiliar functions
+
 
 def rangeList(lis):
     r'''Returns a list of ``range`` objects with sizes ``lis``. 
@@ -18,8 +25,26 @@ def rangeList(lis):
         res.append(range(elem))
     return res
 
+def lcmByComponent(lis):
+    r''' Returns a list with the component by component lcm of the elements of ``lis``  
+         Every element of ``lis`` is supposed to have the same length.
+        
+    EXAMPLE:: 
+    
+        >>> lcmByComponent([[1,2,3],[2,5,3],[1,1,4]])   
+        [2, 10, 12]
+        
+    '''
+    res = []
+    for position in range(len(lis[0])):
+        res.append([])
+        for sublist in lis:
+            res[position].append(sublist[position])
+    return [LCM_list( component_list ) for component_list in res]
+
 def listToVarDic(lis):
-    r'''Returns a dictionary with the same keys as ``vardic`` and values the elements of ``lis`` (auxiliar string functions are omitted).
+    r'''Returns a dictionary with the same keys as ``vardic`` and values the elements of 
+        ``lis`` (auxiliar string functions are omitted).
         If len(lis) > len(vardic) only the first terms are considered.
     
     EXAMPLE:: 
@@ -62,7 +87,8 @@ def floorReduction(dic,expr):
         >>> floorReduction({'s': 2, 'b1' : 1}, sage_eval("(2*s+b1)/6", locals=vardic))
         1/6 * b1 + 1/3 * s - 5/6
 
-    '''        
+    '''       
+    
     d = int(expr.denominator())
     N = expr.numerator()
     t = (sage_eval(str(N), locals = dic))%d
@@ -120,7 +146,7 @@ def getFstList(s):
  
     EXAMPLE::
         
-        >>>getFstList('Take the list [1,2,3]')
+        >>> getFstList('Take the list [1,2,3]')
         '[1,2,3]'
     '''
     lb = s.find("[")
@@ -168,108 +194,178 @@ def groupList(l):
             group[elem].append(index)
     return group 
     
+
 # Main Class
 
-class BarvinokOutput():
-    
+class BarvinokFunction(): 
+
     def __init__(self,output_str,r=1):
-        global vardic , vartuple 
+        global vardic  
         
         self.full_string = output_str.replace('\n',' ')
         self.var_string = getFstList(self.full_string)
         self.case_strings = output_str.replace('\n',' ').split( self.var_string + " ->")[1:]
+        self.n_cases = len(self.case_strings)
+        
+        # Declare main variables
         var_string_list = self.var_string[1:-1].split(', ')
         var_string_spaced = self.var_string[1:-1].replace(',',' ')
         vartuple = var(var_string_spaced)
-        vardic = {}
-        
+        vardic = {}  
+        self.main_vars = []
         if (len(var_string_list) > 1):
             for i in range(len(var_string_list)):
                 vardic[var_string_list[i]] = vartuple[i]
+                self.main_vars.append(vartuple[i])
         else:
             vardic[var_string_list[0]] = vartuple 
-            
-        self.n_cases = len(self.case_strings)
-        self.case_pairs = [insertMult(self.case_strings[i]).split(":",1) for i in range(self.n_cases)]
-        self.expression_strings = [self.case_pairs[i][0] for i in range(self.n_cases)]
-        self.expressions = [sage_eval(self.expression_strings[i], locals = vardic) for i in range(self.n_cases)]
-        self.lcm = [[ LCM_list(floorDenominators(expr,vardic[var])+[r]) for var in vardic] for expr in self.expressions]
-        self.conditions = []
-        self.fixConditions()
         
+        # Main substrings
+        
+        self.case_pairs = [insertMult(self.case_strings[i]).split(":",1) for i in range(self.n_cases)]
+        self.expression_strings = [X for (X,Y) in self.case_pairs]
+        self.condition_strings = [Y for (X,Y) in self.case_pairs]
+        
+        self.lcm = [[ LCM_list(floorDenominators(cond, var)) for var in self.main_vars] for cond in self.condition_strings]
+        self.mods = lcmByComponent(self.lcm)
+        
+        # Conditions and expressions without floor reduction
+        self.expressions = [sage_eval(expr_str, locals = vardic) for expr_str in self.expression_strings]
+        self.conditions = self.parseBarvinok()
 
-    def fixConditions(self):
-        r''' 
-            Parses the condition strings to the needed format
-        '''
-        gross_conditions = [self.case_pairs[i][1] for i in range(self.n_cases)]
-        self.cond_expr_str = []
-        self.cond_var_str = []
-         
-        for ind in range(len(gross_conditions)):
-            self.cond_expr_str.append([])
-            self.cond_var_str.append([])
-            self.conditions.append([])
-            gross_conditions[ind] = re.sub('[}]*[{]*','',gross_conditions[ind])
-            gross_conditions[ind] = gross_conditions[ind].split(' or ')
-            for ind2 in range(len(gross_conditions[ind])):
-                self.cond_expr_str[ind].append([])
-                self.cond_var_str[ind].append([])
-                self.conditions[ind].append([])
-                gross_conditions[ind][ind2] = re.sub('[(]*[ ]*exists[ ]*[(]*',' ',gross_conditions[ind][ind2])
-                gross_conditions[ind][ind2] = re.sub('[)]*;',' ',gross_conditions[ind][ind2])
-                gross_conditions[ind][ind2] = re.sub('[ ]+=[ ]+' , '==' , gross_conditions[ind][ind2])
-                gross_conditions[ind][ind2] = gross_conditions[ind][ind2].split(':', 1 ) 
-                gross_conditions[ind][ind2][-1] = gross_conditions[ind][ind2][-1].split(' and ')
-                if len(gross_conditions[ind][ind2]) == 2 :
-                    gross_conditions[ind][ind2][0] = gross_conditions[ind][ind2][0].split(',')
-                    #Declare e_i variables
-                    for var_eq in gross_conditions[ind][ind2][0]:
-                        var_name = re.findall('[ ]*[a-zA-Z]+[0-9]+[ ]*=',var_eq)[0][:-1]
-                        var_name = re.sub('[ ]+','',var_name)
-                        vardic[var_name] = var(var_name)
-                        self.cond_var_str[ind][ind2].append(var_eq)
-                   
-                    for condition_expr in gross_conditions[ind][ind2][1]:
-                        self.cond_expr_str[ind][ind2].append(re.sub('[)]+[)]+', '' ,condition_expr))
-                        sub_exp = sage_eval(re.sub('[)]', '' ,condition_expr), locals = vardic)
-                        for ind3 in range(len(self.cond_var_str[ind][ind2])):
-                            cond_var = sage_eval(self.cond_var_str[ind][ind2][ind3] , locals = vardic)
-                            if sub_exp.has(cond_var.left()):
-                                sub_exp = sub_exp.substitute(cond_var)
-                        self.conditions[ind][ind2].append(sub_exp)
-
-        for i in range(len(self.cond_var_str)):
-            if self.cond_var_str[i]  in self.cond_expr_str:
-                self.cond_var_str[i] = None
-          
-    def modExpressions(self):
+    def modRepresentation(self):
         r''' Returns a dictionary where :
-                - The keys are positive integer tuples with i-esim value lower than self.lcm[i]
-                - The values have the following structure :
+        - The keys are positive integer tuples s.t. the i-esim value is lower than self.mods[i]
+        - The values have the following structure :
                 
-                [ (expr1 , [or_cond11 ,..., or_cond1k] , ... , (exprn , [or_condn1 ,..., or_condnr]) ]
-                
-                    where ``expr*`` are expressions and or_cond** are lists of expressions.
-                 
-                 Every expression has been floor-reduced depending on the congruence of ``index_tuple`` mod ``self.lcm`` 
+            [ (expr1 , [pol11 ,..., pol1l] ) , ... , (exprn , [poln1 ,..., polnr]) ]
+
+                where ``expr*`` are sage expressions and pol** are non-empty ``Polyhedra`` objects.
+
+             Every polyhedra has been obtained by floor-reduction depending on the congruence of ``index_tuple`` mod ``self.mods`` 
     
         EXAMPLE::
-            >>> bv.modExpressions()[(1,0,0)]  # bv is a BarvinokOutput object
+            >>> bv.modRepresentation()[(0,0,0)]  # bv is a BarvinokFunction object
             
-            (-1/12*b1^3 + 1/24*(3*b1 - 19)*b2^2 + 1/12*b2^3 - 2/3*(b1 - b2 - 1)*s^2 + 1/9*(4*b1 + 5*b2 + 2*s - 1)*(b1 - 1) +
-            1/9*(2*b1 + 4*b2 + s - 2)*(b1 - 1) - 5/12*b1^2 - 1/24*(3*b1^2 + 34*b1 - 21)*b2 + 1/9*(4*b1 + 4*b2 + 2*s - 1)*b2 +
-            1/9*(2*b1 + 2*b2 + s + 1)*b2 + 1/6*(3*b1^2 - 3*b2^2 - 8*b1 - 2*b2 + 5)*s + 3/4*b1 - 1/4,
-            [[b1 - 1 == b1 - 1, b2 == b2, b2 >= b1, 4*s >= b1 + 2*b2, s <= b1 - 3]])
-            
+        [(1/24*(b1 + 1)*b2^2 - 1/12*b1^2 - 1/24*(b1^2 + 6*b1 - 14)*b2 + 2/3*(b2 - 1)*floor(1/3*b1)
+        + 1/3*(b2 - 1)*floor(1/3*b1 + 1/3) + 1/3*(b1 - 3*floor(1/3*b1) - 2)*floor(1/3*b2) +
+        1/3*(2*b1 - 3*floor(1/3*b1) - 3*floor(1/3*b1 + 1/3) - 1)*floor(1/3*b2 + 1/3) + 1/3*b1,
+        [A 3-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 3 rays,
+        A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays,
+        A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays]), ...
+        
         '''
-        lis = []
-        for case in range(self.n_cases):
-            lis.append({})
-            for elem in list(itertools.product(*(rangeList(self.lcm[case])))):
-                lis[case][elem] = (floorToMod(self.expressions[case] ,  listToVarDic(list(elem))) ,
-                             [[floorToMod(cond_and , listToVarDic(list(elem))) for cond_and in self.conditions[case][cond_or] ] for cond_or in range(len(self.conditions[case]))])
-        return lis
+        # Create the dictionary
+        dic = {}
+        # Set congruence tuples as keys
+        for congr in list(itertools.product(*(rangeList(lcmByComponent(self.lcm))))):
+           # Set polyhedra lists as values
+            dic[congr] = []
+            for case in range(self.n_cases):
+                pols = []
+                for piece in range(len(self.conditions[case])):
+                    # Create the polyhedron 
+                    pol = polyhedron([floorToMod(cond_and , listToVarDic(list(congr))) 
+                                      for cond_and in self.conditions[case][piece]], self.main_vars)
+                    # Only consider non-empty polyhedra
+                    if not pol.is_empty():
+                        pols.append(pol)
+                
+                # Only consider an expression if it has asociated a non-empty polyhedron 
+                if pols != [] :                     
+                    dic[congr].append((self.expressions[case] , pols))     
+        
+        return dic
 
     
+    def parsePiece(self, piece_str):
+        r'''
+            Parses a BarvinokFunction piece string and returns a list of condition expressions .
+        
+        '''        
+        
+        #Create auxiliar vars
+        conditions = []
+        cond_var_str = []
+        cond_expr_str = []
+        
+        
+        # Adequate string 
+        piece_str = re.sub('[(]*[ ]*exists[ ]*[(]*',' ',piece_str)
+        piece_str = re.sub('[)]*;',' ', piece_str)
+        piece_str = re.sub('[ ]+=[ ]+' , '==' , piece_str)
+        pair  = piece_str.split(':' , 1)
+        
+
+        if len(pair) == 2 :
+            var_equations , conds = pair
+        elif len(pair) == 1 :
+            var_equations = None
+            conds = piece_str
+
+
+        # Split by 'and'
+        
+        conds = conds.split(' and ')   
+        
+        # Split e_i equations by commas
+        if var_equations :
+            var_equations = var_equations.split(',')      
+
+            # Declare e_i variables
+            for var_eq in var_equations:
+                var_name = re.findall('[ ]*[a-zA-Z]+[0-9]+[ ]*=',var_eq)[0][:-1]
+                var_name = re.sub('[ ]+','',var_name)
+                vardic[var_name] = var(var_name)
+                cond_var_str.append(var_eq)  
+           
+            for condition_expr in conds:
+                
+                # Convert conditions from string to sage expression 
+                cond_expr_str.append(re.sub('[)]+[)]+', '' ,condition_expr))
+                sub_exp = sage_eval(re.sub('[)]', '' ,condition_expr), locals = vardic) 
+                
+                # Substitute the e_i variables in the conditions  
+                for cond_str in cond_var_str:
+                    cond_var = sage_eval(cond_str , locals = vardic)
+                    if sub_exp.has(cond_var.left()):
+                        sub_exp = sub_exp.substitute(cond_var)
+                conditions.append(sub_exp) 
+        else:
+            
+            for condition_expr in conds:
+                
+                # Convert conditions from string to sage expression 
+                condition_expr = re.sub('[)]+', '' ,condition_expr)
+                condition_expr = re.sub('[(]+', '' ,condition_expr)
+                cond_expr_str.append(condition_expr)
+                sub_exp = sage_eval(condition_expr, locals = vardic) 
+                conditions.append(sub_exp)
+            
+
+        return conditions
+
+    def parseCase(self, case):
+        r'''
+            Parses a BarvinokFunction case string and returns a list of parsed pieces.
+        
+        '''
+        case_conditions = []
+        case = re.sub('[}]*[{]*','',case)
+        case = case.split(' or ')           
+        for piece in case :
+            case_conditions.append(self.parsePiece(piece)) 
+        return case_conditions
     
+    def parseBarvinok(self):
+        r'''
+            Parses a BarvinokFunction string and returns a list of parsed cases.
+        
+        '''
+        
+        gross_conditions = [self.case_pairs[i][1] for i in range(self.n_cases)]
+        
+        conditions = []
+        for case in gross_conditions:
+            conditions.append(self.parseCase(case))
+        return conditions
