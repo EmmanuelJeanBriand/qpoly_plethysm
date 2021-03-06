@@ -2,104 +2,139 @@ from sage.arith.functions import LCM_list
 import itertools
 import re 
 
-str1 = """{ [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
-floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
-floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4))
-- 1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5): 5e0 = -1 + s and s >= 1);
-[s] -> ((((((1 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
-floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
-floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) -
-1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): 5e1 = s
-and s >= 5 and 5e0 <= -2 + s and 5e0 >= -5 + s); [s] -> (((((((-4/5 + 289/720 * s -
-1/20 * s^2 - 1/720 * s^3) + (-5/8 - 1/8 * s) * floor((s)/2)) + (-1/3 + 1/6 * s) *
-floor((s)/3)) + ((-7/12 + 1/3 * s) - 1/2 * floor((s)/3)) * floor((1 + s)/3) - 1/4 *
-floor((1 + s)/3)^2) - 1/4 * floor((s)/4)) + 1/4 * floor((3 + s)/4)) * floor((s)/5) +
-((((((4/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) * floor((s)/2)) +
-(1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 * floor((s)/3)) *
-floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) - 1/4 *
-floor((3 + s)/4)) * floor((3 + s)/5)) : exists (e0 = floor((-1 + s)/5), e1 =
-floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and
-5e1 >= -4 + s); [s] -> 1 : s = 0 }"""
-
-str2 = """{ [b1, s] -> (2/3 + 1/3 * b1) : exists (e0 = floor((-1 + b1)/3): 3e0 = -1 + b1 and 3s >= 1 + 2b1 and b1 >= 1 and s >= 1 + b1); [b1, s] -> ((2/3 - 1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2) : exists (e0 = floor((-1 + b1)/3): 3e0 = -1 + b1 and 3s >= 1 + 2b1 and s >= -1 + b1 and s <= b1); [b1, s] -> ((2/3 - 2/3 * b1) + s) : exists (e0 = floor((-1 + b1)/3): 3e0 = -1 + b1 and 3s >= 1 + 2b1 and s <= -2 + b1); [b1, s] -> 1/3 * b1 : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3): 3e1 = b1 and b1 >= 1 and s >= 1 + b1 and 3e0 >= -3 + b1 and 3e0 <= -2 + b1); [b1, s] -> ((-1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2) : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3): 3e1 = b1 and b1 >= 1 and 3s >= 2b1 and s >= -1 + b1 and s <= b1 and 3e0 <= -2 + b1 and 3e0 >= -3 + b1); [b1, s] -> (1/3 + 1/3 * b1) : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3), e2 = floor((-2 + b1)/3): 3e2 = -2 + b1 and b1 >= 1 and s >= 1 + b1 and 3e0 >= -3 + b1 and 3e0 <= -2 + b1 and 3e1 <= -1 + b1 and 3e1 >= -2 + b1); [b1, s] -> ((1/3 - 1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2) : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3), e2 = floor((-2 + b1)/3): 3e2 = -2 + b1 and b1 >= 1 and 3s >= 2b1 and s >= -1 + b1 and s <= b1 and 3e0 <= -2 + b1 and 3e0 >= -3 + b1 and 3e1 <= -1 + b1 and 3e1 >= -2 + b1); [b1, s] -> (-2/3 * b1 + s) : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3): 3e1 = b1 and 3s >= 2b1 and s <= -2 + b1 and 3e0 <= -2 + b1 and 3e0 >= -3 + b1); [b1, s] -> ((1/3 - 2/3 * b1) + s) : exists (e0 = floor((-1 + b1)/3), e1 = floor((b1)/3), e2 = floor((-2 + b1)/3): 3e2 = -2 + b1 and 3s >= 2b1 and s <= -2 + b1 and 3e0 <= -2 + b1 and 3e0 >= -3 + b1 and 3e1 <= -1 + b1 and 3e1 >= -2 + b1) }"""
-
-str3 = open('1111.txt', 'r').read()
+# Auxiliar functions
 
 def rangeList(lis):
+    r'''Returns a list of ``range`` objects with sizes ``lis``. 
+    
+    EXAMPLE::
+    
+        >>> rangeList([2,3,4)
+        [range(0, 2), range(0, 3), range(0, 4)]
+        
+    '''
     res = []
     for elem in lis:
         res.append(range(elem))
     return res
+
+def listToVarDic(lis):
+    r'''Returns a dictionary with the same keys as ``vardic`` and values the elements of ``lis`` (auxiliar string functions are omitted).
+        If len(lis) > len(vardic) only the first terms are considered.
     
-# better:
-def rangeList(lis):
-    r"""
-    EXAMPLE::
+    EXAMPLE:: 
     
-        >>> rangeList([1,5,8])
-        [range(0, 1), range(0, 5), range(0, 8)]
-    """
-    return [range(elem) for elem in lis]
-    
-def listToDic(lis):
-    dic={}
-    for i, var in enumerate(vardic):
-        if var != 'F' :
+        >>> listToVarDic([2,3])   
+        {'b1': 2, 's': 3}
+        
+        >>> listToVarDic([2,3,4])    
+        {'b1': 2, 's': 3}
+        
+    '''
+    dic= vardic.copy()
+    for i, var in (list(enumerate(vardic))[:len(lis)]):
+        if (var != 'F'):
             dic[var] = lis[i]
     return dic
-    
-# better
-def listToDic(lis):
-    return { var: lis[i] for  i, var in enumerate(vardic) if var != 'F'}
 
-def floorDenominators(expr, var = None):
-    # Returns the denominators of the interior of "floor" functions in ``expr`` as a list
+
+def insertMult(string):
+    r'''Insert `` * `` between a digit and an alphabetic character. 
+    
+    EXAMPLE::
+    
+        >>> insertMult('5e1 >= -4 + s')
+        '5 * e1 >= -4 + s'
+        
+    '''
+    res = re.sub("([0-9])([a-zA-Z])", r"\1*\2", string)
+    return res
+    
+    
+def floorReduction(dic,expr):
+
+    r''' Returns ``floor(expr)`` as a polynomial without involving ``floor`` functions
+    assuming the congruences given by `dic` (modulo expr.denominator())   
+
+
+    EXAMPLE::
+    
+        >>> floorReduction({'s': 2, 'b1' : 1}, sage_eval("(2*s+b1)/6", locals=vardic))
+        1/6 * b1 + 1/3 * s - 5/6
+
+    '''        
+    d = int(expr.denominator())
+    N = expr.numerator()
+    t = (sage_eval(str(N), locals = dic))%d
+
+    return (N-t)/d
+
+def floorToMod(expr, dic ):
+        r''' Applies ``floorReduction`` to every floor function in ``expr`` with ``dic`` as parameter.
+        
+        EXAMPLE:
+            >>> floorToMod('floor((2+s)/3) + floor((2+s)/4)' , {'s' : 7})
+            
+        '''
+        
+        aux = vardic
+        aux['F'] = lambda X: floorReduction(dic ,X)
+        res = sage_eval(str(expr).replace('floor','F'), locals= vardic)        
+        return res    
+    
+    
+def floorDenominators(input_expr, var = None):
+    
+    r''' Returns the denominators of the interior of "floor" functions which involve ``var`` in ``expr`` as a list.
+         ``expr`` can be either an expression or a string. 
+    
+    
+    EXAMPLE:: 
+    
+        >>> floorDenominators("floor(s/3) + floor(2*s/7)")
+        [3,7]
+    '''
+    expr = str(input_expr).replace('\n', '')
     expr_str = str(expr)
-    explist = []
+    expr_list = []
     auxstr = expr_str
     count = 0
-    par_match = find_parens(expr_str)
+    pair_match = findParens(expr_str)
 
     while (auxstr.find("floor")!=-1):
         a = auxstr.find("floor")
         auxstr = auxstr[a:]
-        b = find_parens(expr_str)[count+a+5] - a - count
-        if  var == None:
-            explist.append(auxstr[5:b+1])
-            auxstr = auxstr[b:]
-            count+= a + b
-        else:
-            if sage_eval(auxstr[5:b+1],locals = vardic).has(var):
-                explist.append(auxstr[5:b+1])
-            auxstr = auxstr[b:]
-            count+= a + b
+        b = findParens(expr_str)[count+a+5] - a - count
+        if  (var == None or sage_eval(auxstr[5:b+1],locals = vardic).has(var)):
+            expr_list.append(auxstr[5:b+1])
+        auxstr = auxstr[b:]
+        count+= a + b
+        
     denominators = []
-    for i in explist:
-   
+    for i in expr_list:
         denominators.append(sage_eval(i, locals = vardic).denominator())
     return denominators
 
-
-
-
-def groupList(l):
-    group = {}
-    for index,elem in enumerate(l):
-        if (not elem in group):
-            group[elem] = [index]
-        else:
-            group[elem].append(index)
-    return group
-    
-    
 def getFstList(s): 
-    # Returns the first occurrence of a list (seen as a substring of `s`)
+    r''' Returns the first occurrence of a list seen as a substring of `s` (assuming that this first list doesn't contain another list)
+ 
+    EXAMPLE::
+        
+        >>>getFstList('Take the list [1,2,3]')
+        '[1,2,3]'
+    '''
     lb = s.find("[")
     rb = s.find("]")
     return s[lb:rb+1]
-##
 
-def find_parens(s):
+def findParens(s):
+    r''' Returns a dictionary with the '(' positions on s as keys and the respective ')' positions as values.
+ 
+    EXAMPLE::
+        
+        >>>findParens('((a+b)-(c+d))()')
+        {1: 5, 7: 11, 0: 12, 13: 14}
+    '''
     toret = {}
     pstack = []
 
@@ -117,162 +152,124 @@ def find_parens(s):
     return toret
 
 
-class BarvinokOutput():
-    # Bvop is the output string
-    def __init__(self,bvop,r=1):
-        global vardic , vartuple
-        self.var_string = getFstList(bvop)
-        chambers_all = bvop.split( self.var_string + " ->")[1:]
-        varliststring = self.var_string[1:-1].split(', ')
-        varlistspace = self.var_string[1:-1].replace(',',' ')
-        vartuple = var(varlistspace)
-        vardic = {}
-        if (len(varliststring) > 1):
-            for i in range(len(varliststring)):
-                vardic[varliststring[i]] = vartuple[i]
+def groupList(l):
+    r''' Returns a dictionary with the different elements of the list ``l`` as keys and the lists of its
+    appearance indices as values
+    
+    EXAMPLE::
+        >>> groupList([2,3,2,2,2,1,0,3])
+        {2: [0, 2, 3, 4], 3: [1, 7], 1: [5], 0: [6]}
+    '''
+    group = {}
+    for index,elem in enumerate(l):
+        if (not elem in group):
+            group[elem] = [index]
         else:
-            vardic[varliststring[0]] = vartuple 
+            group[elem].append(index)
+    return group 
+    
+# Main Class
+
+class BarvinokOutput():
+    
+    def __init__(self,output_str,r=1):
+        global vardic , vartuple 
+        
+        self.full_string = output_str.replace('\n',' ')
+        self.var_string = getFstList(self.full_string)
+        self.case_strings = output_str.replace('\n',' ').split( self.var_string + " ->")[1:]
+        var_string_list = self.var_string[1:-1].split(', ')
+        var_string_spaced = self.var_string[1:-1].replace(',',' ')
+        vartuple = var(var_string_spaced)
+        vardic = {}
+        
+        if (len(var_string_list) > 1):
+            for i in range(len(var_string_list)):
+                vardic[var_string_list[i]] = vartuple[i]
+        else:
+            vardic[var_string_list[0]] = vartuple 
             
-        self.chambers_all = chambers_all
-        self.n_chambers = len(self.chambers_all)
-        self.chambers_split = [self.chambers_all[i].split(":",1) for i in range(self.n_chambers)]
-        self.value = [self.chambers_split[i][0] for i in range(self.n_chambers)]
-        self.condition = [self.chambers_split[i][1] for i in range(self.n_chambers)]
-        self.expressions = [sage_eval(self.fixFloor(self.value[i]), locals = vardic) for i in range(self.n_chambers)]
-        self.lcm = [[LCM_list(floorDenominators(expr,vardic[var])+[r]) for var in vardic] for expr in self.expressions]
-        self.modExpressions  = [[self.floorToMod( self.expressions[i],listToDic(list(elem))  )  for elem in list(itertools.product(*(rangeList(self.lcm[i]))))] for i in range(self.n_chambers)]
-      
+        self.n_cases = len(self.case_strings)
+        self.case_pairs = [insertMult(self.case_strings[i]).split(":",1) for i in range(self.n_cases)]
+        self.expression_strings = [self.case_pairs[i][0] for i in range(self.n_cases)]
+        self.expressions = [sage_eval(self.expression_strings[i], locals = vardic) for i in range(self.n_cases)]
+        self.lcm = [[ LCM_list(floorDenominators(expr,vardic[var])+[r]) for var in vardic] for expr in self.expressions]
+        self.conditions = []
+        self.fixConditions()
         
-    def floorReduction(self, dic, expr):
-        d = int(expr.denominator())
 
-        N = expr.numerator()
-        t = (sage_eval(str(N), locals = dic))%d
+    def fixConditions(self):
+        r''' 
+            Parses the condition strings to the needed format
+        '''
+        gross_conditions = [self.case_pairs[i][1] for i in range(self.n_cases)]
+        self.cond_expr_str = []
+        self.cond_var_str = []
+         
+        for ind in range(len(gross_conditions)):
+            self.cond_expr_str.append([])
+            self.cond_var_str.append([])
+            self.conditions.append([])
+            gross_conditions[ind] = re.sub('[}]*[{]*','',gross_conditions[ind])
+            gross_conditions[ind] = gross_conditions[ind].split(' or ')
+            for ind2 in range(len(gross_conditions[ind])):
+                self.cond_expr_str[ind].append([])
+                self.cond_var_str[ind].append([])
+                self.conditions[ind].append([])
+                gross_conditions[ind][ind2] = re.sub('[(]*[ ]*exists[ ]*[(]*',' ',gross_conditions[ind][ind2])
+                gross_conditions[ind][ind2] = re.sub('[)]*;',' ',gross_conditions[ind][ind2])
+                gross_conditions[ind][ind2] = re.sub('[ ]+=[ ]+' , '==' , gross_conditions[ind][ind2])
+                gross_conditions[ind][ind2] = gross_conditions[ind][ind2].split(':', 1 ) 
+                gross_conditions[ind][ind2][-1] = gross_conditions[ind][ind2][-1].split(' and ')
+                if len(gross_conditions[ind][ind2]) == 2 :
+                    gross_conditions[ind][ind2][0] = gross_conditions[ind][ind2][0].split(',')
+                    #Declare e_i variables
+                    for var_eq in gross_conditions[ind][ind2][0]:
+                        var_name = re.findall('[ ]*[a-zA-Z]+[0-9]+[ ]*=',var_eq)[0][:-1]
+                        var_name = re.sub('[ ]+','',var_name)
+                        vardic[var_name] = var(var_name)
+                        self.cond_var_str[ind][ind2].append(var_eq)
+                   
+                    for condition_expr in gross_conditions[ind][ind2][1]:
+                        self.cond_expr_str[ind][ind2].append(re.sub('[)]+[)]+', '' ,condition_expr))
+                        sub_exp = sage_eval(re.sub('[)]', '' ,condition_expr), locals = vardic)
+                        for ind3 in range(len(self.cond_var_str[ind][ind2])):
+                            cond_var = sage_eval(self.cond_var_str[ind][ind2][ind3] , locals = vardic)
+                            if sub_exp.has(cond_var.left()):
+                                sub_exp = sub_exp.substitute(cond_var)
+                        self.conditions[ind][ind2].append(sub_exp)
+
+        for i in range(len(self.cond_var_str)):
+            if self.cond_var_str[i]  in self.cond_expr_str:
+                self.cond_var_str[i] = None
+          
+    def modExpressions(self):
+        r''' Returns a dictionary where :
+                - The keys are positive integer tuples with i-esim value lower than self.lcm[i]
+                - The values have the following structure :
+                
+                [ (expr1 , [or_cond11 ,..., or_cond1k] , ... , (exprn , [or_condn1 ,..., or_condnr]) ]
+                
+                    where ``expr*`` are expressions and or_cond** are lists of expressions.
+                 
+                 Every expression has been floor-reduced depending on the congruence of ``index_tuple`` mod ``self.lcm`` 
+    
+        EXAMPLE::
+            >>> bv.modExpressions()[(1,0,0)]  # bv is a BarvinokOutput object
             
-        return factor((N-t)/d)
-
-
-    def floorToMod(self, expr, dic ):
-        aux = vardic
-        aux['F'] = lambda X: self.floorReduction(dic ,X)
-        return sage_eval(str(expr).replace('floor','F'), locals= aux)        
-        
-# messy. Probably should use "split"        
-    def fixFloor(self,floorstr):
-        res = floorstr
-        res2 = ""
-        count = 0
-        count2 = 0
-        count3 = 0
-        while (res.find("floor") != -1):
-            a = res.find("floor")
-            exp = res[a:]
-            b = find_parens(floorstr)[a + count  + 5 + count2] - count - a 
-            count += a + b  
-            exp = exp[:b+1]
-            for var in vardic:
-                ind = exp.find(var)
-                if (ind != -1) :
-                    if (exp[ind-1] == " " or exp[ind-1] == "(" or ind == 0):
-                        pass
-                     
-                    else:
-                        res = str(res[:ind+a+count3])+"*"+str(res[ind+a+count3:])
-                        count -= 1
-                        count2 += 1
-                        count3 += 1
-                        
-            res2 = str(res2)+str(res[:a+b+count3])
-            res = res[a+b+count3:]
-            count3 = 0
-        return res2 + floorstr[count + count2:]  
-        
+            (-1/12*b1^3 + 1/24*(3*b1 - 19)*b2^2 + 1/12*b2^3 - 2/3*(b1 - b2 - 1)*s^2 + 1/9*(4*b1 + 5*b2 + 2*s - 1)*(b1 - 1) +
+            1/9*(2*b1 + 4*b2 + s - 2)*(b1 - 1) - 5/12*b1^2 - 1/24*(3*b1^2 + 34*b1 - 21)*b2 + 1/9*(4*b1 + 4*b2 + 2*s - 1)*b2 +
+            1/9*(2*b1 + 2*b2 + s + 1)*b2 + 1/6*(3*b1^2 - 3*b2^2 - 8*b1 - 2*b2 + 5)*s + 3/4*b1 - 1/4,
+            [[b1 - 1 == b1 - 1, b2 == b2, b2 >= b1, 4*s >= b1 + 2*b2, s <= b1 - 3]])
+            
+        '''
+        lis = []
+        for case in range(self.n_cases):
+            lis.append({})
+            for elem in list(itertools.product(*(rangeList(self.lcm[case])))):
+                lis[case][elem] = (floorToMod(self.expressions[case] ,  listToVarDic(list(elem))) ,
+                             [[floorToMod(cond_and , listToVarDic(list(elem))) for cond_and in self.conditions[case][cond_or] ] for cond_or in range(len(self.conditions[case]))])
+        return lis
 
     
-
-    def FloorLCM(self, i, var = None):
-        LCM_list(floorDenominators(self.expressions[i], var))
     
-    def expression(self, i, elem):
-        return self.floorToMod(self.expressions[i], listToDic(list(elem))) 
-
-    #Print general information of the output string
-    def info(self):
-        print("VARIABLES = ", vartuple)
-        for i in range(self.n_chambers):
-            print("++++++++++++++++++++++", "CHAMBER ",i+1,"++++++++++++++++++++++")
-            print() 
-            print("EXPRESSION = ",self.value[i] )
-            print()
-            print("CONDITIONS = ", self.condition[i])
-            print()
-   
-    def mod_info(self , group = False, difference = True):
-        if (not(type(vartuple) is tuple)):
-            if not group :            
-                print("VARIABLES = ", vartuple)
-                for i in range(self.n_chambers):
-                    print()
-                    print("++++++++++++++++++++++ EXPRESSION ", i+1 , " DEPENDING ON CONGRUENCE OF ", vartuple, " mod ", str(self.lcm[i]),"++++++++++++++++++++++")
-                    for j in range(self.lcm[i][0]):
-                        print()
-                        print(vartuple, " # ", elem , " mod ", str(self.lcm) )
-                        print()
-                        if not difference:                            
-                            print(self.modExpressions[i][j])
-                            print()
-                        else:
-                            print(self.modExpressions[i][j] - self.modExpressions[i][0])
-                        
-            elif group : 
-                print("VARIABLES = ", vartuple)
-                for i in range(self.n_chambers):
-                    print()
-                    print("++++++++++++++++++++++ EXPRESSION ", i+1 , " DEPENDING ON CONGRUENCE OF ", vartuple, " mod ", str(self.lcm[i]),"++++++++++++++++++++++")
-                    for elem in groupList(self.modExpressions[i]):
-                        print()
-                        print(vartuple, " # ", groupList(self.modExpressions[i])[elem]) , " mod ", str(self.lcm[i]) 
-                        print()
-                        if not difference:
-                            print(elem)
-                            print()
-                        else:
-                            print(elem - self.modExpressions[i][0])
-                            print()
-        else: 
-            
-            if not group and difference:            
-                print("VARIABLES = ", vartuple)
-                for i in range(self.n_chambers):
-                    print()
-                    print("++++++++++++++++++++++ EXPRESSION ", i+1 , "- 0 DEPENDING ON CONGRUENCE OF ", vartuple, " mod ", str(self.lcm[i]),"++++++++++++++++++++++")
-                    
-                    for j , elem in enumerate(itertools.product(*(rangeList(self.lcm[i])))):
-                        print()
-                        print(vartuple, " # ", elem , " mod ", str(self.lcm[i]) )
-                        print()
-                        print(self.modExpressions[i][j] - self.modExpressions[i][0])
-                        print()   
-                        print("-----------------------------------------------------------")
-                        
-            if not group and  not difference:            
-                print("VARIABLES = ", vartuple)
-                for i in range(self.n_chambers):
-                    print()
-                    print("++++++++++++++++++++++ EXPRESSION ", i+1 , " DEPENDING ON CONGRUENCE OF ", vartuple, " mod ", str(self.lcm[i]),"++++++++++++++++++++++")
-                    
-                    for j , elem in enumerate(itertools.product(*(rangeList(self.lcm[i])))):
-                        print()
-                        print(vartuple, " # ", elem , " mod ", str(self.lcm[i]) )
-                        print()
-                        print(self.modExpressions[i][j])
-                        print()   
-                        print("-----------------------------------------------------------")
-           # (Caso 2-d ; s , b1 -> 3 (16), 8 (30)  
-
-           # for i in 
-
-"""
-bvo = BarvinokOutput(str2)
-bvo.info()
-print(bvo.eval(1,2))"""
