@@ -1,0 +1,19 @@
+*__pycache__
+
+.*
+!/.gitignore
+
+# emacs backups 
+*~
+
+# Sphinx documentation
+docs/_build/
+
+# SageMath parsed files
+*.sage.py
+
+build/
+dist/
+
+
+
