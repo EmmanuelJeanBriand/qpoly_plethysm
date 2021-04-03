@@ -40,7 +40,7 @@ def polyhedron(desc, vars):
         sage: polyhedron([b1 >= 0, b2 >= 0, b1 + b2 <= 1], [b1, b2])
         A 2-dimensional polyhedron in QQ^2 defined as the convex hull of 3 verteices
     """
-    K = [rel_coeffs(r, [b1, b2, s]) for r in desc]
+    K = [rel_coeffs(r, vars) for r in desc]
     P = Polyhedron(ieqs=[F for (type, F) in K if type == 'ieq'],
                    eqns=[F for (type, F) in K if type == 'eq'])
     return P

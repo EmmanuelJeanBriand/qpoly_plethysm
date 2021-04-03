@@ -1,7 +1,3 @@
-r"""
-AUTHOR: Adrian Lillo. 2021.
-"""
-
 from sage.arith.functions import LCM_list
 import itertools
 import re 
@@ -91,7 +87,7 @@ def floorReduction(dic,expr):
     
     d = int(expr.denominator())
     N = expr.numerator()
-    t = (sage_eval(str(N), locals = dic))%d
+    t = (int(sage_eval(str(N), locals = dic)))%d
 
     return (N-t)/d
 
@@ -138,7 +134,7 @@ def floorDenominators(input_expr, var = None):
         
     denominators = []
     for i in expr_list:
-        denominators.append(sage_eval(i, locals = vardic).denominator())
+        denominators.append(int(sage_eval(i, locals = vardic).denominator()))
     return denominators
 
 def getFstList(s): 
@@ -146,7 +142,7 @@ def getFstList(s):
  
     EXAMPLE::
         
-        >>> getFstList('Take the list [1,2,3]')
+        >>>getFstList('Take the list [1,2,3]')
         '[1,2,3]'
     '''
     lb = s.find("[")
@@ -199,7 +195,7 @@ def groupList(l):
 
 class BarvinokFunction(): 
 
-    def __init__(self,output_str,r=1):
+    def __init__(self,output_str):
         global vardic  
         
         self.full_string = output_str.replace('\n',' ')
@@ -219,6 +215,7 @@ class BarvinokFunction():
                 self.main_vars.append(vartuple[i])
         else:
             vardic[var_string_list[0]] = vartuple 
+            self.main_vars.append(vartuple)
         
         # Main substrings
         
@@ -262,6 +259,7 @@ class BarvinokFunction():
            # Set polyhedra lists as values
             dic[congr] = []
             for case in range(self.n_cases):
+                mod_expr = floorToMod(self.expressions[case] ,listToVarDic(list(congr)))
                 pols = []
                 for piece in range(len(self.conditions[case])):
                     # Create the polyhedron 
@@ -272,8 +270,8 @@ class BarvinokFunction():
                         pols.append(pol)
                 
                 # Only consider an expression if it has asociated a non-empty polyhedron 
-                if pols != [] :                     
-                    dic[congr].append((self.expressions[case] , pols))     
+                if pols != [] and (mod_expr!= 0) :                     
+                    dic[congr].append((floorToMod(self.expressions[case] ,listToVarDic(list(congr)) )  , pols))     
         
         return dic
 
