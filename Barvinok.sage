@@ -31,25 +31,50 @@ AUTHORS:
  
  These quasipolynomial functions have the following structure and delimiters:
  
- - Function: { CASE1 ; CASE2; ... }
-   |-- Case: QUASIPOLYOMIAL : DOMAIN
-       | (DOMAIN is the domain of validity of QUASIPOLYNOMIAL).
-       |-- QUASIPOLYNOMIAL: LIST OF VARS -> FORMULA
-           |-- LIST OF VARS
-           |-- FORMULA. Involves floors in general.
-         
-       |-- DOMAIN: SUBDOMAIN1 OR SUBDOMAIN2 OR ...
+ - Function: 
+   { CASE1 ; CASE2  ;  ...  }
+   opening: `{ ` ; closing: `}` ; separator: `; `
+   |
+   |-- CASE*: 
+       QUASIPOLYOMIAL : DOMAIN
+       opening: None; closing: None; separator: ` : ` (only once).
+       (DOMAIN is the domain of validity of QUASIPOLYNOMIAL).
+       |
+       |-- QUASIPOLYNOMIAL: 
+       |   LIST OF VARS  ->  FORMULA
+       |   opening: None; closing: None; separator: ` -> ` (only once).
+       |   |
+       |   |-- LIST OF VARS.: 
+       |   |   [ VAR1 ,  VAR2 , ...  ] 
+       |   |   opening: `[` ;  closing: `]`; separator: `, `
+       |   |
+       |   |-- FORMULA. Involves floors in general.
+       |
+       |-- DOMAIN: 
+           SUBDOMAIN1 ` or ` SUBDOMAIN2 ` or ` ...
+           opening: None; closing: None; separator: ` or `
            The Domain is the disjoint union of its subdomains
-           |-- SUBDOMAIN: exists ( QUANTIFIERS : CONDITIONS )
+           |
+           |-- SUBDOMAIN*:  
+               exists ( ALL_QUANTIFIERS  :  ALL_LINEAR_CONDITIONS )
+               opening: `exists(` ; closing: `)` ; separator: ` : ` (only once).
                Each subdomain is defined by modular conditions (corresponding to the quantifiers)
                and linear inequalities.
-               |-- QUANTIFIERS: QUANTIFIER1, QUANTIFIER2, ...
-               |   |-- QUANTIFIER: ei = floor( F ) 
+               |
+               |-- ALL_QUANTIFIERS: 
+               |   QUANTIFIER1, QUANTIFIER2, ...
+               |   opening: None; closing: None; separator: `, `
+               |   |
+               |   |-- QUANTIFIER*: 
+               |       ei = floor(F) 
                |       ei are variables e0, e1, e2 ... 
                |       F is a linear form with integers coefficients divided by an integer. 
                |   
-               |-- CONDITIONS: CONDITION1 and CONDITION2 and ... 
-                   | -- CONDITION: an inequality or an equation. 
+               |-- ALL_LINEAR_CONDITIONS: 
+                   LINEAR_CONDITION1 and LINEAR_CONDITION2 and ... 
+                   opening: None; closing: None; separators: ` and `
+                   |
+                   | -- LINEAR_CONDITION*: a linear inequality or a linear equation. 
                         Multiplication sign is omitted. 
                         The variables have been declared before (e0, e1, .... ). 
                         
@@ -62,6 +87,40 @@ import re
 load("extract_coefficients.sage")
 
 # Auxiliar functions
+
+
+def removeprefix(s, prefix):
+    r"""
+    Adapted from https://www.python.org/dev/peps/pep-0616/
+    This was included in python >= 3.9 as method for strings
+    
+    EXAMPLES::
+        >>> removeprefix('TestHook', 'Test')
+        'Hook'
+        >>> removeprefix('BaseTestCase', 'Test')
+        'BaseTestCase'
+    """
+    if s.startswith(prefix):
+        return s[len(prefix):]
+    else:
+        return s[:]
+
+def removesuffix(s, suffix):
+    r"""
+    Adapted from https://www.python.org/dev/peps/pep-0616/
+    This was included in python >= 3.9 as method for strings
+    
+    >>> removesuffix('MiscTests', 'Tests')
+    'Misc'
+    >>> removesuffix('TmpDirMixin', 'Tests')
+    'TmpDirMixin'
+    """
+    # suffix='' should not call self[:-0].
+    if suffix and s.endswith(suffix):
+        return s[:-len(suffix)]
+    else:
+        return s[:]
+    
 
 def rangeList(lis):
     r'''Return a list of ``range`` objects with sizes ``lis``. 
@@ -201,7 +260,7 @@ def getFstList(s):
     return s[lb:rb+1]
 
 def findParens(s):
-    r''' Return a dictionary with the '(' positions on s as keys 
+    r''' Return a dictionary with the '(' positions in ``s`` as keys 
     and the respective ')' positions as values.
     
     This deals with nested parentheses.
@@ -242,7 +301,20 @@ def groupList(L):
         else:
             group[elem].append(index)
     return group 
+  
+def mysplit(s, sep=",", prefix="", suffix=""):
+    r"""Split ``s`` around ``sep`` and remove ``prefix`` and ``suffix`` from the beginning
+    and the end of it.
     
+    EXAMPLE::
+        >>> mysplit("[1 , 2, 3]", ", ", prefix="[", suffix="]")
+        ['1 ', '2', '3']
+    """
+    if s[:len(prefix)] != prefix:
+        raise ValueError('Prefix {} not found at the beginning of the string.'.format(prefix))
+    if s[-len(suffix):] != suffix:
+        raise ValueError('Suffix {} not found at the end of the string.'.format(suffix))        
+    return s[len(prefix):-len(suffix)].split(sep)
 
 # Main Class
 
@@ -251,30 +323,26 @@ class BarvinokFunction():
     def __init__(self, output_str):
         global vardic  
         
-        self.full_string = output_str.replace('\n',' ')
+        s = output_str.replace('\n',' ').rstrip()
+        self.full_string = s
         self.var_string = getFstList(self.full_string)
-        self.case_strings = output_str.replace('\n',' ').split( self.var_string + " ->")[1:]
+        var_str = "{v} -> ".format(v=self.var_string)
+        s = removeprefix(s, '{ %s'%var_str)
+        s = removesuffix(s, ' }')
+        s =  s.split("; %s"%var_str)
+        self.case_strings = s
         self.n_cases = len(self.case_strings)
         
         # Declare main variables
-        var_string_list = self.var_string[1:-1].split(', ') # obscure
-        var_string_spaced = self.var_string[1:-1].replace(',',' ')
-        vartuple = var(var_string_spaced)
-        vardic = {}  
-        self.main_vars = []
-        if (len(var_string_list) > 1):
-            for vs, vt in zip(var_string_list, vartuple): 
-                vardic[vs] = vt
-                self.main_vars.append(vt)
-            
-            #for i in range(len(var_string_list)):
-            #   vardic[var_string_list[i]] = vartuple[i]
-            #   self.main_vars.append(vartuple[i])
-        else:
-            vardic[var_string_list[0]] = vartuple 
-            self.main_vars.append(vartuple)
-        
-        # Main substrings
+        s = self.var_string
+        s = removeprefix(s, '[')
+        s = removesuffix(s, ']')
+ 
+        var_string_list = s.split(', ')
+        vartuple = var(s) if len(var_string_list) > 1 else (var(s),)
+
+        vardic = {vs: vt for vs, vt in zip(var_string_list, vartuple)}
+        self.main_vars = list(vartuple)
         
         self.case_pairs = [insertMult(case_str).split(":",1) for case_str in self.case_strings]
         self.expression_strings = [X for (X,Y) in self.case_pairs]
@@ -291,14 +359,15 @@ class BarvinokFunction():
 
     def modRepresentation(self):
         r''' Returns a dictionary where :
-        - The keys are positive integer tuples s.t. the i-esim value is lower than self.mods[i]
+        - The keys are positive integer tuples s.t. the i-th value is lower than self.mods[i]
         - The values have the following structure :
                 
             [ (expr1 , [pol11 ,..., pol1l] ) , ... , (exprn , [poln1 ,..., polnr]) ]
 
         where ``expr*`` are sage expressions and pol** are non-empty ``Polyhedra`` objects.
 
-        Every polyhedra has been obtained by floor-reduction depending on the congruence of ``index_tuple`` mod ``self.mods`` 
+        Every polyhedron has been obtained by floor-reduction depending on 
+        the congruence of ``index_tuple`` mod ``self.mods`` 
     
         EXAMPLE::
             >>> bv.modRepresentation()[(0,0,0)]  # bv is a BarvinokFunction object
@@ -328,7 +397,7 @@ class BarvinokFunction():
                     if not pol.is_empty():
                         pols.append(pol)
                 
-                # Only consider an expression if it has asociated a non-empty polyhedron 
+                # Only consider an expression if it has associated a non-empty polyhedron 
                 if pols != [] and (mod_expr!= 0) :                     
                     dic[congr].append((floorToMod(expr ,listToVarDic(list(congr)) )  , pols))     
         
@@ -411,9 +480,5 @@ class BarvinokFunction():
         '''
         gross_conditions = [Y for (X, Y) in self.case_pairs]
         return [self.parseCase(case) for case in gross_conditions]
-        
-        conditions = []
-        for case in gross_conditions:
-            conditions.append(self.parseCase(case))
-        return conditions
+
     
