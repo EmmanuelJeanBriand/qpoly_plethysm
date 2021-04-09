@@ -1,7 +1,53 @@
-# AUTHORS:
-# - Adrian Lillo, first version (2021)
-# - Emmanuel Briand, revision (2021)
-#------------------------------------------------------------------
+r""" 
+AUTHORS:
+ - Adrian Lillo, first version (2021)
+ - Emmanuel Briand, revision (2021)
+ 
+ Here we parse piecewise quasipolynomial function presented as follows:
+ 
+ - Function: { CASE1 ; CASE2; ... }
+   |-- Case: QUASIPOLYOMIAL : DOMAIN
+       | (DOMAIN is the domain of validity of QUASIPOLYNOMIAL).
+       |-- QUASIPOLYNOMIAL: LIST OF VARS -> FORMULA
+           |-- LIST OF VARS
+           |-- FORMULA. Involves floors in general.
+         
+       |-- DOMAIN: SUBDOMAIN1 OR SUBDOMAIN2 OR ...
+           The Domain is the disjoint union of its subdomains
+           |-- SUBDOMAIN: exists ( QUANTIFIERS : CONDITIONS )
+               Each subdomain is defined by modular conditions (corresponding to the quantifiers)
+               and linear inequalities.
+               |-- QUANTIFIERS: QUANTIFIER1, QUANTIFIER2, ...
+               |   |-- QUANTIFIER: ei = floor( F ) 
+               |       ei are variables e0, e1, e2 ... 
+               |       F is a linear form with integers coefficients divided by an integer. 
+               |   
+               |-- CONDITIONS: CONDITION1 and CONDITION2 and ... 
+                   | -- CONDITION: an inequality or an equation. 
+                        Multiplication sign is omitted. 
+                        The variables have been declared before (e0, e1, .... ). 
+                        
+EXAMPLE:
+{ [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
+floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
+floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4))
+- 1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5): 5e0 = -1 + s and s >= 1);
+[s] -> ((((((1 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
+floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
+floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) -
+1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): 5e1 = s
+and s >= 5 and 5e0 <= -2 + s and 5e0 >= -5 + s); [s] -> (((((((-4/5 + 289/720 * s -
+1/20 * s^2 - 1/720 * s^3) + (-5/8 - 1/8 * s) * floor((s)/2)) + (-1/3 + 1/6 * s) *
+floor((s)/3)) + ((-7/12 + 1/3 * s) - 1/2 * floor((s)/3)) * floor((1 + s)/3) - 1/4 *
+floor((1 + s)/3)^2) - 1/4 * floor((s)/4)) + 1/4 * floor((3 + s)/4)) * floor((s)/5) +
+((((((4/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) * floor((s)/2)) +
+(1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 * floor((s)/3)) *
+floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) - 1/4 *
+floor((3 + s)/4)) * floor((3 + s)/5)) : exists (e0 = floor((-1 + s)/5), e1 =
+floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and
+5e1 >= -4 + s); [s] -> 1 : s = 0 }
+
+------------------------------------------------------------------"""
 
 from sage.arith.functions import LCM_list
 import itertools
