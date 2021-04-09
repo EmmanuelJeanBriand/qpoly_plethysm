@@ -3,7 +3,33 @@ AUTHORS:
  - Adrian Lillo, first version (2021)
  - Emmanuel Briand, revision (2021)
  
- Here we parse piecewise quasipolynomial function presented as follows:
+ TODO:
+     - the global dictionary ``vardics`` is troublesome. 
+ 
+ Here we parse piecewise quasipolynomial functions as in the following example:
+ 
+ EXAMPLE::
+    { [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
+    floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
+    floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4))
+    - 1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5): 5e0 = -1 + s and s >= 1);
+    [s] -> ((((((1 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
+    floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
+    floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) -
+    1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): 5e1 = s
+    and s >= 5 and 5e0 <= -2 + s and 5e0 >= -5 + s); [s] -> (((((((-4/5 + 289/720 * s -
+    1/20 * s^2 - 1/720 * s^3) + (-5/8 - 1/8 * s) * floor((s)/2)) + (-1/3 + 1/6 * s) *
+    floor((s)/3)) + ((-7/12 + 1/3 * s) - 1/2 * floor((s)/3)) * floor((1 + s)/3) - 1/4 *
+    floor((1 + s)/3)^2) - 1/4 * floor((s)/4)) + 1/4 * floor((3 + s)/4)) * floor((s)/5) +
+    ((((((4/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) * floor((s)/2)) +
+    (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 * floor((s)/3)) *
+    floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) - 1/4 *
+    floor((3 + s)/4)) * floor((3 + s)/5)) : exists (e0 = floor((-1 + s)/5), e1 =
+    floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and
+    5e1 >= -4 + s); [s] -> 1 : s = 0 }
+ 
+ 
+ These quasipolynomial functions have the following structure and delimiters:
  
  - Function: { CASE1 ; CASE2; ... }
    |-- Case: QUASIPOLYOMIAL : DOMAIN
@@ -27,26 +53,6 @@ AUTHORS:
                         Multiplication sign is omitted. 
                         The variables have been declared before (e0, e1, .... ). 
                         
-EXAMPLE:
-{ [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
-floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
-floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4))
-- 1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5): 5e0 = -1 + s and s >= 1);
-[s] -> ((((((1 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
-floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
-floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) -
-1/4 * floor((3 + s)/4)) : exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): 5e1 = s
-and s >= 5 and 5e0 <= -2 + s and 5e0 >= -5 + s); [s] -> (((((((-4/5 + 289/720 * s -
-1/20 * s^2 - 1/720 * s^3) + (-5/8 - 1/8 * s) * floor((s)/2)) + (-1/3 + 1/6 * s) *
-floor((s)/3)) + ((-7/12 + 1/3 * s) - 1/2 * floor((s)/3)) * floor((1 + s)/3) - 1/4 *
-floor((1 + s)/3)^2) - 1/4 * floor((s)/4)) + 1/4 * floor((3 + s)/4)) * floor((s)/5) +
-((((((4/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) * floor((s)/2)) +
-(1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 * floor((s)/3)) *
-floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4)) - 1/4 *
-floor((3 + s)/4)) * floor((3 + s)/5)) : exists (e0 = floor((-1 + s)/5), e1 =
-floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and
-5e1 >= -4 + s); [s] -> 1 : s = 0 }
-
 ------------------------------------------------------------------"""
 
 from sage.arith.functions import LCM_list
@@ -66,15 +72,13 @@ def rangeList(lis):
         [range(0, 2), range(0, 3), range(0, 4)]
         
     '''
-    res = []
-    for elem in lis:
-        res.append(range(elem))
-    return res
+    return [range(elem) for elem in lis]
 
 def lcmByComponent(lis):
     r''' Return a list with the component by component l.c.m. of the elements of ``lis``  
-         
-    All elements of ``lis`` are assumed to have the same length.
+             
+    INPUT:
+    - ``lis`` - a list of lists. The inner lists are assumed to have all the same length.
         
     EXAMPLE:: 
     
@@ -88,6 +92,7 @@ def listToVarDic(lis):
     r'''Return a dictionary with the same keys as ``vardic`` 
     and values the elements of ``lis`` (auxiliar string functions are omitted).
     If len(lis) > len(vardic) only the first terms are considered.
+    
     
     EXAMPLE:: 
     
@@ -121,8 +126,7 @@ def insertMult(string):
     '''
     res = re.sub("([0-9])([a-zA-Z])", r"\1  *  \2", string)
     return res
-    
-    
+       
 def floorReduction(dic,expr):
 
     r''' Returns ``floor(expr)`` as a polynomial without involving ``floor`` functions
@@ -136,7 +140,7 @@ def floorReduction(dic,expr):
     
     d = int(expr.denominator())
     N = expr.numerator()
-    t = (int(sage_eval(str(N), locals = dic)))%d
+    t = (int(sage_eval(str(N), locals = dic))) % d
     return (N-t)/d
 
 def floorToMod(expr, dic ):
@@ -151,9 +155,8 @@ def floorToMod(expr, dic ):
         aux['F'] = lambda X: floorReduction(dic ,X)
         res = sage_eval(str(expr).replace('floor','F'), locals= vardic)        
         return res    
-    
-    
-def floorDenominators(input_expr, var = None):
+        
+def floorDenominators(expr, var = None):
     
     r''' Return the denominators of the interior of "floor" functions which 
     involve ``var`` in ``expr`` as a list.
@@ -166,43 +169,22 @@ def floorDenominators(input_expr, var = None):
     
     TODO: simplify using a subroutine
     '''
-    expr = str(input_expr).replace('\n', '')
+    expr = str(expr).replace('\n', '')
     expr_list = []
     auxstr = expr
     count = 0
     pair_match = findParens(expr)
-
-    while (auxstr.find("floor") != -1):
-        a = auxstr.find("floor")
-        auxstr = auxstr[a:]
-        b = findParens(expr)[count+a+5] - a - count
-        if  (var == None or sage_eval(auxstr[5:b+1],locals = vardic).has(var)):
-            expr_list.append(auxstr[5:b+1])
-        auxstr = auxstr[b:]
-        count+= a + b
+    
+    start = 0
+    while (expr.find("floor", start) != -1):
+        start = expr.find("floor", start) + len("floor")
+        stop = pair_match[start]
+        subexpr = expr[start:stop+1]
+        if  (var == None or sage_eval(subexpr,locals = vardic).has(var)):
+            expr_list.append(subexpr)
+        start = stop + 1
         
     denominators = [int(sage_eval(i, locals = vardic).denominator()) for i in expr_list]
-    return denominators
-    ###
-    expr = str(input_expr).replace('\n', '')
-    expr_str = str(expr)
-    expr_list = []
-    auxstr = expr_str
-    count = 0
-    pair_match = findParens(expr_str)
-
-    while (auxstr.find("floor")!=-1):
-        a = auxstr.find("floor")
-        auxstr = auxstr[a:]
-        b = findParens(expr_str)[count+a+5] - a - count
-        if  (var == None or sage_eval(auxstr[5:b+1],locals = vardic).has(var)):
-            expr_list.append(auxstr[5:b+1])
-        auxstr = auxstr[b:]
-        count+= a + b
-        
-    denominators = []
-    for i in expr_list:
-        denominators.append(int(sage_eval(i, locals = vardic).denominator()))
     return denominators
 
 def getFstList(s): 
@@ -221,13 +203,14 @@ def getFstList(s):
 def findParens(s):
     r''' Return a dictionary with the '(' positions on s as keys 
     and the respective ')' positions as values.
+    
+    This deals with nested parentheses.
  
     EXAMPLE::
-        
         >>> findParens('((a+b)-(c+d))()')
         {0: 12, 1: 5, 7: 11, 13: 14}
     '''
-    toret = {}
+    res = {}
     pstack = []
 
     for i, c in enumerate(s):
@@ -235,13 +218,13 @@ def findParens(s):
             pstack.append(i)
         elif c == ')':
             if len(pstack) == 0:
-                raise IndexError("No matching closing parens at: " + str(i))
-            toret[pstack.pop()] = i
+                raise IndexError("No matching closing parens at: {i}".format(i=i))
+            res[pstack.pop()] = i
 
     if len(pstack) > 0:
-        raise IndexError("No matching opening parens at: " + str(pstack.pop()))
+        raise IndexError("No matching opening parens at: {j}".format(j=pstack.pop()))
 
-    return toret
+    return res
 
 
 def groupList(L):
