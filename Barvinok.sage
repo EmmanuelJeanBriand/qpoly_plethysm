@@ -6,13 +6,12 @@ load("extract_coefficients.sage")
 
 # Auxiliar functions
 
-
 def rangeList(lis):
-    r'''Returns a list of ``range`` objects with sizes ``lis``. 
+    r'''Return a list of ``range`` objects with sizes ``lis``. 
     
     EXAMPLE::
     
-        >>> rangeList([2,3,4)
+        >>> rangeList([2, 3, 4])
         [range(0, 2), range(0, 3), range(0, 4)]
         
     '''
@@ -22,12 +21,12 @@ def rangeList(lis):
     return res
 
 def lcmByComponent(lis):
-    r''' Returns a list with the component by component lcm of the elements of ``lis``  
+    r''' Return a list with the component by component lcm of the elements of ``lis``  
          Every element of ``lis`` is supposed to have the same length.
         
     EXAMPLE:: 
     
-        >>> lcmByComponent([[1,2,3],[2,5,3],[1,1,4]])   
+        >>> lcmByComponent([[1, 2, 3], [2, 5, 3], [1, 1, 4]])   
         [2, 10, 12]
         
     '''
@@ -45,10 +44,10 @@ def listToVarDic(lis):
     
     EXAMPLE:: 
     
-        >>> listToVarDic([2,3])   
+        >>> listToVarDic([2, 3])   
         {'b1': 2, 's': 3}
         
-        >>> listToVarDic([2,3,4])    
+        >>> listToVarDic([2, 3, 4])    
         {'b1': 2, 's': 3}
         
     '''
@@ -68,7 +67,7 @@ def insertMult(string):
         '5 * e1 >= -4 + s'
         
     '''
-    res = re.sub("([0-9])([a-zA-Z])", r"\1*\2", string)
+    res = re.sub("([0-9])([a-zA-Z])", r"\1  *  \2", string)
     return res
     
     
@@ -96,7 +95,7 @@ def floorToMod(expr, dic ):
         
         EXAMPLE:
             >>> floorToMod('floor((2+s)/3) + floor((2+s)/4)' , {'s' : 7})
-            
+            [3, 7]
         '''
         
         aux = vardic
@@ -107,14 +106,14 @@ def floorToMod(expr, dic ):
     
 def floorDenominators(input_expr, var = None):
     
-    r''' Returns the denominators of the interior of "floor" functions which involve ``var`` in ``expr`` as a list.
-         ``expr`` can be either an expression or a string. 
-    
+    r''' Return the denominators of the interior of "floor" functions which 
+    involve ``var`` in ``expr`` as a list.
+    ``expr`` can be either an expression or a string. 
     
     EXAMPLE:: 
     
         >>> floorDenominators("floor(s/3) + floor(2*s/7)")
-        [3,7]
+        [3, 7]
     '''
     expr = str(input_expr).replace('\n', '')
     expr_str = str(expr)
@@ -142,7 +141,7 @@ def getFstList(s):
  
     EXAMPLE::
         
-        >>>getFstList('Take the list [1,2,3]')
+        >>> getFstList('Take the list [1,2,3]')
         '[1,2,3]'
     '''
     lb = s.find("[")
@@ -150,12 +149,12 @@ def getFstList(s):
     return s[lb:rb+1]
 
 def findParens(s):
-    r''' Returns a dictionary with the '(' positions on s as keys and the respective ')' positions as values.
+    r''' Return a dictionary with the '(' positions on s as keys and the respective ')' positions as values.
  
     EXAMPLE::
         
-        >>>findParens('((a+b)-(c+d))()')
-        {1: 5, 7: 11, 0: 12, 13: 14}
+        >>> findParens('((a+b)-(c+d))()')
+        {0: 12, 1: 5, 7: 11, 13: 14}
     '''
     toret = {}
     pstack = []
@@ -175,12 +174,12 @@ def findParens(s):
 
 
 def groupList(l):
-    r''' Returns a dictionary with the different elements of the list ``l`` as keys and the lists of its
+    r''' Return a dictionary with the different elements of the list ``l`` as keys and the lists of its
     appearance indices as values
     
     EXAMPLE::
-        >>> groupList([2,3,2,2,2,1,0,3])
-        {2: [0, 2, 3, 4], 3: [1, 7], 1: [5], 0: [6]}
+        >>> groupList([2, 3, 2, 2, 2, 1, 0, 3])
+        {0: [6], 1: [5], 2: [0, 2, 3, 4], 3: [1, 7]}
     '''
     group = {}
     for index,elem in enumerate(l):
@@ -237,20 +236,18 @@ class BarvinokFunction():
                 
             [ (expr1 , [pol11 ,..., pol1l] ) , ... , (exprn , [poln1 ,..., polnr]) ]
 
-                where ``expr*`` are sage expressions and pol** are non-empty ``Polyhedra`` objects.
+        where ``expr*`` are sage expressions and pol** are non-empty ``Polyhedra`` objects.
 
-             Every polyhedra has been obtained by floor-reduction depending on the congruence of ``index_tuple`` mod ``self.mods`` 
+        Every polyhedra has been obtained by floor-reduction depending on the congruence of ``index_tuple`` mod ``self.mods`` 
     
         EXAMPLE::
             >>> bv.modRepresentation()[(0,0,0)]  # bv is a BarvinokFunction object
-            
-        [(1/24*(b1 + 1)*b2^2 - 1/12*b1^2 - 1/24*(b1^2 + 6*b1 - 14)*b2 + 2/3*(b2 - 1)*floor(1/3*b1)
-        + 1/3*(b2 - 1)*floor(1/3*b1 + 1/3) + 1/3*(b1 - 3*floor(1/3*b1) - 2)*floor(1/3*b2) +
-        1/3*(2*b1 - 3*floor(1/3*b1) - 3*floor(1/3*b1 + 1/3) - 1)*floor(1/3*b2 + 1/3) + 1/3*b1,
-        [A 3-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 3 rays,
-        A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays,
-        A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays]), ...
-        
+            [(1/24*(b1 + 1)*b2^2 - 1/12*b1^2 - 1/24*(b1^2 + 6*b1 - 14)*b2 + 2/3*(b2 - 1)*floor(1/3*b1)
+            + 1/3*(b2 - 1)*floor(1/3*b1 + 1/3) + 1/3*(b1 - 3*floor(1/3*b1) - 2)*floor(1/3*b2) +
+            1/3*(2*b1 - 3*floor(1/3*b1) - 3*floor(1/3*b1 + 1/3) - 1)*floor(1/3*b2 + 1/3) + 1/3*b1,
+            [A 3-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 3 rays,
+            A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays,
+            A 2-dimensional polyhedron in QQ^3 defined as the convex hull of 1 vertex and 2 rays]), ...
         '''
         # Create the dictionary
         dic = {}
@@ -278,8 +275,7 @@ class BarvinokFunction():
     
     def parsePiece(self, piece_str):
         r'''
-            Parses a BarvinokFunction piece string and returns a list of condition expressions .
-        
+        Parse a BarvinokFunction piece string and returns a list of condition expressions .
         '''        
         
         #Create auxiliar vars
@@ -344,9 +340,7 @@ class BarvinokFunction():
         return conditions
 
     def parseCase(self, case):
-        r'''
-            Parses a BarvinokFunction case string and returns a list of parsed pieces.
-        
+        r'''Parse a BarvinokFunction case string and returns a list of parsed pieces.
         '''
         case_conditions = []
         case = re.sub('[}]*[{]*','',case)
@@ -356,9 +350,7 @@ class BarvinokFunction():
         return case_conditions
     
     def parseBarvinok(self):
-        r'''
-            Parses a BarvinokFunction string and returns a list of parsed cases.
-        
+        r'''Parse a BarvinokFunction string and returns a list of parsed cases.
         '''
         
         gross_conditions = [self.case_pairs[i][1] for i in range(self.n_cases)]
