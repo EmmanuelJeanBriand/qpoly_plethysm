@@ -14,6 +14,6 @@ their domains are (non-cone) polyhedra instead of cones. In this work, we extrac
 
 ## data in json format
 
-The data obtained by Kahle and Michelek have been parsed (with [barvinok_parser](barvinok_parser.py) and the script [parse_to_json](parse_to_json.py)) and saved to the subdirectory [all-poly-json/](all-poly-json/)
+The data obtained by Kahle and Michelek have been parsed (with [barvinok_parser](barvinok_parser.py) and the script [parse_to_json](parse_to_json.py)) and saved to the subdirectory [all-poly-json/](tree/main/all-qpoly-json)
 
 
