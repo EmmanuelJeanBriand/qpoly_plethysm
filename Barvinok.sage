@@ -491,23 +491,21 @@ def insertMult(string):
     res = re.sub("([0-9])([a-zA-Z])", r"\1 * \2", string)
     return res
 
-def parse_linear_condition(linear_cond, quant_dict={}):
+def parse_linear_condition(linear_cond):
     r"""
     EXAMPLES::
         >>> parse_linear_condition('s >= 1')
         's >= 1'
         
-        >>> parse_linear_condition('5e0 <= -2 + s', {'e0': 'floor((-1 + s)/5)'})
-        '5 * floor((-1 + s)/5) <= -2 + s'
+        >>> parse_linear_condition('5e0 <= -2 + s')
+        '5 * e0 <= -2 + s'
         
-        >>> parse_linear_condition('4e2 = b2', {'e2': 'floor((b2)/4)'})
-        '4 * floor((b2)/4) == b2'
+        >>> parse_linear_condition(' (4e2 = b2) ')
+        '4 * e2 == b2'
     """
     linear_cond = linear_cond.strip()
     linear_cond = remove_parenthesis(linear_cond) 
     linear_cond = insertMult(linear_cond)
-    for name, value in quant_dict.items():
-        linear_cond = linear_cond.replace(name, value)
     linear_cond = linear_cond.replace(' = ', ' == ') 
     return linear_cond
 

@@ -111,7 +111,7 @@ ex2_parsed = [{'domain': [{'quantifiers': {'e0': 'floor((-1 + b1)/3)'},
                                                  '3 * e1 <= -3 + b1']
                           }], 
                'quasipolynomial': {'variables': ['b1', 's'], 
-                                   'formula': '(2/3 * b1 - floor((b1)/2))'}
+                                   'formula': '(2/3 * b1 - floor((b1)/2)) +'}
               }]
 
 case00=r'''[(-1/3*b1 + 1/2*s, [A 2-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 2 rays]), (1/6*b1, [A 1-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 1 ray, A 2-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 2 rays])]'''
@@ -137,14 +137,8 @@ class TestBarvinok(unittest.TestCase):
         bv = BarvinokFunction(ex1_input)
         self.assertEqual(str(bv.modRepresentation()), ex1_output)
         
-    def test_parse(self):
-        global case00
-        
-        self.maxDiff = None
-        
-        dir = "all-qpoly/"
-        label = "111"
-        with open(dir + label + '.qpoly') as f:
+    def test_parse(self):                
+        with open('all-qpoly/111.qpoly') as f:
             data = f.read()
         self.assertEqual(parse_function(data), ex2_parsed)
         
