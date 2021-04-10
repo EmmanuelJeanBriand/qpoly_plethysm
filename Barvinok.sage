@@ -87,41 +87,29 @@ import re
 load("extract_coefficients.sage")
 
 # Auxiliar functions
-
-
-def removeprefix(s, prefix):
-    r"""
+    
+def remove_parenthesis(s, prefix='(', suffix=')'):
+    r"""Remove prefix and suffix in string ``s`` when they are both present.
     Adapted from https://www.python.org/dev/peps/pep-0616/
-    This was included in python >= 3.9 as method for strings
+    Note that the methods removeprefix and removesuffix are standard only in python >= 3.9
     
     EXAMPLES::
-        >>> removeprefix('TestHook', 'Test')
-        'Hook'
-        >>> removeprefix('BaseTestCase', 'Test')
-        'BaseTestCase'
+        >>> remove_parenthesis('(1, 2, 3)')
+        '1, 2, 3'
+        >>> remove_parenthesis('[1, 2, 3]', '[', ']')
+        '1, 2, 3'
+        >>> remove_parenthesis('The tuple is (1, 2, 3)')
+        'The tuple is (1, 2, 3)'
+        
+    Beware::
+        >>> remove_parenthesis('(1, 2) is smaller than (2, 1)')
+        '1, 2) is smaller than (2, 1'
     """
-    if s.startswith(prefix):
-        return s[len(prefix):]
-    else:
-        return s[:]
-
-def removesuffix(s, suffix):
-    r"""
-    Adapted from https://www.python.org/dev/peps/pep-0616/
-    This was included in python >= 3.9 as method for strings
-    
-    >>> removesuffix('MiscTests', 'Tests')
-    'Misc'
-    >>> removesuffix('TmpDirMixin', 'Tests')
-    'TmpDirMixin'
-    """
-    # suffix='' should not call self[:-0].
-    if suffix and s.endswith(suffix):
-        return s[:-len(suffix)]
+    if s.startswith(prefix) and s.endswith(suffix):
+        return s[len(prefix):-len(suffix)]
     else:
         return s[:]
     
-
 def rangeList(lis):
     r'''Return a list of ``range`` objects with sizes ``lis``. 
     
@@ -313,16 +301,14 @@ class BarvinokFunction():
         self.full_string = s
         self.var_string = getFstList(self.full_string)
         var_str = "{v} -> ".format(v=self.var_string)
-        s = removeprefix(s, '{ %s'%var_str)
-        s = removesuffix(s, ' }')
+        s = remove_parenthesis(s, '{ %s'%var_str, ' }')
         s =  s.split("; %s"%var_str)
         self.case_strings = s
         self.n_cases = len(self.case_strings)
         
         # Declare main variables
         s = self.var_string
-        s = removeprefix(s, '[')
-        s = removesuffix(s, ']')
+        s = remove_parenthesis(s, '[', ']')
  
         var_string_list = s.split(', ')
         self.main_vars = var(s) if len(var_string_list) > 1 else (var(s),)
@@ -450,8 +436,9 @@ class BarvinokFunction():
             for linear_cond in all_linear_conditions:
                 
                 # Convert conditions from string to sage expression 
-                linear_cond = re.sub('[)]+', '' ,linear_cond)
-                linear_cond = re.sub('[(]+', '' ,linear_cond)
+                #linear_cond = re.sub('[)]+', '' ,linear_cond)
+                #linear_cond = re.sub('[(]+', '' ,linear_cond
+                linear_cond = linear_cond.rstrip(')').lstrip('(')
                 cond_expr_str.append(linear_cond)
                 sub_exp = sage_eval(linear_cond, locals = vardic) 
                 conditions.append(sub_exp)
