@@ -3,10 +3,7 @@ r""" An ad hoc parser for Barvinok's output in the plethysm calculations of Kahl
 AUTHORS:
  - Adrian Lillo, first version (2021)
  - Emmanuel Briand, revision (2021)
- 
- TODO:
-     - the global dictionary ``vardics`` is troublesome. 
- 
+  
  Here we parse piecewise quasipolynomial functions as in the following example:
  
  EXAMPLE::
@@ -166,6 +163,18 @@ EXAMPLE::
 doctest with: ``sage -t barvinok.sage``
 unittest with ``sage test_barvinok.sage``
     
+    
+Structure of the ouput:
+
+{
+'domain': LIST. Each item of domain is a dict as follows:
+                {'linear conditions': LIST OF STRINGS,
+                 'quantifiers': DICT str -> str
+                 }
+'quasipolynomial': {'formula': STRING,
+                    'variables': LIST OF STRINGS
+                    }
+}
 ------------------------------------------------------------------"""
 
 import re
