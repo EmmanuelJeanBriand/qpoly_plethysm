@@ -1,5 +1,6 @@
 import unittest
-load("Barvinok.sage") 
+from barvinok_parser import *
+load("Barvinok.sage")
 
 
 ex1_input = r"""{ [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
@@ -111,7 +112,7 @@ ex2_parsed = [{'domain': [{'quantifiers': {'e0': 'floor((-1 + b1)/3)'},
                                                  '3 * e1 <= -3 + b1']
                           }], 
                'quasipolynomial': {'variables': ['b1', 's'], 
-                                   'formula': '(2/3 * b1 - floor((b1)/2)) +'}
+                                   'formula': '(2/3 * b1 - floor((b1)/2))'}
               }]
 
 case00=r'''[(-1/3*b1 + 1/2*s, [A 2-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 2 rays]), (1/6*b1, [A 1-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 1 ray, A 2-dimensional polyhedron in QQ^2 defined as the convex hull of 1 vertex and 2 rays])]'''
@@ -121,10 +122,8 @@ class TestBarvinok(unittest.TestCase):
 
     def test_BarvinokFunction(self):
         global case00
-        
-        dir = "all-qpoly/"
-        label = "111"
-        with open(dir + label + '.qpoly') as f:
+    
+        with open('all-qpoly/111.qpoly') as f:
             data = f.read()
         bv = BarvinokFunction(data)
         self.assertEqual(str(bv.main_vars), '(b1, s)')
