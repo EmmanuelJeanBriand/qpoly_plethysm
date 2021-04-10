@@ -162,13 +162,14 @@ unittest with ``sage test_barvinok.sage``
 Structure of the output:
 
 {
-'domain': LIST. Each item of domain is a dict as follows:
-                {'linear conditions': LIST OF STRINGS,
-                 'quantifiers': DICT str -> str
+'variables': LIST
+'pieces': LIST. Each item of domain is a dict as follows:
+                {'formula': STRING,
+                 'domain': LIST. each item in the list has the following structure:
+                               {'linear conditions': LIST OF STRINGS,
+                                 'quantifiers': DICT str -> str}
+                 
                  }
-'quasipolynomial': {'formula': STRING,
-                    'variables': LIST OF STRINGS
-                    }
 }
 ------------------------------------------------------------------"""
 
