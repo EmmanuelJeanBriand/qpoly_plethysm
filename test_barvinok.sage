@@ -32,7 +32,7 @@ class TestBarvinok(unittest.TestCase):
         with open(dir + label + '.qpoly') as f:
             data = f.read()
         bv = BarvinokFunction(data)
-        self.assertEqual(str(bv.main_vars), '[b1, s]')
+        self.assertEqual(str(bv.main_vars), '(b1, s)')
         output = bv.modRepresentation()
         self.assertEqual(str(bv.mods), '[3, 1]')
         self.assertEqual(str(output[0,0]), case00)
