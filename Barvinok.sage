@@ -33,7 +33,7 @@ AUTHORS:
  
  - Function: 
    { CASE1 ; CASE2  ;  ...  }
-   opening: `{ ` ; closing: `}` ; separator: `; `
+   opening: `{` ; closing: `}` ; separator: `; `
    |
    |-- CASE*: 
        QUASIPOLYOMIAL : DOMAIN
@@ -57,6 +57,8 @@ AUTHORS:
            |
            |-- SUBDOMAIN*:  
                exists ( ALL_QUANTIFIERS  :  ALL_LINEAR_CONDITIONS )
+               or just:
+               ALL_LINEAR_CONDITIONS
                opening: `exists(` ; closing: `)` ; separator: ` : ` (only once).
                Each subdomain is defined by modular conditions (corresponding to the quantifiers)
                and linear inequalities.
@@ -78,6 +80,8 @@ AUTHORS:
                         Multiplication sign is omitted. 
                         The variables have been declared before (e0, e1, .... ). 
                         
+Note that the string may contain extra whitespaces and newlines. 
+                        
 ------------------------------------------------------------------"""
 
 from sage.arith.functions import LCM_list
@@ -87,29 +91,7 @@ import re
 load("extract_coefficients.sage")
 
 # Auxiliar functions
-    
-def remove_parenthesis(s, prefix='(', suffix=')'):
-    r"""Remove prefix and suffix in string ``s`` when they are both present.
-    Adapted from https://www.python.org/dev/peps/pep-0616/
-    Note that the methods removeprefix and removesuffix are standard only in python >= 3.9
-    
-    EXAMPLES::
-        >>> remove_parenthesis('(1, 2, 3)')
-        '1, 2, 3'
-        >>> remove_parenthesis('[1, 2, 3]', '[', ']')
-        '1, 2, 3'
-        >>> remove_parenthesis('The tuple is (1, 2, 3)')
-        'The tuple is (1, 2, 3)'
         
-    Beware::
-        >>> remove_parenthesis('(1, 2) is smaller than (2, 1)')
-        '1, 2) is smaller than (2, 1'
-    """
-    if s.startswith(prefix) and s.endswith(suffix):
-        return s[len(prefix):-len(suffix)]
-    else:
-        return s[:]
-    
 def rangeList(lis):
     r'''Return a list of ``range`` objects with sizes ``lis``. 
     
@@ -160,9 +142,6 @@ def listToVarDic(lis):
         if (var != 'F'):
             dic[var] = lis[i]
     return dic
-
-
-
        
 def floorReduction(dic,expr):
 
@@ -297,6 +276,7 @@ class BarvinokFunction():
         
         # Declare main variables
         s = self.var_string
+        s = s.strip()
         s = remove_parenthesis(s, '[', ']')
  
         var_string_list = s.split(', ')
@@ -447,30 +427,68 @@ class BarvinokFunction():
         '''
         all_domains = [domain for (quasipolynomial, domain) in self.case_pairs]
         return [self.parseCase(domain) for domain in all_domains]
+
+#-------------------------------------------------------------------------------
+# PARSER
+#-------------------------------------------------------------------------------
     
+def remove_parenthesis(s, prefix='(', suffix=')'):
+    r"""Remove prefix and suffix in string ``s`` when they are both present. 
+    Adapted from https://www.python.org/dev/peps/pep-0616/
+    Note that the methods removeprefix and removesuffix are standard only in python >= 3.9
+    
+    The string is also stripped (from whitespaces) before looking for the prefix and suffix,
+    and after removing them.
+    
+    EXAMPLES::
+        >>> remove_parenthesis('(1, 2, 3)')
+        '1, 2, 3'
+        >>> remove_parenthesis('[1, 2, 3]', '[', ']')
+        '1, 2, 3'
+        >>> remove_parenthesis('The tuple is (1, 2, 3)')
+        'The tuple is (1, 2, 3)'
+        
+    Beware::
+        >>> remove_parenthesis('(1, 2) is smaller than (2, 1)')
+        '1, 2) is smaller than (2, 1'
+        
+    Initial and final whitespaces are removed before checking the prefix and suffix,
+    as well as after removing them::
+        >>> remove_parenthesis('      ( 1, 2, 3  )      ')
+        '1, 2, 3'
+         >>> remove_parenthesis('  The tuple is    ( 1, 2, 3  )      ')
+         'The tuple is    ( 1, 2, 3  )'
+    """
+    s = s.strip()
+    if s.startswith(prefix) and s.endswith(suffix):
+        return s[len(prefix):-len(suffix)].strip()
+    else:
+        return s[:]
+
 def parse_quantifiers(quantifiers):
     r"""
     EXAMPLES::
         >>> parse_quantifiers('e0 = floor((-1 + s)/5), e1 = floor((s)/5)')
         {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'}
+        
+        >>> parse_quantifiers(None)
+        {}
     """
-    global vardic
     if quantifiers == None:
-        return None
-    quantifiers = quantifiers.split(", ")
-    quantifiers = map(lambda s: s.split(" = "), quantifiers)
-    res = {name: value for name, value in quantifiers}
-    return res 
+        return {}
+    else:
+        quantifiers = quantifiers.split(", ")
+        quantifiers = map(lambda s: s.split(" = "), quantifiers)
+        return {name: value for name, value in quantifiers}
 
 def insertMult(string):
     r'''Insert `` * `` between a digit and an alphabetic character. 
     
     EXAMPLE::
         >>> insertMult('5e1 >= -4 + s')
-        '5 * e1 >= -4 + s'
-        
+        '5 * e1 >= -4 + s'        
     '''
-    res = re.sub("([0-9])([a-zA-Z])", r"\1  *  \2", string)
+    res = re.sub("([0-9])([a-zA-Z])", r"\1 * \2", string)
     return res
 
 def parse_linear_condition(linear_cond, quant_dict={}):
@@ -485,6 +503,7 @@ def parse_linear_condition(linear_cond, quant_dict={}):
         >>> parse_linear_condition('4e2 = b2', {'e2': 'floor((b2)/4)'})
         '4 * floor((b2)/4) == b2'
     """
+    linear_cond = linear_cond.strip()
     linear_cond = remove_parenthesis(linear_cond) 
     linear_cond = insertMult(linear_cond)
     for name, value in quant_dict.items():
@@ -492,4 +511,108 @@ def parse_linear_condition(linear_cond, quant_dict={}):
     linear_cond = linear_cond.replace(' = ', ' == ') 
     return linear_cond
 
+def parse_all_linear_conditions(all_linear_conditions):
+    r"""
+    EXAMPLES::
+        >>> s = 's >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and 5e1 >= -4 + s'
+        >>> parse_all_linear_conditions(s)
+        ['s >= 1', 
+         '5  *  e0 <= -2 + s', 
+         '5  *  e0 >= -5 + s', 
+         '5  *  e1 <= -1 + s', 
+         '5  *  e1 >= -4 + s']
+    """
+    all_linear_conditions = all_linear_conditions.split(' and ')
+    return [parse_linear_condition(cond) for cond in all_linear_conditions]
+
+def parse_subdomain(subdomain):
+    r"""
+    The subdomain may contain quantifiers, or not.
+    
+    EXAMPLES::
+        >>> s = 'exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and 5e1 >= -4 + s)'
+        >>> parse_subdomain(s)
+        {'linear conditions': ['s >= 1',
+          '5  *  e0 <= -2 + s',
+          '5  *  e0 >= -5 + s',
+          '5  *  e1 <= -1 + s',
+          '5  *  e1 >= -4 + s'],
+         'quantifiers': {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'}}
+         
+        >>> parse_subdomain('s = 0')
+        {'linear conditions': ['s == 0'], 'quantifiers': {}}
+    """
+    if "exists" in subdomain:
+        subdomain = remove_parenthesis(subdomain, prefix="exists (", suffix=")")
+        quantifiers, all_linear_conditions = subdomain.split(": ")
+    else:
+        quantifiers = None
+        all_linear_conditions = subdomain
+    return {'quantifiers': parse_quantifiers(quantifiers),
+            'linear conditions': parse_all_linear_conditions(all_linear_conditions)}
+    
+def parse_domain(domain):
+    r"""
+    EXAMPLES::
+        >>> s = '(exists (e0 = floor((-2 + b1)/4), e1 = floor((b2)/4), e2 = floor((-2 + b2)/4), e3 = floor((-4 + b1)/4): s = -2 + b1 and 4e2 = -2 + b2 and 4e3 = -4 + b1 and b2 >= b1 and 2b2 <= -8 + 3b1 and 4e0 >= -5 + b1 and 4e0 <= -3 + b1 and 4e1 <= -1 + b2 and 4e1 >= -3 + b2)) or (exists (e0 = floor((b2)/4), e1 = floor((-2 + b2)/4), e2 = floor((-2 + b1)/4): s = -2 + b1 and 4e1 = -2 + b2 and 4e2 = -2 + b1 and b2 >= b1 and 2b2 <= -8 + 3b1 and 4e0 <= -1 + b2 and 4e0 >= -3 + b2))'
+        >>> parse_domain(s)
+        [{'linear conditions': ['s == -2 + b1',
+           '4  *  e2 == -2 + b2',
+           '4  *  e3 == -4 + b1',
+           'b2 >= b1',
+           '2  *  b2 <= -8 + 3  *  b1',
+           '4  *  e0 >= -5 + b1',
+           '4  *  e0 <= -3 + b1',
+           '4  *  e1 <= -1 + b2',
+           '4  *  e1 >= -3 + b2'],
+          'quantifiers': {'e0': 'floor((-2 + b1)/4)',
+           'e1': 'floor((b2)/4)',
+           'e2': 'floor((-2 + b2)/4)',
+           'e3': 'floor((-4 + b1)/4)'}},
+         {'linear conditions': ['s == -2 + b1',
+           '4  *  e1 == -2 + b2',
+           '4  *  e2 == -2 + b1',
+           'b2 >= b1',
+           '2  *  b2 <= -8 + 3  *  b1',
+           '4  *  e0 <= -1 + b2',
+           '4  *  e0 >= -3 + b2'],
+          'quantifiers': {'e0': 'floor((b2)/4)',
+           'e1': 'floor((-2 + b2)/4)',
+           'e2': 'floor((-2 + b1)/4)'}}]
+    """
+    domain = domain.split(' or ')
+    domain = [remove_parenthesis(subdomain) for subdomain in domain]
+    return [parse_subdomain(subdomain) for subdomain in domain]
+
+def parse_quasipolynomial(quasipolynomial):
+    r"""
+    EXAMPLES::
+        >>> parse_quasipolynomial('[s] -> 1')
+        {'formula': '1', 'variables': ['s']}
+    """
+    variables, formula = quasipolynomial.split(' -> ')
+    variables = remove_parenthesis(variables, '[', ']')
+    variables = variables.split(', ')
+    return {'variables': variables, 'formula': formula}
+
+def parse_case(case):
+    r"""
+    EXAMPLE::
+        >>> parse_case('[s] -> 1 : s = 0')
+        {'domain': [{'linear conditions': ['s == 0'], 'quantifiers': {}}],
+         'quasipolynomial': {'formula': '1', 'variables': ['s']}}
+    """
+    quasipolynomial, domain = case.split(' : ', maxsplit=1)
+    return {'domain': parse_domain(domain), 'quasipolynomial': parse_quasipolynomial(quasipolynomial)}
+
+def parse_all_cases(all_cases):
+    all_cases = all_cases.split('; ')
+    return [parse_case(case) for case in all_cases]
+
+def parse_function(function):
+    r"""Parse a Barvinok function from the directory qpoly
+    """
+    all_cases = function.replace('\n', ' ')
+    all_cases = remove_parenthesis(all_cases, prefix='{', suffix='}')
+    return parse_all_cases(all_cases)
     
