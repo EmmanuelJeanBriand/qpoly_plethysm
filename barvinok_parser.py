@@ -163,7 +163,7 @@ Structure of the output:
 
 {
 'variables': LIST
-'pieces': LIST. Each item of domain is a dict as follows:
+'pieces': LIST. Each item is a dict as follows:
                 {'formula': STRING,
                  'domain': LIST. each item in the list has the following structure:
                                {'linear conditions': LIST OF STRINGS,
