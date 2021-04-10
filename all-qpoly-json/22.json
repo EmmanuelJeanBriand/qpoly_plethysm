@@ -1,1690 +1,1256 @@
-[
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
+{
+    "variables": [
+        "b1",
+        "b2",
+        "s"
+    ],
+    "pieces": [
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "b2 >= b1",
+                        "s >= 1 + b1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "b2 >= b1",
-                    "s >= 1 + b1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((b1 + b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == b1 + b2",
+                        "2 * e0 == b2",
+                        "2 * e1 == b1 + b2",
+                        "b1 >= 2",
+                        "b2 >= b1"
+                    ]
                 },
-                "linear conditions": [
-                    "s == b1 + b2",
-                    "2 * e0 == b2",
-                    "2 * e1 == b1 + b2",
-                    "b1 >= 2",
-                    "b2 >= b1"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-2 + b1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1 + b2",
-                    "2 * e0 == b2",
-                    "2 * e1 == -2 + b1 + b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-2 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1 + b2",
+                        "2 * e0 == b2",
+                        "2 * e1 == -2 + b1 + b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((1/3 * b1 - 1/12 * b1^2) + (7/12 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {},
-                "linear conditions": [
-                    "b1 == 0",
-                    "2 * s == b2",
-                    "b2 >= 4"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {},
+                    "linear conditions": [
+                        "b1 == 0",
+                        "2 * s == b2",
+                        "b2 >= 4"
+                    ]
+                }
             ],
             "formula": "(1/2 * b2 - floor((b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 2",
-                    "s == 1 + b2",
-                    "2 * e0 == b2",
-                    "b2 >= 2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 2",
+                        "s == 1 + b2",
+                        "2 * e0 == b2",
+                        "b2 >= 2"
+                    ]
+                }
             ],
             "formula": "(1/4 * b2 + 1/8 * b2^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {},
-                "linear conditions": [
-                    "b1 == 1",
-                    "2 * s == 1 + b2",
-                    "b2 >= 5"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {},
+                    "linear conditions": [
+                        "b1 == 1",
+                        "2 * s == 1 + b2",
+                        "b2 >= 5"
+                    ]
+                }
             ],
             "formula": "((-1/2 + 1/2 * b2) - floor((b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "b2 >= b1",
+                        "s >= 1 + b1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "b2 >= b1",
-                    "s >= 1 + b1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((b1 + b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == b1 + b2",
+                        "b1 >= 2",
+                        "b2 >= b1"
+                    ]
                 },
-                "linear conditions": [
-                    "s == b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == b1 + b2",
-                    "b1 >= 2",
-                    "b2 >= b1"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-2 + b1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -2 + b1 + b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-2 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -2 + b1 + b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 5/24 * b1 - 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "2 * e0 == -1 + b2",
-                    "2 * s >= 3 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "2 * e0 == -1 + b2",
+                        "2 * s >= 3 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-1/4 - 5/6 * b2 - 1/4 * b2^2) + 2/3 * b2 * s - 1/3 * s^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3)) + 2/3 * floor((2b2 + s)/3)) + 1/3 * floor((2 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "2 * e0 == b2",
-                    "2 * s >= 2 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "2 * e0 == b2",
+                        "2 * s >= 2 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-5/6 * b2 - 1/4 * b2^2) + 2/3 * b2 * s - 1/3 * s^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3)) + 2/3 * floor((2b2 + s)/3)) + 1/3 * floor((2 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "b2 >= 1 + b1",
+                        "s >= 1 + b1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "b2 >= 1 + b1",
-                    "s >= 1 + b1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-1 + b1 + b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-1 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -1 + b1 + b2",
+                        "b1 >= 2",
+                        "b2 >= 1 + b1"
+                    ]
                 },
-                "linear conditions": [
-                    "s == b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -1 + b1 + b2",
-                    "b1 >= 2",
-                    "b2 >= 1 + b1"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-1 + b1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -1 + b1 + b2",
-                    "b1 >= 3",
-                    "b2 >= 1 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-1 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -1 + b1 + b2",
+                        "b1 >= 3",
+                        "b2 >= 1 + b1"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 11/24 * b1 - 1/12 * b1^2) + (1/3 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "s == -1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b2 >= 5"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "s == -1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b2 >= 5"
+                    ]
+                }
             ],
             "formula": "(((-5/4 + 1/6 * b2 + 1/12 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "b2 >= b1",
+                        "s >= 1 + b1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "b2 >= b1",
-                    "s >= 1 + b1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-1 + b1 + b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-1 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == b1 + b2",
+                        "2 * e0 == b2",
+                        "2 * e1 == -1 + b1 + b2",
+                        "b1 >= 2",
+                        "b2 >= b1"
+                    ]
                 },
-                "linear conditions": [
-                    "s == b1 + b2",
-                    "2 * e0 == b2",
-                    "2 * e1 == -1 + b1 + b2",
-                    "b1 >= 2",
-                    "b2 >= b1"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-1 + b1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1 + b2",
-                    "2 * e0 == b2",
-                    "2 * e1 == -1 + b1 + b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-1 + b1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1 + b2",
+                        "2 * e0 == b2",
+                        "2 * e1 == -1 + b1 + b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((-1/4 + 1/3 * b1 - 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-2 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "s == -1 + b2",
-                    "2 * e0 == -2 + b2",
-                    "b2 >= 4"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-2 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "s == -1 + b2",
+                        "2 * e0 == -2 + b2",
+                        "b2 >= 4"
+                    ]
+                }
             ],
             "formula": "(((-1 + 1/6 * b2 + 1/12 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 2",
-                    "s == 1 + b2",
-                    "2 * e0 == 1 + b2",
-                    "b2 >= 3"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 2",
+                        "s == 1 + b2",
+                        "2 * e0 == 1 + b2",
+                        "b2 >= 3"
+                    ]
+                }
             ],
             "formula": "(-1/8 + 1/8 * b2^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "2 * e0 == -1 + b2",
+                        "b2 >= 1",
+                        "s >= b2"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 0",
-                    "2 * e0 == -1 + b2",
-                    "b2 >= 1",
-                    "s >= b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 0",
-                    "s == -1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b2 >= 3"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "s == -1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b2 >= 3"
+                    ]
+                }
             ],
             "formula": "(((-3/8 + 1/24 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 0",
-                    "2 * e0 == b2",
-                    "2 * s >= 2 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "2 * e0 == b2",
+                        "2 * s >= 2 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "((((((1/12 * b2 - 1/8 * b2^2) + (1/6 + 1/3 * b2) * s - 1/6 * s^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((2 + b2)/3)) - 1/3 * floor((2b2 + s)/3)) + 1/3 * floor((1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "4 * s >= b1 + 2 * b2",
-                    "s >= b1",
-                    "2 * s <= -4 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "4 * s >= b1 + 2 * b2",
+                        "s >= b1",
+                        "2 * s <= -4 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/4 * b1^2 + 1/12 * b1^3) + (1/12 - 13/12 * b1 + 5/24 * b1^2) * b2 + (-1/8 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((5/6 - 1/6 * b1 - 1/2 * b1^2) + (1/3 - 2/3 * b1) * b2 - 1/2 * b2^2) * s + ((-1/6 + 5/6 * b1) + b2) * s^2 - 2/3 * s^3) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-2 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1",
-                    "2 * e0 == b2",
-                    "2 * e1 == -2 + b1",
-                    "b2 >= 2 + b1",
-                    "2 * b2 <= -4 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-2 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1",
+                        "2 * e0 == b2",
+                        "2 * e1 == -2 + b1",
+                        "b2 >= 2 + b1",
+                        "2 * b2 <= -4 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((-1/2 * b1 + 3/4 * b1^2 - 1/4 * b1^3) + (5/12 - 5/12 * b1 + 13/24 * b1^2) * b2 + (3/8 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + -2/3 * b2 * floor((b1)/3)) + -4/3 * b2 * floor((1 + b1)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((b2)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-2 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -2 + b1",
-                    "2 * e0 == b2",
-                    "2 * e1 == -2 + b1",
-                    "b2 >= b1",
-                    "2 * b2 <= -8 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-2 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -2 + b1",
+                        "2 * e0 == b2",
+                        "2 * e1 == -2 + b1",
+                        "b2 >= b1",
+                        "2 * b2 <= -8 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((1 - 17/6 * b1 + 19/12 * b1^2 - 1/4 * b1^3) + (9/4 - 29/12 * b1 + 13/24 * b1^2) * b2 + (25/24 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + (-1/3 + 1/3 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b2) * floor((1 + b1)/3)) + (((1/6 - 2/3 * b2) - floor((b1)/3)) + floor((1 + b1)/3)) * floor((b2)/3) + 1/2 * floor((b2)/3)^2) + ((1/3 - 1/3 * b2) + floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == -2 + b1 + b2",
-                    "2 * e0 == b2",
-                    "b1 >= 4",
-                    "b2 >= 2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == -2 + b1 + b2",
+                        "2 * e0 == b2",
+                        "b1 >= 4",
+                        "b2 >= 2 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((-1/12 * b1 + 7/24 * b1^2 - 1/24 * b1^3) + (1/3 - 1/4 * b1 + 1/24 * b1^2) * b2) + (-1/6 * b1 + 1/2 * b2) * floor((b1)/3)) + -1/3 * b1 * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((1 + b1 + b2)/6)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((5 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == b1 + b2",
-                    "2 * e0 == b2",
-                    "b1 >= 2",
-                    "b2 >= 4 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == b1 + b2",
+                        "2 * e0 == b2",
+                        "b1 >= 2",
+                        "b2 >= 4 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((5/12 * b1 + 1/8 * b1^2 - 1/24 * b1^3) + (1/2 - 1/12 * b1 + 1/24 * b1^2) * b2) + ((-2/3 - 1/6 * b1) + 1/2 * b2) * floor((b1)/3)) + (-1/3 - 1/3 * b1) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((3 + b1 + b2)/6)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((5 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "2 * s >= 2 + b1 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "2 * s >= 2 + b1 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((1/3 * b1 - 3/4 * b1^2) + (5/12 - 13/12 * b1 - 1/24 * b1^2) * b2 + (-1/8 - 1/8 * b1) * b2^2) + ((1/6 - 1/6 * b1) + (1/3 + 1/3 * b1) * b2) * s + (-1/6 - 1/6 * b1) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-2 + b1)/2)"
-                },
-                "linear conditions": [
-                    "b2 == b1",
-                    "s == -1 + b1",
-                    "2 * e0 == -2 + b1",
-                    "b1 >= 4"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-2 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "b2 == b1",
+                        "s == -1 + b1",
+                        "2 * e0 == -2 + b1",
+                        "b1 >= 4"
+                    ]
+                }
             ],
             "formula": "(((1/12 * b1 - 11/24 * b1^2) + (-1/3 + 4/3 * b1) * floor((b1)/3) - floor((b1)/3)^2) + ((-1/6 + 5/3 * b1) - 2 * floor((b1)/3)) * floor((2 + b1)/3) - 3/2 * floor((2 + b1)/3)^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == b1 + b2",
-                    "2 * e0 == b2",
-                    "b1 >= 2",
-                    "b2 >= b1",
-                    "b2 <= 2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == b1 + b2",
+                        "2 * e0 == b2",
+                        "b1 >= 2",
+                        "b2 >= b1",
+                        "b2 <= 2 + b1"
+                    ]
+                }
             ],
             "formula": "((((((83/360 * b1 - 17/288 * b1^2 - 23/576 * b1^3 + 5/1152 * b1^4 + 1/1280 * b1^5) + (307/360 - 19/48 * b1 + 19/576 * b1^2 - 1/72 * b1^3 - 7/2304 * b1^4) * b2 + (-1/288 + 7/576 * b1 + 1/64 * b1^2 + 5/1152 * b1^3) * b2^2 + (-1/192 - 1/144 * b1 - 1/384 * b1^2) * b2^3 + (1/1152 + 1/2304 * b1) * b2^4 + 1/11520 * b2^5) + (-1/3 + b2) * floor((b1)/3)) + (((-1/3 + 1/3 * b1) + 1/3 * b2) - 2/3 * floor((b1)/3)) * floor((1 + b1)/3) - 1/3 * floor((1 + b1)/3)^2) + (((-7/6 + 1/2 * b1) + 1/6 * b2) - 4/3 * floor((b1)/3)) * floor((b2)/3) - 1/6 * floor((b2)/3)^2) + ((((-2/3 + 2/3 * b1) - floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) - 1/3 * floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "2 * s >= 2 + b1 + b2",
-                    "s >= -1 + b2",
-                    "s <= b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "2 * s >= 2 + b1 + b2",
+                        "s >= -1 + b2",
+                        "s <= b2"
+                    ]
+                }
             ],
             "formula": "(((((((((1/6 * b1 - 1/4 * b1^2) + (41/90 - 13/18 * b1 - 1/24 * b1^2) * b2 + (-5/36 - 5/36 * b1) * b2^2 + (-1/24 - 1/36 * b1) * b2^3 + (1/72 + 1/72 * b1) * b2^4 + 1/360 * b2^5) + ((-7/180 + 17/36 * b1) + (25/36 + 13/36 * b1) * b2 + (1/8 + 1/12 * b1) * b2^2 + (-1/18 - 1/18 * b1) * b2^3 - 1/72 * b2^4) * s + ((-1/72 - 13/72 * b1) + (-1/8 - 1/12 * b1) * b2 + (1/12 + 1/12 * b1) * b2^2 + 1/36 * b2^3) * s^2 + ((1/24 + 1/36 * b1) + (-1/18 - 1/18 * b1) * b2 - 1/36 * b2^2) * s^3 + ((1/72 + 1/72 * b1) + 1/72 * b2) * s^4 - 1/360 * s^5) + ((-2/3 + 1/3 * b1) + 4/3 * b2) * floor((b1)/3)) + ((((-1/6 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) + 1/3 * floor((b1)/3)) * floor((1 + b1)/3) + 1/6 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((((-1/6 - 1/3 * b2) - 1/3 * s) - 2/3 * floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3) + 1/6 * floor((2b1 + 2b2 + s)/3)^2) + (((1/3 - 1/3 * s) - 2/3 * floor((1 + b1)/3)) + 1/3 * floor((2b1 + 2b2 + s)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "4 * s >= 1 + b1 + 2 * b2",
-                    "s >= b1",
-                    "2 * s <= -4 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "4 * s >= 1 + b1 + 2 * b2",
+                        "s >= b1",
+                        "2 * s <= -4 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 3/8 * b1 - 3/4 * b1^2 + 1/12 * b1^3) + (11/24 - 13/12 * b1 + 5/24 * b1^2) * b2 + (-1/8 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((-1/6 - 1/6 * b1 - 1/2 * b1^2) + (1/3 - 2/3 * b1) * b2 - 1/2 * b2^2) * s + ((-1/6 + 5/6 * b1) + b2) * s^2 - 2/3 * s^3) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-1 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -1 + b1",
-                    "b2 >= 2 + b1",
-                    "2 * b2 <= -5 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-1 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -1 + b1",
+                        "b2 >= 2 + b1",
+                        "2 * b2 <= -5 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((5/8 - 9/8 * b1 + 3/4 * b1^2 - 1/4 * b1^3) + (19/24 - 5/12 * b1 + 13/24 * b1^2) * b2 + (3/8 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + -2/3 * b2 * floor((b1)/3)) + -4/3 * b2 * floor((1 + b1)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((b2)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "4 * s >= b1 + 2 * b2",
-                    "s >= b1",
-                    "2 * s <= -3 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "4 * s >= b1 + 2 * b2",
+                        "s >= b1",
+                        "2 * s <= -3 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 3/8 * b1 - 3/4 * b1^2 + 1/12 * b1^3) + (1/12 - 13/12 * b1 + 5/24 * b1^2) * b2 + (-1/8 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((1/3 - 1/6 * b1 - 1/2 * b1^2) + (1/3 - 2/3 * b1) * b2 - 1/2 * b2^2) * s + ((-1/6 + 5/6 * b1) + b2) * s^2 - 2/3 * s^3) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-2 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -2 + b1",
-                    "b2 >= 1 + b1",
-                    "2 * b2 <= -4 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-2 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -2 + b1",
+                        "b2 >= 1 + b1",
+                        "2 * b2 <= -4 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((1/8 - 5/8 * b1 + 3/4 * b1^2 - 1/4 * b1^3) + (5/12 - 5/12 * b1 + 13/24 * b1^2) * b2 + (3/8 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + -2/3 * b2 * floor((b1)/3)) + -4/3 * b2 * floor((1 + b1)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((b2)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "4 * s >= b1 + 2 * b2",
-                    "s >= b1",
-                    "2 * s <= -3 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "4 * s >= b1 + 2 * b2",
+                        "s >= b1",
+                        "2 * s <= -3 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-1/4 + 1/4 * b1 - 3/4 * b1^2 + 1/12 * b1^3) + (5/24 - 13/12 * b1 + 5/24 * b1^2) * b2 + (-1/8 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((1/3 - 1/6 * b1 - 1/2 * b1^2) + (1/3 - 2/3 * b1) * b2 - 1/2 * b2^2) * s + ((-1/6 + 5/6 * b1) + b2) * s^2 - 2/3 * s^3) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-1 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -1 + b1",
-                    "2 * e0 == b2",
-                    "2 * e1 == -1 + b1",
-                    "b2 >= 1 + b1",
-                    "2 * b2 <= -4 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-1 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -1 + b1",
+                        "2 * e0 == b2",
+                        "2 * e1 == -1 + b1",
+                        "b2 >= 1 + b1",
+                        "2 * b2 <= -4 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((1/4 - 3/4 * b1 + 3/4 * b1^2 - 1/4 * b1^3) + (13/24 - 5/12 * b1 + 13/24 * b1^2) * b2 + (3/8 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + -2/3 * b2 * floor((b1)/3)) + -4/3 * b2 * floor((1 + b1)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((b2)/3)) + ((-b1 + floor((b1)/3)) + 2 * floor((1 + b1)/3)) * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-3 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -2 + b1",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -3 + b1",
-                    "b2 >= b1",
-                    "2 * b2 <= -9 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-3 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -2 + b1",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -3 + b1",
+                        "b2 >= b1",
+                        "2 * b2 <= -9 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((21/8 - 83/24 * b1 + 19/12 * b1^2 - 1/4 * b1^3) + (21/8 - 29/12 * b1 + 13/24 * b1^2) * b2 + (25/24 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + (-1/3 + 1/3 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b2) * floor((1 + b1)/3)) + (((1/6 - 2/3 * b2) - floor((b1)/3)) + floor((1 + b1)/3)) * floor((b2)/3) + 1/2 * floor((b2)/3)^2) + ((1/3 - 1/3 * b2) + floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)",
-                    "e1": "floor((-2 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -2 + b1",
-                    "2 * e0 == -1 + b2",
-                    "2 * e1 == -2 + b1",
-                    "b2 >= 1 + b1",
-                    "2 * b2 <= -8 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)",
+                        "e1": "floor((-2 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -2 + b1",
+                        "2 * e0 == -1 + b2",
+                        "2 * e1 == -2 + b1",
+                        "b2 >= 1 + b1",
+                        "2 * b2 <= -8 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((13/8 - 71/24 * b1 + 19/12 * b1^2 - 1/4 * b1^3) + (9/4 - 29/12 * b1 + 13/24 * b1^2) * b2 + (25/24 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + (-1/3 + 1/3 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b2) * floor((1 + b1)/3)) + (((1/6 - 2/3 * b2) - floor((b1)/3)) + floor((1 + b1)/3)) * floor((b2)/3) + 1/2 * floor((b2)/3)^2) + ((1/3 - 1/3 * b2) + floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)",
-                    "e1": "floor((-3 + b1)/2)"
-                },
-                "linear conditions": [
-                    "s == -2 + b1",
-                    "2 * e0 == b2",
-                    "2 * e1 == -3 + b1",
-                    "b2 >= b1",
-                    "2 * b2 <= -8 + 3 * b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)",
+                        "e1": "floor((-3 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "s == -2 + b1",
+                        "2 * e0 == b2",
+                        "2 * e1 == -3 + b1",
+                        "b2 >= b1",
+                        "2 * b2 <= -8 + 3 * b1"
+                    ]
+                }
             ],
             "formula": "((((((7/4 - 37/12 * b1 + 19/12 * b1^2 - 1/4 * b1^3) + (19/8 - 29/12 * b1 + 13/24 * b1^2) * b2 + (25/24 - 3/8 * b1) * b2^2 + 1/12 * b2^3) + (-1/3 + 1/3 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b2) * floor((1 + b1)/3)) + (((1/6 - 2/3 * b2) - floor((b1)/3)) + floor((1 + b1)/3)) * floor((b2)/3) + 1/2 * floor((b2)/3)^2) + ((1/3 - 1/3 * b2) + floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == -2 + b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b1 >= 5",
-                    "b2 >= 2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == -2 + b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b1 >= 5",
+                        "b2 >= 2 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((5/8 - 5/24 * b1 + 7/24 * b1^2 - 1/24 * b1^3) + (5/24 - 1/4 * b1 + 1/24 * b1^2) * b2) + (-1/6 * b1 + 1/2 * b2) * floor((b1)/3)) + -1/3 * b1 * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((1 + b1 + b2)/6)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((5 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b1 >= 2",
-                    "b2 >= 4 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b1 >= 2",
+                        "b2 >= 4 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((-3/8 + 7/24 * b1 + 1/8 * b1^2 - 1/24 * b1^3) + (3/8 - 1/12 * b1 + 1/24 * b1^2) * b2) + ((-2/3 - 1/6 * b1) + 1/2 * b2) * floor((b1)/3)) + (-1/3 - 1/3 * b1) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((3 + b1 + b2)/6)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((5 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "2 * s >= 2 + b1 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "2 * s >= 2 + b1 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 5/24 * b1 - 3/4 * b1^2) + (7/24 - 13/12 * b1 - 1/24 * b1^2) * b2 + (-1/8 - 1/8 * b1) * b2^2) + ((1/6 - 1/6 * b1) + (1/3 + 1/3 * b1) * b2) * s + (-1/6 - 1/6 * b1) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == -1 + b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b1 >= 2",
-                    "b2 >= 3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == -1 + b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b1 >= 2",
+                        "b2 >= 3 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((-1/6 + 5/24 * b1^2 - 1/24 * b1^3) + (1/6 - 1/6 * b1 + 1/24 * b1^2) * b2) + ((1/6 - 1/6 * b1) + 1/2 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b1) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((b1 + b2)/6)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((4 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "2 * s >= 1 + b1 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "2 * s >= 1 + b1 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 11/24 * b1 - 3/4 * b1^2) + (1/6 - 13/12 * b1 - 1/24 * b1^2) * b2 + (-1/8 - 1/8 * b1) * b2^2) + ((1/6 - 1/6 * b1) + (1/3 + 1/3 * b1) * b2) * s + (-1/6 - 1/6 * b1) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == -1 + b1 + b2",
-                    "2 * e0 == b2",
-                    "b1 >= 2",
-                    "b2 >= 3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == -1 + b1 + b2",
+                        "2 * e0 == b2",
+                        "b1 >= 2",
+                        "b2 >= 3 + b1"
+                    ]
+                }
             ],
             "formula": "((((((((-1/24 - 1/8 * b1 + 5/24 * b1^2 - 1/24 * b1^3) + (7/24 - 1/6 * b1 + 1/24 * b1^2) * b2) + ((1/6 - 1/6 * b1) + 1/2 * b2) * floor((b1)/3)) + (1/3 - 1/3 * b1) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((1/3 - 2/3 * b1) + floor((b1)/3)) + floor((1 + b1)/3)) * floor((b1 + b2)/6)) + ((-1/3 - 1/3 * b1) + floor((1 + b1)/3)) * floor((4 + b1 + b2)/6))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "2 * s >= 1 + b1 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "2 * s >= 1 + b1 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-1/4 + 1/3 * b1 - 3/4 * b1^2) + (7/24 - 13/12 * b1 - 1/24 * b1^2) * b2 + (-1/8 - 1/8 * b1) * b2^2) + ((1/6 - 1/6 * b1) + (1/3 + 1/3 * b1) * b2) * s + (-1/6 - 1/6 * b1) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3)) + ((1/3 + 1/3 * b1) - floor((1 + b1)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)"
-                },
-                "linear conditions": [
-                    "b2 == b1",
-                    "s == -1 + b1",
-                    "2 * e0 == -1 + b1",
-                    "b1 >= 5"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "b2 == b1",
+                        "s == -1 + b1",
+                        "2 * e0 == -1 + b1",
+                        "b1 >= 5"
+                    ]
+                }
             ],
             "formula": "(((5/8 - 1/6 * b1 - 11/24 * b1^2) + (-1/3 + 4/3 * b1) * floor((b1)/3) - floor((b1)/3)^2) + ((-1/6 + 5/3 * b1) - 2 * floor((b1)/3)) * floor((2 + b1)/3) - 3/2 * floor((2 + b1)/3)^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * s == b1 + b2",
-                    "2 * e0 == -1 + b2",
-                    "b1 >= 2",
-                    "b2 >= b1",
-                    "b2 <= 2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * s == b1 + b2",
+                        "2 * e0 == -1 + b2",
+                        "b1 >= 2",
+                        "b2 >= b1",
+                        "b2 <= 2 + b1"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 19/180 * b1 - 17/288 * b1^2 - 23/576 * b1^3 + 5/1152 * b1^4 + 1/1280 * b1^5) + (131/180 - 19/48 * b1 + 19/576 * b1^2 - 1/72 * b1^3 - 7/2304 * b1^4) * b2 + (-1/288 + 7/576 * b1 + 1/64 * b1^2 + 5/1152 * b1^3) * b2^2 + (-1/192 - 1/144 * b1 - 1/384 * b1^2) * b2^3 + (1/1152 + 1/2304 * b1) * b2^4 + 1/11520 * b2^5) + (-1/3 + b2) * floor((b1)/3)) + (((-1/3 + 1/3 * b1) + 1/3 * b2) - 2/3 * floor((b1)/3)) * floor((1 + b1)/3) - 1/3 * floor((1 + b1)/3)^2) + (((-7/6 + 1/2 * b1) + 1/6 * b2) - 4/3 * floor((b1)/3)) * floor((b2)/3) - 1/6 * floor((b2)/3)^2) + ((((-2/3 + 2/3 * b1) - floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) - 1/3 * floor((b2)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "2 * s >= 2 + b1 + b2",
-                    "s >= -1 + b2",
-                    "s <= b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "2 * s >= 2 + b1 + b2",
+                        "s >= -1 + b2",
+                        "s <= b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 1/24 * b1 - 1/4 * b1^2) + (119/360 - 13/18 * b1 - 1/24 * b1^2) * b2 + (-5/36 - 5/36 * b1) * b2^2 + (-1/24 - 1/36 * b1) * b2^3 + (1/72 + 1/72 * b1) * b2^4 + 1/360 * b2^5) + ((-7/180 + 17/36 * b1) + (25/36 + 13/36 * b1) * b2 + (1/8 + 1/12 * b1) * b2^2 + (-1/18 - 1/18 * b1) * b2^3 - 1/72 * b2^4) * s + ((-1/72 - 13/72 * b1) + (-1/8 - 1/12 * b1) * b2 + (1/12 + 1/12 * b1) * b2^2 + 1/36 * b2^3) * s^2 + ((1/24 + 1/36 * b1) + (-1/18 - 1/18 * b1) * b2 - 1/36 * b2^2) * s^3 + ((1/72 + 1/72 * b1) + 1/72 * b2) * s^4 - 1/360 * s^5) + ((-2/3 + 1/3 * b1) + 4/3 * b2) * floor((b1)/3)) + ((((-1/6 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) + 1/3 * floor((b1)/3)) * floor((1 + b1)/3) + 1/6 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((((-1/6 - 1/3 * b2) - 1/3 * s) - 2/3 * floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3) + 1/6 * floor((2b1 + 2b2 + s)/3)^2) + (((1/3 - 1/3 * s) - 2/3 * floor((1 + b1)/3)) + 1/3 * floor((2b1 + 2b2 + s)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)"
-                },
-                "linear conditions": [
-                    "b2 == 1 + b1",
-                    "s == b1",
-                    "2 * e0 == b1",
-                    "b1 >= 2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)"
+                    },
+                    "linear conditions": [
+                        "b2 == 1 + b1",
+                        "s == b1",
+                        "2 * e0 == b1",
+                        "b1 >= 2"
+                    ]
+                }
             ],
             "formula": "(((-2/3 * b1 + 5/12 * b1^2) + (3/2 - 4/3 * b1) * floor((b1)/3) + 3/2 * floor((b1)/3)^2) + ((1/2 - 2/3 * b1) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "b1 >= 2",
-                    "2 * s >= 1 + b1 + b2",
-                    "s >= -1 + b2",
-                    "s <= b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "b1 >= 2",
+                        "2 * s >= 1 + b1 + b2",
+                        "s >= -1 + b2",
+                        "s <= b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 7/24 * b1 - 1/4 * b1^2) + (37/180 - 13/18 * b1 - 1/24 * b1^2) * b2 + (-5/36 - 5/36 * b1) * b2^2 + (-1/24 - 1/36 * b1) * b2^3 + (1/72 + 1/72 * b1) * b2^4 + 1/360 * b2^5) + ((-7/180 + 17/36 * b1) + (25/36 + 13/36 * b1) * b2 + (1/8 + 1/12 * b1) * b2^2 + (-1/18 - 1/18 * b1) * b2^3 - 1/72 * b2^4) * s + ((-1/72 - 13/72 * b1) + (-1/8 - 1/12 * b1) * b2 + (1/12 + 1/12 * b1) * b2^2 + 1/36 * b2^3) * s^2 + ((1/24 + 1/36 * b1) + (-1/18 - 1/18 * b1) * b2 - 1/36 * b2^2) * s^3 + ((1/72 + 1/72 * b1) + 1/72 * b2) * s^4 - 1/360 * s^5) + ((-2/3 + 1/3 * b1) + 4/3 * b2) * floor((b1)/3)) + ((((-1/6 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) + 1/3 * floor((b1)/3)) * floor((1 + b1)/3) + 1/6 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((((-1/6 - 1/3 * b2) - 1/3 * s) - 2/3 * floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3) + 1/6 * floor((2b1 + 2b2 + s)/3)^2) + (((1/3 - 1/3 * s) - 2/3 * floor((1 + b1)/3)) + 1/3 * floor((2b1 + 2b2 + s)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)"
-                },
-                "linear conditions": [
-                    "b2 == 1 + b1",
-                    "s == b1",
-                    "2 * e0 == -1 + b1",
-                    "b1 >= 2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)"
+                    },
+                    "linear conditions": [
+                        "b2 == 1 + b1",
+                        "s == b1",
+                        "2 * e0 == -1 + b1",
+                        "b1 >= 2"
+                    ]
+                }
             ],
             "formula": "(((1/4 - 2/3 * b1 + 5/12 * b1^2) + (3/2 - 4/3 * b1) * floor((b1)/3) + 3/2 * floor((b1)/3)^2) + ((1/2 - 2/3 * b1) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b1 >= 2",
-                    "2 * s >= 1 + b1 + b2",
-                    "s >= -1 + b2",
-                    "s <= b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b1 >= 2",
+                        "2 * s >= 1 + b1 + b2",
+                        "s >= -1 + b2",
+                        "s <= b2"
+                    ]
+                }
             ],
             "formula": "(((((((((-1/4 + 1/6 * b1 - 1/4 * b1^2) + (119/360 - 13/18 * b1 - 1/24 * b1^2) * b2 + (-5/36 - 5/36 * b1) * b2^2 + (-1/24 - 1/36 * b1) * b2^3 + (1/72 + 1/72 * b1) * b2^4 + 1/360 * b2^5) + ((-7/180 + 17/36 * b1) + (25/36 + 13/36 * b1) * b2 + (1/8 + 1/12 * b1) * b2^2 + (-1/18 - 1/18 * b1) * b2^3 - 1/72 * b2^4) * s + ((-1/72 - 13/72 * b1) + (-1/8 - 1/12 * b1) * b2 + (1/12 + 1/12 * b1) * b2^2 + 1/36 * b2^3) * s^2 + ((1/24 + 1/36 * b1) + (-1/18 - 1/18 * b1) * b2 - 1/36 * b2^2) * s^3 + ((1/72 + 1/72 * b1) + 1/72 * b2) * s^4 - 1/360 * s^5) + ((-2/3 + 1/3 * b1) + 4/3 * b2) * floor((b1)/3)) + ((((-1/6 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) + 1/3 * floor((b1)/3)) * floor((1 + b1)/3) + 1/6 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + ((((-1/6 - 1/3 * b2) - 1/3 * s) - 2/3 * floor((b1)/3)) - 2/3 * floor((1 + b1)/3)) * floor((2b1 + 2b2 + s)/3) + 1/6 * floor((2b1 + 2b2 + s)/3)^2) + (((1/3 - 1/3 * s) - 2/3 * floor((1 + b1)/3)) + 1/3 * floor((2b1 + 2b2 + s)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "s == 1 + b2",
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == 1 + b2",
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((1/6 * b1 + 1/12 * b1^2) + (7/12 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + ((-2/3 - 1/3 * b1) + 2/3 * b2) * floor((b1)/3)) + (((1/6 - 2/3 * b1) + 1/3 * b2) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b2 >= b1",
-                    "s >= 2 + b2",
-                    "s <= -2 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b2 >= b1",
+                        "s >= 2 + b2",
+                        "s <= -2 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "((((((1/3 * b1 - 1/12 * b1^2) + (7/12 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == 1 + b2",
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == 1 + b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == 1 + b2",
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == 1 + b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 1/24 * b1 + 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + ((-2/3 - 1/3 * b1) + 2/3 * b2) * floor((b1)/3)) + (((1/6 - 2/3 * b1) + 1/3 * b2) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "b2 >= b1",
-                    "s >= 2 + b2",
-                    "s <= -2 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "b2 >= b1",
+                        "s >= 2 + b2",
+                        "s <= -2 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 5/24 * b1 - 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "s == 1 + b2",
-                    "2 * e0 == b1",
-                    "2 * e1 == 1 + b2",
-                    "b1 >= 3",
-                    "b2 >= 1 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == 1 + b2",
+                        "2 * e0 == b1",
+                        "2 * e1 == 1 + b2",
+                        "b1 >= 3",
+                        "b2 >= 1 + b1"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 7/24 * b1 + 1/12 * b1^2) + (1/3 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + ((-2/3 - 1/3 * b1) + 2/3 * b2) * floor((b1)/3)) + (((1/6 - 2/3 * b1) + 1/3 * b2) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "s == 1 + b2",
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b1 >= 3",
-                    "b2 >= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "s == 1 + b2",
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b1 >= 3",
+                        "b2 >= b1"
+                    ]
+                }
             ],
             "formula": "((((((-1/4 + 1/6 * b1 + 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + ((-2/3 - 1/3 * b1) + 2/3 * b2) * floor((b1)/3)) + (((1/6 - 2/3 * b1) + 1/3 * b2) + floor((b1)/3)) * floor((1 + b1)/3) + 1/2 * floor((1 + b1)/3)^2) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "b2 >= 1 + b1",
-                    "s >= 2 + b2",
-                    "s <= -2 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "b2 >= 1 + b1",
+                        "s >= 2 + b2",
+                        "s <= -2 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 + 11/24 * b1 - 1/12 * b1^2) + (1/3 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b2 >= b1",
-                    "s >= 2 + b2",
-                    "s <= -2 + b1 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b2 >= b1",
+                        "s >= 2 + b2",
+                        "s <= -2 + b1 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-1/4 + 1/3 * b1 - 1/12 * b1^2) + (11/24 - 1/4 * b1 - 1/24 * b1^2) * b2 + (1/24 + 1/24 * b1) * b2^2) + (-2/3 + 2/3 * b2) * floor((b1)/3)) + (-1/3 + 1/3 * b2) * floor((1 + b1)/3)) + ((-2/3 + 1/3 * b1) - floor((b1)/3)) * floor((b2)/3)) + (((-1/3 + 2/3 * b1) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == b2",
-                    "b2 >= b1",
-                    "4 * s >= b1 + 2 * b2",
-                    "s <= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == b2",
+                        "b2 >= b1",
+                        "4 * s >= b1 + 2 * b2",
+                        "s <= -3 + b1"
+                    ]
+                }
             ],
             "formula": "(((((((((1/2 * b1 - 5/12 * b1^2 - 1/12 * b1^3) + (3/4 - 17/12 * b1 - 1/8 * b1^2) * b2 + (-19/24 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((4/3 - 4/3 * b1 + 1/2 * b1^2) - 1/3 * b2 - 1/2 * b2^2) * s + ((2/3 - 2/3 * b1) + 2/3 * b2) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((((-2/3 + 5/3 * b1) + 4/3 * b2) + 2/3 * s) - floor((b1)/3)) * floor((b2)/3)) + (((((-1/3 + 4/3 * b1) + 2/3 * b2) + 1/3 * s) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((((-2/3 + 2/3 * b1) + 1/3 * b2) - floor((b1)/3)) - floor((1 + b1)/3)) - floor((b2)/3)) * floor((2b1 + 2b2 + s)/3)) + (((((-1/3 + 1/3 * b1) + 2/3 * b2) - floor((1 + b1)/3)) - floor((b2)/3)) - floor((1 + b2)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == -1 + b2",
-                    "b2 >= b1",
-                    "4 * s >= 1 + b1 + 2 * b2",
-                    "s <= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == -1 + b2",
+                        "b2 >= b1",
+                        "4 * s >= 1 + b1 + 2 * b2",
+                        "s <= -3 + b1"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 7/8 * b1 - 5/12 * b1^2 - 1/12 * b1^3) + (9/8 - 17/12 * b1 - 1/8 * b1^2) * b2 + (-19/24 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((1/3 - 4/3 * b1 + 1/2 * b1^2) - 1/3 * b2 - 1/2 * b2^2) * s + ((2/3 - 2/3 * b1) + 2/3 * b2) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((((-2/3 + 5/3 * b1) + 4/3 * b2) + 2/3 * s) - floor((b1)/3)) * floor((b2)/3)) + (((((-1/3 + 4/3 * b1) + 2/3 * b2) + 1/3 * s) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((((-2/3 + 2/3 * b1) + 1/3 * b2) - floor((b1)/3)) - floor((1 + b1)/3)) - floor((b2)/3)) * floor((2b1 + 2b2 + s)/3)) + (((((-1/3 + 1/3 * b1) + 2/3 * b2) - floor((1 + b1)/3)) - floor((b2)/3)) - floor((1 + b2)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b1)/2)",
-                    "e1": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == b1",
-                    "2 * e1 == -1 + b2",
-                    "b2 >= 1 + b1",
-                    "4 * s >= b1 + 2 * b2",
-                    "s <= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b1)/2)",
+                        "e1": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == b1",
+                        "2 * e1 == -1 + b2",
+                        "b2 >= 1 + b1",
+                        "4 * s >= b1 + 2 * b2",
+                        "s <= -3 + b1"
+                    ]
+                }
             ],
             "formula": "(((((((((-3/8 + 7/8 * b1 - 5/12 * b1^2 - 1/12 * b1^3) + (3/4 - 17/12 * b1 - 1/8 * b1^2) * b2 + (-19/24 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((5/6 - 4/3 * b1 + 1/2 * b1^2) - 1/3 * b2 - 1/2 * b2^2) * s + ((2/3 - 2/3 * b1) + 2/3 * b2) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((((-2/3 + 5/3 * b1) + 4/3 * b2) + 2/3 * s) - floor((b1)/3)) * floor((b2)/3)) + (((((-1/3 + 4/3 * b1) + 2/3 * b2) + 1/3 * s) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((((-2/3 + 2/3 * b1) + 1/3 * b2) - floor((b1)/3)) - floor((1 + b1)/3)) - floor((b2)/3)) * floor((2b1 + 2b2 + s)/3)) + (((((-1/3 + 1/3 * b1) + 2/3 * b2) - floor((1 + b1)/3)) - floor((b2)/3)) - floor((1 + b2)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/2)",
-                    "e1": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "2 * e0 == -1 + b1",
-                    "2 * e1 == b2",
-                    "b2 >= b1",
-                    "4 * s >= b1 + 2 * b2",
-                    "s <= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/2)",
+                        "e1": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "2 * e0 == -1 + b1",
+                        "2 * e1 == b2",
+                        "b2 >= b1",
+                        "4 * s >= b1 + 2 * b2",
+                        "s <= -3 + b1"
+                    ]
+                }
             ],
             "formula": "(((((((((-1/4 + 3/4 * b1 - 5/12 * b1^2 - 1/12 * b1^3) + (7/8 - 17/12 * b1 - 1/8 * b1^2) * b2 + (-19/24 + 1/8 * b1) * b2^2 + 1/12 * b2^3) + ((5/6 - 4/3 * b1 + 1/2 * b1^2) - 1/3 * b2 - 1/2 * b2^2) * s + ((2/3 - 2/3 * b1) + 2/3 * b2) * s^2) + (((-2/3 + 2/3 * b1) + 4/3 * b2) + 1/3 * s) * floor((b1)/3)) + (((-1/3 + 4/3 * b1) + 5/3 * b2) + 2/3 * s) * floor((1 + b1)/3)) + ((((-2/3 + 5/3 * b1) + 4/3 * b2) + 2/3 * s) - floor((b1)/3)) * floor((b2)/3)) + (((((-1/3 + 4/3 * b1) + 2/3 * b2) + 1/3 * s) - floor((b1)/3)) - floor((1 + b1)/3)) * floor((1 + b2)/3)) + (((((-2/3 + 2/3 * b1) + 1/3 * b2) - floor((b1)/3)) - floor((1 + b1)/3)) - floor((b2)/3)) * floor((2b1 + 2b2 + s)/3)) + (((((-1/3 + 1/3 * b1) + 2/3 * b2) - floor((1 + b1)/3)) - floor((b2)/3)) - floor((1 + b2)/3)) * floor((1 + 2b1 + 2b2 + s)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "2 * e0 == -1 + b2",
+                        "b2 >= 1",
+                        "s >= 2 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 1",
-                    "2 * e0 == -1 + b2",
-                    "b2 >= 1",
-                    "s >= 2 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((1 + b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "s == 1 + b2",
+                        "2 * e0 == 1 + b2",
+                        "b2 >= 1"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 1",
-                    "s == 1 + b2",
-                    "2 * e0 == 1 + b2",
-                    "b2 >= 1"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "s == b2",
-                    "2 * e0 == -1 + b2",
-                    "b2 >= 3"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "s == b2",
+                        "2 * e0 == -1 + b2",
+                        "b2 >= 3"
+                    ]
+                }
             ],
             "formula": "(((-1/4 + 1/6 * b2 + 1/12 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "2 * e0 == b2",
+                        "b2 >= 1",
+                        "s >= 1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 0",
-                    "2 * e0 == b2",
-                    "b2 >= 1",
-                    "s >= 1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "s == b2",
+                        "2 * e0 == b2",
+                        "b2 >= 2"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 0",
-                    "s == b2",
-                    "2 * e0 == b2",
-                    "b2 >= 2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((-2 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 0",
-                    "s == -1 + b2",
-                    "2 * e0 == -2 + b2",
-                    "b2 >= 4"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((-2 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "s == -1 + b2",
+                        "2 * e0 == -2 + b2",
+                        "b2 >= 4"
+                    ]
+                }
             ],
             "formula": "(((1/4 * b2 + 1/24 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((2 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {},
-                "linear conditions": [
-                    "b1 == 0",
-                    "b2 == 2",
-                    "s == 1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {},
+                    "linear conditions": [
+                        "b1 == 0",
+                        "b2 == 2",
+                        "s == 1"
+                    ]
+                }
             ],
             "formula": "1"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "2 * e0 == b2",
+                        "b2 >= 1",
+                        "s >= 1 + b2"
+                    ]
                 },
-                "linear conditions": [
-                    "b1 == 1",
-                    "2 * e0 == b2",
-                    "b2 >= 1",
-                    "s >= 1 + b2"
-                ]
-            },
-            {
-                "quantifiers": {
-                    "e0": "floor((b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 1",
-                    "s == b2",
-                    "2 * e0 == b2",
-                    "b2 >= 2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+                {
+                    "quantifiers": {
+                        "e0": "floor((b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 1",
+                        "s == b2",
+                        "2 * e0 == b2",
+                        "b2 >= 2"
+                    ]
+                }
             ],
             "formula": "(((1/6 * b2 + 1/12 * b2^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((1 + b2)/3))"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b2)/2)"
-                },
-                "linear conditions": [
-                    "b1 == 0",
-                    "2 * e0 == -1 + b2",
-                    "2 * s >= 1 + b2",
-                    "s <= -2 + b2"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "b2",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b2)/2)"
+                    },
+                    "linear conditions": [
+                        "b1 == 0",
+                        "2 * e0 == -1 + b2",
+                        "2 * s >= 1 + b2",
+                        "s <= -2 + b2"
+                    ]
+                }
             ],
             "formula": "((((((-3/8 - 1/6 * b2 - 1/8 * b2^2) + (1/6 + 1/3 * b2) * s - 1/6 * s^2) - 1/3 * floor((b2)/3)) + 1/3 * floor((2 + b2)/3)) - 1/3 * floor((2b2 + s)/3)) + 1/3 * floor((1 + 2b2 + s)/3))"
         }
-    }
-]
+    ]
+}

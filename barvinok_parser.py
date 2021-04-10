@@ -87,84 +87,79 @@ EXAMPLE::
     >>> with open('all-qpoly/111.qpoly') as f:
     ...     data = f.read()
     >>> parse_function(data)
-    [{'domain': [{'linear conditions': ['3 * e0 == -1 + b1',
-         'b1 >= 1',
-         's <= -2 + b1',
-         '3 * s >= 1 + 2 * b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}],
-      'quasipolynomial': {'formula': '((((-2/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'variables': ['b1', 's']}},
-     {'domain': [{'linear conditions': ['s == -1 + b1',
-         '3 * e0 == -1 + b1',
-         'b1 >= 4'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)'}},
-       {'linear conditions': ['3 * e0 == -1 + b1', 'b1 >= 1', 's >= b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}],
-      'quasipolynomial': {'formula': '((-2/3 + 2/3 * b1) - floor((b1)/2))',
-       'variables': ['b1', 's']}},
-     {'domain': [{'linear conditions': ['s == -1 + b1',
-         '3 * e1 == -2 + b1',
-         'b1 >= 3',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((-2 + b1)/3)'}},
-       {'linear conditions': ['3 * e1 == -2 + b1',
-         'b1 >= 1',
-         's >= b1',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((-2 + b1)/3)'}}],
-      'quasipolynomial': {'formula': '((-1/3 + 2/3 * b1) - floor((b1)/2))',
-       'variables': ['b1', 's']}},
-     {'domain': [{'linear conditions': ['3 * e1 == b1',
-         '3 * s >= 2 * b1',
-         's <= -2 + b1',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((b1)/3)'}}],
-      'quasipolynomial': {'formula': '(((2/3 * b1 + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'variables': ['b1', 's']}},
-     {'domain': [{'linear conditions': ['3 * e2 == -2 + b1',
-         '3 * s >= 2 * b1',
-         's <= -2 + b1',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1',
-         '3 * e1 <= -1 + b1',
-         '3 * e1 >= -2 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-         'e1': 'floor((b1)/3)',
-         'e2': 'floor((-2 + b1)/3)'}}],
-      'quasipolynomial': {'formula': '((((-1/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'variables': ['b1', 's']}},
-     {'domain': [{'linear conditions': ['s == -1 + b1',
-         '3 * e2 == -3 + b1',
-         'b1 >= 3',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1',
-         '3 * e1 >= -4 + b1',
-         '3 * e1 <= -3 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-         'e1': 'floor((-2 + b1)/3)',
-         'e2': 'floor((-3 + b1)/3)'}},
-       {'linear conditions': ['3 * e2 == b1',
-         'b1 >= 1',
-         's >= b1',
-         '3 * e0 >= -3 + b1',
-         '3 * e0 <= -2 + b1',
-         '3 * e1 >= -4 + b1',
-         '3 * e1 <= -3 + b1'],
-        'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-         'e1': 'floor((-2 + b1)/3)',
-         'e2': 'floor((b1)/3)'}}],
-      'quasipolynomial': {'formula': '(2/3 * b1 - floor((b1)/2))',
-       'variables': ['b1', 's']}}]
+    {'pieces': [{'domain': [{'linear conditions': ['3 * e0 == -1 + b1',
+          'b1 >= 1',
+          's <= -2 + b1',
+          '3 * s >= 1 + 2 * b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}],
+       'formula': '((((-2/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))'},
+      {'domain': [{'linear conditions': ['s == -1 + b1',
+          '3 * e0 == -1 + b1',
+          'b1 >= 4'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}},
+        {'linear conditions': ['3 * e0 == -1 + b1', 'b1 >= 1', 's >= b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}],
+       'formula': '((-2/3 + 2/3 * b1) - floor((b1)/2))'},
+      {'domain': [{'linear conditions': ['s == -1 + b1',
+          '3 * e1 == -2 + b1',
+          'b1 >= 3',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((-2 + b1)/3)'}},
+        {'linear conditions': ['3 * e1 == -2 + b1',
+          'b1 >= 1',
+          's >= b1',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((-2 + b1)/3)'}}],
+       'formula': '((-1/3 + 2/3 * b1) - floor((b1)/2))'},
+      {'domain': [{'linear conditions': ['3 * e1 == b1',
+          '3 * s >= 2 * b1',
+          's <= -2 + b1',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((b1)/3)'}}],
+       'formula': '(((2/3 * b1 + s) - floor((b1)/2)) - floor((b1 + s)/2))'},
+      {'domain': [{'linear conditions': ['3 * e2 == -2 + b1',
+          '3 * s >= 2 * b1',
+          's <= -2 + b1',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1',
+          '3 * e1 <= -1 + b1',
+          '3 * e1 >= -2 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((b1)/3)',
+          'e2': 'floor((-2 + b1)/3)'}}],
+       'formula': '((((-1/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))'},
+      {'domain': [{'linear conditions': ['s == -1 + b1',
+          '3 * e2 == -3 + b1',
+          'b1 >= 3',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1',
+          '3 * e1 >= -4 + b1',
+          '3 * e1 <= -3 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((-2 + b1)/3)',
+          'e2': 'floor((-3 + b1)/3)'}},
+        {'linear conditions': ['3 * e2 == b1',
+          'b1 >= 1',
+          's >= b1',
+          '3 * e0 >= -3 + b1',
+          '3 * e0 <= -2 + b1',
+          '3 * e1 >= -4 + b1',
+          '3 * e1 <= -3 + b1'],
+         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((-2 + b1)/3)',
+          'e2': 'floor((b1)/3)'}}],
+       'formula': '(2/3 * b1 - floor((b1)/2))'}],
+     'variables': ['b1', 's']}
        
        
 doctest with: ``sage -t barvinok.sage``
 unittest with ``sage test_barvinok.sage``
     
     
-Structure of the ouput:
+Structure of the output:
 
 {
 'domain': LIST. Each item of domain is a dict as follows:
@@ -348,14 +343,24 @@ def parse_case(case):
     EXAMPLE::
         >>> parse_case('[s] -> 1 : s = 0')
         {'domain': [{'linear conditions': ['s == 0'], 'quantifiers': {}}],
-         'quasipolynomial': {'formula': '1', 'variables': ['s']}}
+         'formula': '1',
+         'variables': ['s']}
     """
     quasipolynomial, domain = case.split(' : ', maxsplit=1)
-    return {'domain': parse_domain(domain), 'quasipolynomial': parse_quasipolynomial(quasipolynomial)}
+    Q = parse_quasipolynomial(quasipolynomial)
+    return {'domain': parse_domain(domain), 
+            'formula': Q['formula'], 
+            'variables': Q['variables'] }
 
 def parse_all_cases(all_cases):
     all_cases = all_cases.split('; ')
-    return [parse_case(case) for case in all_cases]
+    all_cases = [parse_case(case) for case in all_cases]
+    variables = all_cases[0]['variables']
+    if not all(case['variables'] == variables for case in all_cases):
+        raise ValueError("Not all lists of variables are equal.")
+    return {'variables': variables, 
+            'pieces': [{'domain': case['domain'], 'formula': case['formula']} for case in all_cases]
+           }
 
 def parse_function(function):
     r"""Parse a Barvinok function from the directory qpoly

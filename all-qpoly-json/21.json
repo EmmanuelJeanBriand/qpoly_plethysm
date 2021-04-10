@@ -1,224 +1,176 @@
-[
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e0 == -1 + b1",
-                    "3 * s >= 1 + 2 * b1",
-                    "b1 >= 1",
-                    "s >= 1 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+{
+    "variables": [
+        "b1",
+        "s"
+    ],
+    "pieces": [
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e0 == -1 + b1",
+                        "3 * s >= 1 + 2 * b1",
+                        "b1 >= 1",
+                        "s >= 1 + b1"
+                    ]
+                }
             ],
             "formula": "(2/3 + 1/3 * b1)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e0 == -1 + b1",
-                    "3 * s >= 1 + 2 * b1",
-                    "s >= -1 + b1",
-                    "s <= b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e0 == -1 + b1",
+                        "3 * s >= 1 + 2 * b1",
+                        "s >= -1 + b1",
+                        "s <= b1"
+                    ]
+                }
             ],
             "formula": "((2/3 - 1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e0 == -1 + b1",
-                    "3 * s >= 1 + 2 * b1",
-                    "s <= -2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e0 == -1 + b1",
+                        "3 * s >= 1 + 2 * b1",
+                        "s <= -2 + b1"
+                    ]
+                }
             ],
             "formula": "((2/3 - 2/3 * b1) + s)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e1 == b1",
-                    "b1 >= 1",
-                    "s >= 1 + b1",
-                    "3 * e0 >= -3 + b1",
-                    "3 * e0 <= -2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e1 == b1",
+                        "b1 >= 1",
+                        "s >= 1 + b1",
+                        "3 * e0 >= -3 + b1",
+                        "3 * e0 <= -2 + b1"
+                    ]
+                }
             ],
             "formula": "1/3 * b1"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e1 == b1",
-                    "b1 >= 1",
-                    "3 * s >= 2 * b1",
-                    "s >= -1 + b1",
-                    "s <= b1",
-                    "3 * e0 <= -2 + b1",
-                    "3 * e0 >= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e1 == b1",
+                        "b1 >= 1",
+                        "3 * s >= 2 * b1",
+                        "s >= -1 + b1",
+                        "s <= b1",
+                        "3 * e0 <= -2 + b1",
+                        "3 * e0 >= -3 + b1"
+                    ]
+                }
             ],
             "formula": "((-1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)",
-                    "e2": "floor((-2 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e2 == -2 + b1",
-                    "b1 >= 1",
-                    "s >= 1 + b1",
-                    "3 * e0 >= -3 + b1",
-                    "3 * e0 <= -2 + b1",
-                    "3 * e1 <= -1 + b1",
-                    "3 * e1 >= -2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)",
+                        "e2": "floor((-2 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e2 == -2 + b1",
+                        "b1 >= 1",
+                        "s >= 1 + b1",
+                        "3 * e0 >= -3 + b1",
+                        "3 * e0 <= -2 + b1",
+                        "3 * e1 <= -1 + b1",
+                        "3 * e1 >= -2 + b1"
+                    ]
+                }
             ],
             "formula": "(1/3 + 1/3 * b1)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)",
-                    "e2": "floor((-2 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e2 == -2 + b1",
-                    "b1 >= 1",
-                    "3 * s >= 2 * b1",
-                    "s >= -1 + b1",
-                    "s <= b1",
-                    "3 * e0 <= -2 + b1",
-                    "3 * e0 >= -3 + b1",
-                    "3 * e1 <= -1 + b1",
-                    "3 * e1 >= -2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)",
+                        "e2": "floor((-2 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e2 == -2 + b1",
+                        "b1 >= 1",
+                        "3 * s >= 2 * b1",
+                        "s >= -1 + b1",
+                        "s <= b1",
+                        "3 * e0 <= -2 + b1",
+                        "3 * e0 >= -3 + b1",
+                        "3 * e1 <= -1 + b1",
+                        "3 * e1 >= -2 + b1"
+                    ]
+                }
             ],
             "formula": "((1/3 - 1/6 * b1 - 1/2 * b1^2) + (1/2 + b1) * s - 1/2 * s^2)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e1 == b1",
-                    "3 * s >= 2 * b1",
-                    "s <= -2 + b1",
-                    "3 * e0 <= -2 + b1",
-                    "3 * e0 >= -3 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e1 == b1",
+                        "3 * s >= 2 * b1",
+                        "s <= -2 + b1",
+                        "3 * e0 <= -2 + b1",
+                        "3 * e0 >= -3 + b1"
+                    ]
+                }
             ],
             "formula": "(-2/3 * b1 + s)"
-        }
-    },
-    {
-        "domain": [
-            {
-                "quantifiers": {
-                    "e0": "floor((-1 + b1)/3)",
-                    "e1": "floor((b1)/3)",
-                    "e2": "floor((-2 + b1)/3)"
-                },
-                "linear conditions": [
-                    "3 * e2 == -2 + b1",
-                    "3 * s >= 2 * b1",
-                    "s <= -2 + b1",
-                    "3 * e0 <= -2 + b1",
-                    "3 * e0 >= -3 + b1",
-                    "3 * e1 <= -1 + b1",
-                    "3 * e1 >= -2 + b1"
-                ]
-            }
-        ],
-        "quasipolynomial": {
-            "variables": [
-                "b1",
-                "s"
+        },
+        {
+            "domain": [
+                {
+                    "quantifiers": {
+                        "e0": "floor((-1 + b1)/3)",
+                        "e1": "floor((b1)/3)",
+                        "e2": "floor((-2 + b1)/3)"
+                    },
+                    "linear conditions": [
+                        "3 * e2 == -2 + b1",
+                        "3 * s >= 2 * b1",
+                        "s <= -2 + b1",
+                        "3 * e0 <= -2 + b1",
+                        "3 * e0 >= -3 + b1",
+                        "3 * e1 <= -1 + b1",
+                        "3 * e1 >= -2 + b1"
+                    ]
+                }
             ],
             "formula": "((1/3 - 2/3 * b1) + s)"
         }
-    }
-]
+    ]
+}
