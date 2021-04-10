@@ -162,17 +162,7 @@ def listToVarDic(lis):
     return dic
 
 
-def insertMult(string):
-    r'''Insert `` * `` between a digit and an alphabetic character. 
-    
-    EXAMPLE::
-    
-        >>> insertMult('5e1 >= -4 + s')
-        '5 * e1 >= -4 + s'
-        
-    '''
-    res = re.sub("([0-9])([a-zA-Z])", r"\1  *  \2", string)
-    return res
+
        
 def floorReduction(dic,expr):
 
@@ -210,7 +200,6 @@ def floorDenominators(expr, var = None):
     ``expr`` can be either an expression or a string. 
     
     EXAMPLE:: 
-    
         >>> floorDenominators("floor(s/3) + floor(2*s/7)")
         [3, 7]
     
@@ -458,5 +447,49 @@ class BarvinokFunction():
         '''
         all_domains = [domain for (quasipolynomial, domain) in self.case_pairs]
         return [self.parseCase(domain) for domain in all_domains]
+    
+def parse_quantifiers(quantifiers):
+    r"""
+    EXAMPLES::
+        >>> parse_quantifiers('e0 = floor((-1 + s)/5), e1 = floor((s)/5)')
+        {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'}
+    """
+    global vardic
+    if quantifiers == None:
+        return None
+    quantifiers = quantifiers.split(", ")
+    quantifiers = map(lambda s: s.split(" = "), quantifiers)
+    res = {name: value for name, value in quantifiers}
+    return res 
+
+def insertMult(string):
+    r'''Insert `` * `` between a digit and an alphabetic character. 
+    
+    EXAMPLE::
+        >>> insertMult('5e1 >= -4 + s')
+        '5 * e1 >= -4 + s'
+        
+    '''
+    res = re.sub("([0-9])([a-zA-Z])", r"\1  *  \2", string)
+    return res
+
+def parse_linear_condition(linear_cond, quant_dict={}):
+    r"""
+    EXAMPLES::
+        >>> parse_linear_condition('s >= 1')
+        's >= 1'
+        
+        >>> parse_linear_condition('5e0 <= -2 + s', {'e0': 'floor((-1 + s)/5)'})
+        '5 * floor((-1 + s)/5) <= -2 + s'
+        
+        >>> parse_linear_condition('4e2 = b2', {'e2': 'floor((b2)/4)'})
+        '4 * floor((b2)/4) == b2'
+    """
+    linear_cond = remove_parenthesis(linear_cond) 
+    linear_cond = insertMult(linear_cond)
+    for name, value in quant_dict.items():
+        linear_cond = linear_cond.replace(name, value)
+    linear_cond = linear_cond.replace(' = ', ' == ') 
+    return linear_cond
 
     
