@@ -4,8 +4,16 @@ AUTHORS:
  - Adrian Lillo, first version (2021)
  - Emmanuel Briand, revision (2021)
   
- Here we parse piecewise quasipolynomial functions as in the following example:
+ Here we parse piecewise quasipolynomial functions defined in the following ways: these functions are functions `F` on `\mathbb{Z}^n`, and there is:
+ - a finite set of quasipolynomials functions `P_i` 
+ - and for each function, a set `D_i` where `F` coincide with `P_i`. We call this set `D_i` the "domain of `P_i`"
  
+ The sets `D_i` are pairwise distinct. Outside of the union of the `D_i`, the function `F` is zero.  Each set `D_i` decomposes as disjoint union of subsets `S_i` (that we call the subdomains of `P_i`). Each subdomain is defined by linear inequalities with integer coefficients, and modular conditions. That is, each subdomain is the intersection  of a rational polyhedron with a union of cosets of some full-rank sublattice of `Z_n`.
+ 
+ We call "pieces" the pairs `(P_i, D_i)`. 
+ 
+ The descriptions wre obtained as applying the program Barvinok. Here is an example:
+  
  EXAMPLE::
     { [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
     floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
@@ -26,14 +34,13 @@ AUTHORS:
     floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and
     5e1 >= -4 + s); [s] -> 1 : s = 0 }
  
- 
- These quasipolynomial functions have the following structure and delimiters:
+ Here is the structure of the description:
  
  - Function: 
-   { CASE1 ; CASE2  ;  ...  }
+   { PIECE1 ; PIECE2  ;  ...  }
    opening: `{` ; closing: `}` ; separator: `; `
    |
-   |-- CASE*: 
+   |-- PIECE*: 
        QUASIPOLYOMIAL : DOMAIN
        opening: None; closing: None; separator: ` : ` (only once).
        (DOMAIN is the domain of validity of QUASIPOLYNOMIAL).
@@ -339,33 +346,33 @@ def parse_quasipolynomial(quasipolynomial):
     variables = variables.split(', ')
     return {'variables': variables, 'formula': formula}
 
-def parse_case(case):
+def parse_piece(piece):
     r"""
     EXAMPLE::
-        >>> parse_case('[s] -> 1 : s = 0')
+        >>> parse_piece('[s] -> 1 : s = 0')
         {'domain': [{'linear conditions': ['s == 0'], 'quantifiers': {}}],
          'formula': '1',
          'variables': ['s']}
     """
-    quasipolynomial, domain = case.split(' : ', maxsplit=1)
+    quasipolynomial, domain = piece.split(' : ', maxsplit=1)
     Q = parse_quasipolynomial(quasipolynomial)
     return {'domain': parse_domain(domain), 
             'formula': Q['formula'], 
             'variables': Q['variables'] }
 
-def parse_all_cases(all_cases):
-    all_cases = all_cases.split('; ')
-    all_cases = [parse_case(case) for case in all_cases]
-    variables = all_cases[0]['variables']
-    if not all(case['variables'] == variables for case in all_cases):
+def parse_all_pieces(all_pieces):
+    all_pieces = all_pieces.split('; ')
+    all_pieces = [parse_piece(piece) for piece in all_pieces]
+    variables = all_pieces[0]['variables']
+    if not all(piece['variables'] == variables for piece in all_pieces):
         raise ValueError("Not all lists of variables are equal.")
     return {'variables': variables, 
-            'pieces': [{'domain': case['domain'], 'formula': case['formula']} for case in all_cases]
+            'pieces': [{'domain': piece['domain'], 'formula': piece['formula']} for piece in all_pieces]
            }
 
 def parse_function(function):
     r"""Parse a Barvinok function from the directory qpoly
     """
-    all_cases = function.replace('\n', ' ')
-    all_cases = remove_parenthesis(all_cases, prefix='{', suffix='}')
-    return parse_all_cases(all_cases)
+    all_pieces = function.replace('\n', ' ')
+    all_pieces = remove_parenthesis(all_pieces, prefix='{', suffix='}')
+    return parse_all_pieces(all_pieces)
