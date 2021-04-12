@@ -1,14 +1,16 @@
 r""" An ad hoc parser for Barvinok's output in the plethysm calculations of Kahle and Michalek.
 
 AUTHORS:
- - Adrian Lillo, first version (2021)
- - Emmanuel Briand, revision (2021)
+ - Emmanuel Briand (2021)
   
  Here we parse piecewise quasipolynomial functions defined in the following ways: these functions are functions `F` on `\mathbb{Z}^n`, and there is:
  - a finite set of quasipolynomials functions `P_i` 
  - and for each function, a set `D_i` where `F` coincide with `P_i`. We call this set `D_i` the "domain of `P_i`"
  
- The sets `D_i` are pairwise distinct. Outside of the union of the `D_i`, the function `F` is zero.  Each set `D_i` decomposes as disjoint union of subsets `S_i` (that we call the subdomains of `P_i`). Each subdomain is defined by linear inequalities with integer coefficients, and modular conditions. That is, each subdomain is the intersection  of a rational polyhedron with a union of cosets of some full-rank sublattice of `Z_n`.
+ The sets `D_i` are pairwise distinct. Outside of the union of the `D_i`, the function `F` is zero.  
+ Each set `D_i` decomposes as disjoint union of subsets `S_i` (that we call the subdomains of `P_i`). 
+ Each subdomain is defined by linear inequalities with integer coefficients, and modular conditions. 
+ That is, each subdomain is the intersection  of a rational polyhedron with a union of cosets of some full-rank sublattice of `Z_n`.
  
  We call "pieces" the pairs `(P_i, D_i)`. 
  
