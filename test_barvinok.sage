@@ -1,6 +1,5 @@
 import unittest
 from barvinok_parser import *
-load("Barvinok.sage")
 
 ## EX1 - simple input, one variable
 
@@ -134,15 +133,16 @@ class TestBarvinok(unittest.TestCase):
             data = f.read()
         self.assertEqual(parse_function(data), parsed2)
         
-    def test_BarvinokFucntion_ex1(self):
+    def test_BarvinokFunction_ex1(self):
         global ex1_input, ex1_output
+        load("Barvinok.sage")
         bv = BarvinokFunction(ex1_input)
         self.assertEqual(str(bv.modRepresentation()), ex1_output)
     
 
     def test_BarvinokFunction_ex2(self):
         global case00
-    
+        load("Barvinok.sage")
         with open('all-qpoly/111.qpoly') as f:
             data = f.read()
         bv = BarvinokFunction(data)
@@ -150,12 +150,6 @@ class TestBarvinok(unittest.TestCase):
         output = bv.modRepresentation()
         self.assertEqual(str(bv.mods), '[3, 1]')
         self.assertEqual(str(output[0,0]), case00)
-        
-
-        
-
-        
-
         
 if __name__ == '__main__':
     unittest.main()

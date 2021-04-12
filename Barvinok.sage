@@ -9,7 +9,7 @@ AUTHORS:
 
 from sage.arith.functions import LCM_list
 import itertools, re
-from barvinok_parser import * # use remove_parenthesis
+load("barvinok_parser.py") # to use "remove_parenthesis"
 
 load("extract_coefficients.sage")
 
@@ -21,10 +21,10 @@ def rangeList(lis):
     EXAMPLE::
     
         >>> rangeList([2, 3, 4])
-        [range(0, 2), range(0, 3), range(0, 4)]
-        
+        [range(0, 2), range(0, 3), range(0, 4)]    
     '''
     return [range(elem) for elem in lis]
+
 
 def lcmByComponent(lis):
     r''' Return a list with the component by component l.c.m. of the elements of ``lis``  
@@ -45,7 +45,6 @@ def listToVarDic(lis):
     and values the elements of ``lis`` (auxiliar string functions are omitted).
     If len(lis) > len(vardic) only the first terms are considered.
     
-    
     EXAMPLE:: 
     
         >>> listToVarDic([2, 3])   
@@ -61,9 +60,12 @@ def listToVarDic(lis):
     '''
     global vardic
     dic = vardic.copy()
-    for i, var in (list(enumerate(vardic))[:len(lis)]):
-        if (var != 'F'):
-            dic[var] = lis[i]
+    #for i, var in (list(enumerate(vardic))[:len(lis)]):
+    #   if (var != 'F'):
+    #       dic[var] = lis[i]
+    for var, value in zip(vardic, lis):
+        if var != 'F':
+            dic[var] = value
     return dic
        
 def floorReduction(dic,expr):
@@ -184,7 +186,21 @@ def groupList(L):
 # Main Class
 
 class BarvinokFunction(): 
-
+    r"""A BarvinokFunctions has as atributes:
+    - full_string
+    - case_strings
+    - n_cases
+    - var_string
+    - var_string_list
+    - main_vars
+    - case_pairs
+    - quasipolynomials_strings (before: expression_strings)
+    - domains_strings (before: condition_strings)
+    - lcm
+    - mods
+    - quasipolynomials (before: expressions)
+    - domains (before: domains)
+    """
     def __init__(self, output_str):
         global vardic  
         
