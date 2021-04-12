@@ -1,14 +1,15 @@
 r"""
 AUTHORS:
  - Adrian Lillo, first version (2021)
+ - Emmanuel Briand, revision (2021)
  
  TODO:
      - the global dictionary ``vardics`` is troublesome. 
 """
 
 from sage.arith.functions import LCM_list
-import itertools
-import re 
+import itertools, re
+from barvinok_parser import * # use remove_parenthesis
 
 load("extract_coefficients.sage")
 
@@ -350,9 +351,7 @@ class BarvinokFunction():
         all_domains = [domain for (quasipolynomial, domain) in self.case_pairs]
         return [self.parseCase(domain) for domain in all_domains]
 
-#-------------------------------------------------------------------------------
-# PARSER
-#-------------------------------------------------------------------------------
+
     
 
     
