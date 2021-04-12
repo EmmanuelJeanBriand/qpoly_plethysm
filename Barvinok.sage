@@ -44,11 +44,10 @@ def listToVarDic(lis):
     and values the elements of ``lis`` (auxiliar string functions are omitted).
     If len(lis) > len(vardic) only the first terms are considered.
     
-    EXAMPLE:: 
-    
+    EXAMPLES:: 
+        >>> s, b1 = var('s b1'); vardic = {'s': s, 'b1': b1};
         >>> listToVarDic([2, 3])   
-        {'b1': 2, 's': 3}
-        
+        {'b1': 2, 's': 3}   
         >>> listToVarDic([2, 3, 4])    
         {'b1': 2, 's': 3}
         
@@ -64,13 +63,13 @@ def listToVarDic(lis):
        
 def floorReduction(dic,expr):
 
-    r''' Returns ``floor(expr)`` as a polynomial without involving ``floor`` functions
+    r'''Return ``floor(expr)`` as a polynomial without involving ``floor`` functions
     assuming the congruences given by `dic` (modulo expr.denominator())   
 
     EXAMPLE::
-    
+        >>> s, b1 = var('s b1'); vardic = {'s':s, 'b1': b1};
         >>> floorReduction({'s': 2, 'b1' : 1}, sage_eval("(2*s+b1)/6", locals=vardic))
-        1/6 * b1 + 1/3 * s - 5/6
+        1/6*b1 + 1/3*s - 5/6
     '''       
     d = int(expr.denominator())
     N = expr.numerator()
@@ -78,9 +77,10 @@ def floorReduction(dic,expr):
     return (N-t)/d
 
 def floorToMod(expr, dic):
-        r''' Applies ``floorReduction`` to every floor function in ``expr`` with ``dic`` as parameter.
+        r''' Apply ``floorReduction`` to every floor function in ``expr`` with ``dic`` as parameter.
         
         EXAMPLE:
+            >>> s = var('s'); vardic = {'s': s};
             >>> floorToMod('floor((2+s)/3) + floor((2+s)/4)' , {'s' : 7})
             [3, 7]
         '''
@@ -166,7 +166,7 @@ def groupList(L):
         {0: [6], 1: [5], 2: [0, 2, 3, 4], 3: [1, 7]}
     '''
     group = {}
-    for index,elem in enumerate(L):
+    for index, elem in enumerate(L):
         if (not elem in group):
             group[elem] = [index]
         else:
@@ -190,6 +190,8 @@ class BarvinokFunction():
     - mods
     - quasipolynomials (before: expressions)
     - domains (before: domains)
+    
+    
     """
     def __init__(self, output_str):
         global vardic  
@@ -336,16 +338,7 @@ class BarvinokFunction():
             cond_expr_str = [linear_cond.rstrip(')').lstrip('(')
                             for linear_cond in all_linear_conditions]
             conditions = [sage_eval(linear_cond, locals = vardic)
-                         for linear_cond in cond_expr_str]
-            #for linear_cond in all_linear_conditions:
-            #    # Convert conditions from string to sage expression 
-            #    #linear_cond = re.sub('[)]+', '' ,linear_cond)
-            #    #linear_cond = re.sub('[(]+', '' ,linear_cond
-            #    linear_cond = linear_cond.rstrip(')').lstrip('(')
-            #    cond_expr_str.append(linear_cond)
-            #    sub_exp = sage_eval(linear_cond, locals = vardic) 
-            #    conditions.append(sub_exp)
-    
+                         for linear_cond in cond_expr_str]    
         return conditions
 
     
