@@ -1,7 +1,6 @@
 r"""
 AUTHORS:
  - Adrian Lillo, first version (2021)
- - Emmanuel Briand, revision (2021)
  
  TODO:
      - the global dictionary ``vardics`` is troublesome. 
