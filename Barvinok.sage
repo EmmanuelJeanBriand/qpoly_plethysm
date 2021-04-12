@@ -10,7 +10,6 @@ AUTHORS:
 from sage.arith.functions import LCM_list
 import itertools, re
 load("barvinok_parser.py") # to use "remove_parenthesis"
-
 load("extract_coefficients.sage")
 
 # Auxiliar functions
@@ -60,12 +59,7 @@ def listToVarDic(lis):
     '''
     global vardic
     dic = vardic.copy()
-    #for i, var in (list(enumerate(vardic))[:len(lis)]):
-    #   if (var != 'F'):
-    #       dic[var] = lis[i]
-    for var, value in zip(vardic, lis):
-        if var != 'F':
-            dic[var] = value
+    dic.update({var:value for (var, value) in zip(vardic, lis) if var != 'F'})
     return dic
        
 def floorReduction(dic,expr):
@@ -78,22 +72,21 @@ def floorReduction(dic,expr):
         >>> floorReduction({'s': 2, 'b1' : 1}, sage_eval("(2*s+b1)/6", locals=vardic))
         1/6 * b1 + 1/3 * s - 5/6
     '''       
-    
     d = int(expr.denominator())
     N = expr.numerator()
     t = (int(sage_eval(str(N), locals = dic))) % d
     return (N-t)/d
 
-def floorToMod(expr, dic ):
+def floorToMod(expr, dic):
         r''' Applies ``floorReduction`` to every floor function in ``expr`` with ``dic`` as parameter.
         
         EXAMPLE:
             >>> floorToMod('floor((2+s)/3) + floor((2+s)/4)' , {'s' : 7})
             [3, 7]
         '''
-        
         aux = vardic
         aux['F'] = lambda X: floorReduction(dic ,X)
+        # why not just: vardic['F'] = ... ?
         res = sage_eval(str(expr).replace('floor','F'), locals= vardic)        
         return res    
         
@@ -107,12 +100,9 @@ def floorDenominators(expr, var = None):
         >>> floorDenominators("floor(s/3) + floor(2*s/7)")
         [3, 7]
     
-    TODO: simplify using a subroutine
     '''
     expr = str(expr).replace('\n', '')
     expr_list = []
-    auxstr = expr
-    count = 0
     pair_match = findParens(expr)
     
     start = 0
@@ -239,10 +229,10 @@ class BarvinokFunction():
         self.domains = self.parseBarvinok()
         
         # these names will disappear
-        self.expression_strings = quasipolynomials_strings
-        self.condition_strings = domains_strings
-        self.expressions = self.quasipolynomials
-        self.conditions = self.domains
+        #self.expression_strings = quasipolynomials_strings
+        #self.condition_strings = domains_strings
+        #self.expressions = self.quasipolynomials
+        #self.conditions = self.domains
 
     def modRepresentation(self):
         r''' Returns a dictionary where :
@@ -270,17 +260,17 @@ class BarvinokFunction():
         # Create the dictionary
         dic = {}
         # Set congruence tuples as keys
-        for congr in list(itertools.product(*(rangeList(lcmByComponent(self.lcm))))):
+        for congr in itertools.product(*(rangeList(lcmByComponent(self.lcm)))):
+            X = listToVarDic(congr)
            # Set polyhedra lists as values
             dic[congr] = []
-            for expr, cond in zip(self.expressions, self.conditions):
+            for expr, cond in zip(self.quasipolynomials, self.domains):
             #for case in range(self.n_cases):
-                mod_expr = floorToMod(expr ,listToVarDic(list(congr)))
+                mod_expr = floorToMod(expr , X)
                 pols = []
                 for cond_piece in cond:
                     # Create the polyhedron 
-                    pol = polyhedron([floorToMod(cond_and , listToVarDic(list(congr))) 
-                                      for cond_and in cond_piece], 
+                    pol = polyhedron([floorToMod(cond_and , X) for cond_and in cond_piece], 
                                      self.main_vars)
                     # Only consider non-empty polyhedra
                     if not pol.is_empty():
@@ -288,7 +278,7 @@ class BarvinokFunction():
                 
                 # Only consider an expression if it has associated a non-empty polyhedron 
                 if pols != [] and (mod_expr!= 0) :                     
-                    dic[congr].append((floorToMod(expr ,listToVarDic(list(congr)) )  , pols))     
+                    dic[congr].append((floorToMod(expr , X )  , pols))     
         
         return dic
 
@@ -327,11 +317,13 @@ class BarvinokFunction():
                 var_name = re.sub('[ ]+', '', var_name)
                 vardic[var_name] = var(var_name)
                 cond_var_str.append(quantifier)  
+                
+            cond_expr_str = [re.sub('[)]+[)]+', '' ,linear_cond) 
+                             for linear_cond in all_linear_conditions]    
            
             for linear_cond in all_linear_conditions:
                 
                 # Convert conditions from string to sage expression 
-                cond_expr_str.append(re.sub('[)]+[)]+', '' ,linear_cond))
                 sub_exp = sage_eval(re.sub('[)]', '' ,linear_cond), locals = vardic) 
                 
                 # Substitute the e_i variables in the conditions  
@@ -340,16 +332,19 @@ class BarvinokFunction():
                     if sub_exp.has(cond_var.left()):
                         sub_exp = sub_exp.substitute(cond_var)
                 conditions.append(sub_exp) 
-        else:   
-            for linear_cond in all_linear_conditions:
-                
-                # Convert conditions from string to sage expression 
-                #linear_cond = re.sub('[)]+', '' ,linear_cond)
-                #linear_cond = re.sub('[(]+', '' ,linear_cond
-                linear_cond = linear_cond.rstrip(')').lstrip('(')
-                cond_expr_str.append(linear_cond)
-                sub_exp = sage_eval(linear_cond, locals = vardic) 
-                conditions.append(sub_exp)
+        else: 
+            cond_expr_str = [linear_cond.rstrip(')').lstrip('(')
+                            for linear_cond in all_linear_conditions]
+            conditions = [sage_eval(linear_cond, locals = vardic)
+                         for linear_cond in cond_expr_str]
+            #for linear_cond in all_linear_conditions:
+            #    # Convert conditions from string to sage expression 
+            #    #linear_cond = re.sub('[)]+', '' ,linear_cond)
+            #    #linear_cond = re.sub('[(]+', '' ,linear_cond
+            #    linear_cond = linear_cond.rstrip(')').lstrip('(')
+            #    cond_expr_str.append(linear_cond)
+            #    sub_exp = sage_eval(linear_cond, locals = vardic) 
+            #    conditions.append(sub_exp)
     
         return conditions
 
