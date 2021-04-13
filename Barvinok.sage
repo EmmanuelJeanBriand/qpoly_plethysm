@@ -22,7 +22,7 @@ def rangeList(lis):
         >>> rangeList([2, 3, 4])
         [range(0, 2), range(0, 3), range(0, 4)]    
     '''
-    return [range(elem) for elem in lis]
+    return [range(k) for k in lis]
 
 
 def lcmByComponent(lis):
@@ -61,7 +61,7 @@ def listToVarDic(lis):
     dic.update({var:value for (var, value) in zip(vardic, lis) if var != 'F'})
     return dic
        
-def floorReduction(dic,expr):
+def floorReduction(dic, expr):
 
     r'''Return ``floor(expr)`` as a polynomial without involving ``floor`` functions
     assuming the congruences given by `dic` (modulo expr.denominator())   
@@ -131,8 +131,10 @@ def getFstList(s):
     return s[lb:rb+1]
 
 def findParens(s):
-    r''' Return a dictionary with the '(' positions in ``s`` as keys 
-    and the respective ')' positions as values.
+    r''' Match each opening parentehsis to the corresponding closing parentehsis.
+    
+    OUTPUT: a dictionary that maps the index of each opening parenthesis '(' 
+    in ``s`` to the index of the corresponding closing parenthesis  ')'.
     
     This deals with nested parentheses.
  
@@ -176,68 +178,60 @@ def groupList(L):
 # Main Class
 
 class BarvinokFunction(): 
-    r"""A BarvinokFunctions has as atributes:
-    - full_string
-    - case_strings
-    - n_cases
-    - var_string
-    - var_string_list
-    - main_vars
-    - case_pairs
-    - quasipolynomials_strings (before: expression_strings)
-    - domains_strings (before: condition_strings)
-    - lcm
-    - mods
-    - quasipolynomials (before: expressions)
-    - domains (before: domains)
-    
-    
+    r"""A BarvinokFunction has as atributes
+    ``_lcm``, ``_mods, ``_pieces``, ``_main_vars``   
     """
-    def __init__(self, output_str):
+    def __init__(self, s):
         global vardic  
         
-        s = output_str.replace('\n',' ').rstrip()
-        self.full_string = s
-        self.var_string = getFstList(self.full_string)
-        var_str = "{v} -> ".format(v=self.var_string)
-        s = remove_parenthesis(s, '{ %s'%var_str, ' }')
-        s =  s.split("; %s"%var_str)
-        self.case_strings = s
-        self.n_cases = len(self.case_strings)
+        s = s.replace('\n',' ').rstrip()
+        var_str = getFstList(s)
+        
+        all_pieces_str = remove_parenthesis(s, '{ %s ->'%var_str, ' }')
+        all_pieces_str = all_pieces_str.split("; %s -> "%var_str)
+        all_pieces_str = [insertMult(piece_str) for piece_str in all_pieces_str]
+        all_pieces_str = [piece_str.split(":", 1) for piece_str in all_pieces_str]
         
         # Declare main variables
-        s = self.var_string
-        s = s.strip()
-        s = remove_parenthesis(s, '[', ']')
- 
-        var_string_list = s.split(', ')
-        self.main_vars = var(s) if len(var_string_list) > 1 else (var(s),)
+        s = remove_parenthesis(var_str, '[', ']')
+        var_names = s.split(', ')
+        self._main_vars = var(s) if len(var_names) > 1 else (var(s),)
 
-        vardic = {vs: vt for vs, vt in zip(var_string_list, self.main_vars)}
+        vardic = {name: variable for name, variable in zip(var_names, self._main_vars)}
         
-        self.case_pairs = [insertMult(case_str).split(":",1) for case_str in self.case_strings]
-        quasipolynomials_strings, domains_strings = zip(*self.case_pairs)
-        self.quasipolynomials_strings = quasipolynomials_strings
-        self.domains_strings = domains_strings
-        #self.expression_strings = [Q for (Q,D) in self.case_pairs]
-        #self.condition_strings = [D for (Q,D) in self.case_pairs]
+        self._pieces = [ (sage_eval(P_str, locals=vardic), parseDomain(dom_str)) 
+                       for (P_str, dom_str) in all_pieces_str]
         
-        self.lcm = [[ LCM_list(floorDenominators(dom_str, var)) for var in self.main_vars] 
-                    for dom_str in self.domains_strings]
-        self.mods = lcmByComponent(self.lcm)
-        
-        # Conditions and expressions without floor reduction
-        self.quasipolynomials = [sage_eval(s, locals = vardic) for s in self.quasipolynomials_strings]
-        self.domains = self.parseBarvinok()
-        
-        # these names will disappear
-        #self.expression_strings = quasipolynomials_strings
-        #self.condition_strings = domains_strings
-        #self.expressions = self.quasipolynomials
-        #self.conditions = self.domains
+        self._lcm = [[ LCM_list(floorDenominators(dom_str, var)) for var in self._main_vars] 
+                    for (P_str, dom_str) in all_pieces_str]
+        self._mods = lcmByComponent(self._lcm)
 
+        
+    def variables(self):
+        return self._main_vars
+        
+    def mods(self):
+        return self._mods
+    
+    def lcm(self):
+        return self._lcm
+        
+    def pieces(self):
+        return self._pieces
+    
+    def num_pieces(self):
+        return len(self.pieces())
+    
+    def quasipolynomials(self):
+        return [P for (P, dom) in self.pieces()]
+    
+    def domains(self):
+        return [dom for (P, dom) in self.pieces()]
+        
     def modRepresentation(self):
-        r''' Returns a dictionary where :
+        r'''Calculate the quasipolynomials of ``self`` for each coset modulo the lattice of ``self``.  
+        
+        The output is a dictionary where :
         - The keys are positive integer tuples s.t. the i-th value is lower than self.mods[i]
         - The values have the following structure :
                 
@@ -262,98 +256,92 @@ class BarvinokFunction():
         # Create the dictionary
         dic = {}
         # Set congruence tuples as keys
-        for congr in itertools.product(*(rangeList(lcmByComponent(self.lcm)))):
-            X = listToVarDic(congr)
+        for coset in itertools.product(*(range(k) for k in (self.mods()))):
+            X = listToVarDic(coset)
            # Set polyhedra lists as values
-            dic[congr] = []
-            for expr, cond in zip(self.quasipolynomials, self.domains):
-            #for case in range(self.n_cases):
+            dic[coset] = []
+            for expr, domain in self.pieces():
                 mod_expr = floorToMod(expr , X)
-                pols = []
-                for cond_piece in cond:
+                polyhedra = []
+                for subdomain in domain:
                     # Create the polyhedron 
-                    pol = polyhedron([floorToMod(cond_and , X) for cond_and in cond_piece], 
-                                     self.main_vars)
+                    pol = polyhedron([floorToMod(linear_cond , X) 
+                                      for linear_cond in subdomain], 
+                                     self.variables())
                     # Only consider non-empty polyhedra
                     if not pol.is_empty():
-                        pols.append(pol)
+                        polyhedra.append(pol)
                 
-                # Only consider an expression if it has associated a non-empty polyhedron 
-                if pols != [] and (mod_expr!= 0) :                     
-                    dic[congr].append((floorToMod(expr , X )  , pols))     
+                # Only consider an expression if it has associated a non-empty list of polyhedra
+                if polyhedra != [] and (mod_expr != 0) :                     
+                    dic[coset].append((mod_expr  , polyhedra))     
         
         return dic
-
     
-    def parsePiece(self, s):
-        r'''
-        Parse a "subdomain" string ``s`` and return a list of linear conditions.
-        '''        
+def parseSubdomain(s):
+    r'''Parse a "subdomain" string ``s`` and return a list of linear conditions.
+    
+    EXAMPLE::
+        >>> subdomain = "exists (e0 = floor((-1 + s)/5): 5 * e0 = -1 + s and s >= 1)"
+        >>> vardic = {}; vardic['s'] = var('s')
+        >>> parseSubdomain(subdomain)
+        [5*floor(1/5*s - 1/5) == s - 1, s >= 1]
+        >>> vardic
+        {'s': s, 'e0': e0}
         
-        #Create auxiliar vars
-        conditions = []
-        cond_var_str = []
-        cond_expr_str = []      
+    NOTE: at this step, the string ``s`` has already been arranged so that no
+    product appears without product sign ``*``, e.g. ``5 * e0 `` does not 
+    appear as ``5e0`` (else it could be interpreted as scientific notation
+    for 5 x 10^0).
         
-        # Adequate string 
-        s = re.sub('[(]*[ ]*exists[ ]*[(]*',' ', s)
-        s = re.sub('[)]*;',' ', s)
-        s = re.sub('[ ]+=[ ]+' , '==' , s)
-        pair  = s.split(':' , 1)
-        
-        if len(pair) == 2 :
-            all_quantifiers , all_linear_conditions = pair
-        elif len(pair) == 1 :
-            all_quantifiers = None
-            all_linear_conditions = s
+    '''        
 
-        all_linear_conditions = all_linear_conditions.split(' and ')   
-        
-        # Split e_i equations by commas
-        if all_quantifiers :
-            all_quantifiers = all_quantifiers.split(',')      
 
-            # Declare e_i variables
-            for quantifier in all_quantifiers:
-                var_name = re.findall('[ ]*[a-zA-Z]+[0-9]+[ ]*=', quantifier)[0][:-1]
-                var_name = re.sub('[ ]+', '', var_name)
-                vardic[var_name] = var(var_name)
-                cond_var_str.append(quantifier)  
-                
-            cond_expr_str = [re.sub('[)]+[)]+', '' ,linear_cond) 
-                             for linear_cond in all_linear_conditions]    
-           
-            for linear_cond in all_linear_conditions:
-                
-                # Convert conditions from string to sage expression 
-                sub_exp = sage_eval(re.sub('[)]', '' ,linear_cond), locals = vardic) 
-                
-                # Substitute the e_i variables in the conditions  
-                for cond_str in cond_var_str:
-                    cond_var = sage_eval(cond_str , locals = vardic)
-                    if sub_exp.has(cond_var.left()):
-                        sub_exp = sub_exp.substitute(cond_var)
-                conditions.append(sub_exp) 
-        else: 
-            cond_expr_str = [linear_cond.rstrip(')').lstrip('(')
+    # Adequate string 
+    s = re.sub('[(]*[ ]*exists[ ]*[(]*',' ', s)
+    s = re.sub('[)]*;',' ', s)
+    s = re.sub('[ ]+=[ ]+' , '==' , s)
+    pair  = s.split(':' , 1)  
+
+    if len(pair) == 2 :
+        all_quantifiers , all_linear_conditions = pair
+    elif len(pair) == 1 :
+        all_quantifiers = None
+        all_linear_conditions = s
+        
+    all_linear_conditions = all_linear_conditions.split(' and ')   
+
+    if all_quantifiers :
+        all_quantifiers = all_quantifiers.split(',')
+        # Declare e_i variables
+        for quantifier in all_quantifiers:
+            var_name = re.search('[ ]*([a-zA-Z]+[0-9]+)[ ]*=', quantifier).group(1)
+            vardic[var_name] = var(var_name)
+
+        cond_expr_str = [re.sub('[)]+[)]+', '', linear_cond) 
+                         for linear_cond in all_linear_conditions]    
+       
+        cond_vars = [sage_eval(quantifier, locals = vardic) for quantifier in all_quantifiers]
+        all_linear_conditions = [sage_eval(re.sub('[)]', '' ,linear_cond), locals = vardic)
                             for linear_cond in all_linear_conditions]
-            conditions = [sage_eval(linear_cond, locals = vardic)
-                         for linear_cond in cond_expr_str]    
-        return conditions
+        conditions = [linear_cond.substitute([eq for eq in cond_vars if linear_cond.has(eq.left())])
+                      for linear_cond in all_linear_conditions] 
+    else: 
+        cond_expr_str = [linear_cond.lstrip('(').rstrip(')')
+                        for linear_cond in all_linear_conditions]
+        conditions = [sage_eval(linear_cond, locals = vardic)
+                     for linear_cond in cond_expr_str]    
+    return conditions
 
+
+def parseDomain(domain):
+    r'''Parse a BarvinokFunction case string and returns a list of parsed pieces.
+    '''
+    domain = re.sub('[}]*[{]*', '', domain)
+    all_subdomains = domain.split(' or ') 
+    return [parseSubdomain(subdomain) for subdomain in all_subdomains]
     
-    def parseCase(self, domain):
-        r'''Parse a BarvinokFunction case string and returns a list of parsed pieces.
-        '''
-        domain = re.sub('[}]*[{]*', '', domain)
-        all_subdomains = domain.split(' or ') 
-        return [self.parsePiece(subdomain) for subdomain in all_subdomains]
-    
-    def parseBarvinok(self):
-        r'''Parse a BarvinokFunction string and returns a list of parsed cases.
-        '''
-        all_domains = [domain for (quasipolynomial, domain) in self.case_pairs]
-        return [self.parseCase(domain) for domain in all_domains]
+
 
 
     

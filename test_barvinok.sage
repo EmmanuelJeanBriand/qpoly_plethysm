@@ -146,9 +146,9 @@ class TestBarvinok(unittest.TestCase):
         with open('all-qpoly/111.qpoly') as f:
             data = f.read()
         bv = BarvinokFunction(data)
-        self.assertEqual(str(bv.main_vars), '(b1, s)')
+        self.assertEqual(str(bv.variables()), '(b1, s)')
         output = bv.modRepresentation()
-        self.assertEqual(str(bv.mods), '[3, 1]')
+        self.assertEqual(str(bv.mods()), '[3, 1]')
         self.assertEqual(str(output[0,0]), case00)
         
 if __name__ == '__main__':
