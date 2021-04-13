@@ -12,9 +12,6 @@ AUTHORS:
  Come back to ``LCM_list`` if necessary.
  
 """
-
-#f
-
 import itertools, re
 load("barvinok_parser.py") # to use "remove_parenthesis"
 load("extract_coefficients.sage")
@@ -58,13 +55,14 @@ def listToVarDic(lis):
     return dic
        
 def floorReduction(dic, expr):
-
     r'''Return ``floor(expr)`` as a polynomial without involving ``floor`` functions
-    assuming the congruences given by `dic` (modulo expr.denominator())   
+    assuming the congruences given by `dic` (modulo expr.denominator())  
+    
+    We have: floor(L/d) = (L-t)/d where t is L % d.
 
     EXAMPLE::
-        >>> s, b1 = var('s b1'); vardic = {'s':s, 'b1': b1};
-        >>> floorReduction({'s': 2, 'b1' : 1}, sage_eval("(2*s+b1)/6", locals=vardic))
+        >>> _ = var('s b1')
+        >>> floorReduction({'s': 2, 'b1' : 1}, (2*s+b1)/6 )
         1/6*b1 + 1/3*s - 5/6
     '''       
     d = int(expr.denominator())
@@ -76,7 +74,7 @@ def floorToMod(expr, dic):
         r''' Apply ``floorReduction`` to every floor function in ``expr`` with ``dic`` as parameter.
         
         EXAMPLE:
-            >>> s = var('s'); vardic = {'s': s};
+            >>> s = var('s'); vardic = {'s': s}
             >>> floorToMod('floor((2+s)/3) + floor((2+s)/4)' , {'s' : 7})
             [3, 7]
         '''
@@ -314,7 +312,9 @@ def parseSubdomain(s):
                          for linear_cond in all_linear_conditions]    
        
         cond_vars = [sage_eval(quantifier, locals = vardic) for quantifier in all_quantifiers]
-        all_linear_conditions = [sage_eval(re.sub('[)]', '' ,linear_cond), locals = vardic)
+        #all_linear_conditions = [sage_eval(re.sub('[)]', '' ,linear_cond), locals = vardic)
+        #                    for linear_cond in all_linear_conditions]
+        all_linear_conditions = [sage_eval(linear_cond.rstrip(')'), locals = vardic)
                             for linear_cond in all_linear_conditions]
         conditions = [linear_cond.substitute([eq for eq in cond_vars if linear_cond.has(eq.left())])
                       for linear_cond in all_linear_conditions] 
