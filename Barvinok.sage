@@ -5,26 +5,22 @@ AUTHORS:
  
  TODO:
      - the global dictionary ``vardics`` is troublesome. 
+     
+ NOTE: the computations with lcm can be done either with  ``lcm`` or with ``LCM_list``.
+ The latter must be imported beforehand with ``from sage.arith.functions import LCM_list``.
+ In a previous version, ``LCM_list`` was used. In the current version,  ``lcm`` is used.
+ Come back to ``LCM_list`` if necessary.
+ 
 """
 
-from sage.arith.functions import LCM_list
+#f
+
 import itertools, re
 load("barvinok_parser.py") # to use "remove_parenthesis"
 load("extract_coefficients.sage")
 
 # Auxiliar functions
         
-def rangeList(lis):
-    r'''Return a list of ``range`` objects with sizes ``lis``. 
-    
-    EXAMPLE::
-    
-        >>> rangeList([2, 3, 4])
-        [range(0, 2), range(0, 3), range(0, 4)]    
-    '''
-    return [range(k) for k in lis]
-
-
 def lcmByComponent(lis):
     r''' Return a list with the component by component l.c.m. of the elements of ``lis``  
              
@@ -37,7 +33,7 @@ def lcmByComponent(lis):
         [2, 10, 12]
         
     '''
-    return [LCM_list(component) for component in zip(*lis)]
+    return [lcm(component) for component in zip(*lis)]
 
 def listToVarDic(lis):
     r'''Return a dictionary with the same keys as ``vardic`` 
@@ -202,11 +198,10 @@ class BarvinokFunction():
         self._pieces = [ (sage_eval(P_str, locals=vardic), parseDomain(dom_str)) 
                        for (P_str, dom_str) in all_pieces_str]
         
-        self._lcm = [[ LCM_list(floorDenominators(dom_str, var)) for var in self._main_vars] 
+        self._lcm = [[ lcm(floorDenominators(dom_str, var)) for var in self._main_vars] 
                     for (P_str, dom_str) in all_pieces_str]
         self._mods = lcmByComponent(self._lcm)
-
-        
+     
     def variables(self):
         return self._main_vars
         
@@ -292,11 +287,8 @@ def parseSubdomain(s):
     NOTE: at this step, the string ``s`` has already been arranged so that no
     product appears without product sign ``*``, e.g. ``5 * e0 `` does not 
     appear as ``5e0`` (else it could be interpreted as scientific notation
-    for 5 x 10^0).
-        
-    '''        
-
-
+    for 5 x 10^0).     
+    '''       
     # Adequate string 
     s = re.sub('[(]*[ ]*exists[ ]*[(]*',' ', s)
     s = re.sub('[)]*;',' ', s)
