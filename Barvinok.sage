@@ -61,7 +61,7 @@ def floorReduction(dic, expr):
     We have: floor(L/d) = (L-t)/d where t is L % d.
 
     EXAMPLE::
-        >>> _ = var('s b1')
+        >>> s, b1 = var('s b1'); vardic = {'s': s, 'b1': b1}
         >>> floorReduction({'s': 2, 'b1' : 1}, (2*s+b1)/6 )
         1/6*b1 + 1/3*s - 5/6
     '''       

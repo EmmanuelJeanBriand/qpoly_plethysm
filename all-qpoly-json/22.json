@@ -8,7 +8,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -21,7 +21,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((b1 + b2)/2)"
                     },
@@ -34,7 +34,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-2 + b1 + b2)/2)"
                     },
@@ -52,7 +52,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {},
+                    "extra variables": {},
                     "linear conditions": [
                         "b1 == 0",
                         "2 * s == b2",
@@ -65,7 +65,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -81,7 +81,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {},
+                    "extra variables": {},
                     "linear conditions": [
                         "b1 == 1",
                         "2 * s == 1 + b2",
@@ -94,7 +94,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -107,7 +107,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((b1 + b2)/2)"
                     },
@@ -120,7 +120,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-2 + b1 + b2)/2)"
                     },
@@ -138,7 +138,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -154,7 +154,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -170,7 +170,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -183,7 +183,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-1 + b1 + b2)/2)"
                     },
@@ -196,7 +196,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-1 + b1 + b2)/2)"
                     },
@@ -214,7 +214,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -230,7 +230,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -243,7 +243,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-1 + b1 + b2)/2)"
                     },
@@ -256,7 +256,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-1 + b1 + b2)/2)"
                     },
@@ -274,7 +274,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-2 + b2)/2)"
                     },
                     "linear conditions": [
@@ -290,7 +290,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -306,7 +306,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -317,7 +317,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -333,7 +333,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -349,7 +349,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -367,7 +367,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-2 + b1)/2)"
                     },
@@ -385,7 +385,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-2 + b1)/2)"
                     },
@@ -403,7 +403,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -419,7 +419,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -435,7 +435,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -453,7 +453,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-2 + b1)/2)"
                     },
                     "linear conditions": [
@@ -469,7 +469,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -486,7 +486,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -505,7 +505,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -523,7 +523,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-1 + b1)/2)"
                     },
@@ -541,7 +541,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -559,7 +559,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-2 + b1)/2)"
                     },
@@ -577,7 +577,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -595,7 +595,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-1 + b1)/2)"
                     },
@@ -613,7 +613,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-3 + b1)/2)"
                     },
@@ -631,7 +631,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)",
                         "e1": "floor((-2 + b1)/2)"
                     },
@@ -649,7 +649,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)",
                         "e1": "floor((-3 + b1)/2)"
                     },
@@ -667,7 +667,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -683,7 +683,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -699,7 +699,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -717,7 +717,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -733,7 +733,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -751,7 +751,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -767,7 +767,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -785,7 +785,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)"
                     },
                     "linear conditions": [
@@ -801,7 +801,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -818,7 +818,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -837,7 +837,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)"
                     },
                     "linear conditions": [
@@ -853,7 +853,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -872,7 +872,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)"
                     },
                     "linear conditions": [
@@ -888,7 +888,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -907,7 +907,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -925,7 +925,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -943,7 +943,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((1 + b2)/2)"
                     },
@@ -961,7 +961,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -979,7 +979,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((1 + b2)/2)"
                     },
@@ -997,7 +997,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -1015,7 +1015,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -1033,7 +1033,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -1051,7 +1051,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -1069,7 +1069,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -1087,7 +1087,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b1)/2)",
                         "e1": "floor((-1 + b2)/2)"
                     },
@@ -1105,7 +1105,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/2)",
                         "e1": "floor((b2)/2)"
                     },
@@ -1123,7 +1123,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -1134,7 +1134,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -1145,7 +1145,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [
@@ -1161,7 +1161,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -1172,7 +1172,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -1183,7 +1183,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-2 + b2)/2)"
                     },
                     "linear conditions": [
@@ -1199,7 +1199,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {},
+                    "extra variables": {},
                     "linear conditions": [
                         "b1 == 0",
                         "b2 == 2",
@@ -1212,7 +1212,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -1223,7 +1223,7 @@
                     ]
                 },
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((b2)/2)"
                     },
                     "linear conditions": [
@@ -1239,7 +1239,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b2)/2)"
                     },
                     "linear conditions": [

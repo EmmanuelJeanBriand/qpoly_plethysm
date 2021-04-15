@@ -3,20 +3,25 @@ r""" An ad hoc parser for Barvinok's output in the plethysm calculations of Kahl
 AUTHORS:
  - Emmanuel Briand (2021)
   
- Here we parse piecewise quasipolynomial functions defined in the following ways: these functions are functions `F` on `\mathbb{Z}^n`, and there is:
+ Here we parse piecewise quasipolynomial functions defined in the following ways: these functions are functions `F` o `ZZ^n`, 
+ and there is:
  - a finite set of quasipolynomials functions `P_i` 
  - and for each function, a set `D_i` where `F` coincide with `P_i`. We call this set `D_i` the "domain of `P_i`"
  
- The sets `D_i` are pairwise distinct. Outside of the union of the `D_i`, the function `F` is zero.  
- Each set `D_i` decomposes as disjoint union of subsets `S_i` (that we call the subdomains of `P_i`). 
- Each subdomain is defined by linear inequalities with integer coefficients, and modular conditions. 
- That is, each subdomain is the intersection  of a rational polyhedron with a union of cosets of some full-rank sublattice of `Z_n`.
+The sets `D_i` are pairwise distinct. Outside of the union of the `D_i`, the function `F` is zero.  
+Each set `D_i` decomposes as disjoint union of subsets `S_i` (that we call the subdomains of `P_i`). 
+Each subdomain  is the intersection of a rational polyhedron with a union of cosets of some full-rank sublattice 
+of `Z_n`. Each subdomain is actually defined by linear conditions (linear equations and inequalities with integer coefficients)
+involving, in addition to the variables of the function `F`, extra variables `e_0`, `e_1`... fulfilling relations:
+`e_i=floor(L_i/k_i)`where `L_i` is an affine form (linear form with constant term) on `ZZ^n` and `k_i` is a positive integer.
+The value of `e_i` is thus `L_i/k_i` + a periodic term determined by `L_i \mod k_i`. 
+The extra variables do not show up in the formulas for `F`: they only show up in the descriptions of the subdomains.
  
- We call "pieces" the pairs `(P_i, D_i)`. 
+We call "pieces" the pairs `(P_i, D_i)`. 
+
+The descriptions were obtained as applying the program Barvinok. Here is an example:
  
- The descriptions wre obtained as applying the program Barvinok. Here is an example:
-  
- EXAMPLE::
+EXAMPLE::
     { [s] -> ((((((3/5 - 289/720 * s + 1/20 * s^2 + 1/720 * s^3) + (5/8 + 1/8 * s) *
     floor((s)/2)) + (1/3 - 1/6 * s) * floor((s)/3)) + ((7/12 - 1/3 * s) + 1/2 *
     floor((s)/3)) * floor((1 + s)/3) + 1/4 * floor((1 + s)/3)^2) + 1/4 * floor((s)/4))
@@ -64,18 +69,18 @@ AUTHORS:
            The Domain is the disjoint union of its subdomains
            |
            |-- SUBDOMAIN*:  
-               exists ( ALL_QUANTIFIERS  :  ALL_LINEAR_CONDITIONS )
+               exists ( ALL_EXTRA_VARIABLES :  ALL_LINEAR_CONDITIONS )
                or just:
                ALL_LINEAR_CONDITIONS
                opening: `exists(` ; closing: `)` ; separator: ` : ` (only once).
                Each subdomain is defined by modular conditions (corresponding to the quantifiers)
                and linear inequalities.
                |
-               |-- ALL_QUANTIFIERS: 
-               |   QUANTIFIER1, QUANTIFIER2, ...
+               |-- ALL_EXTRA_VARIABLES: 
+               |   EXTRA_VAR1, EXTRA_VAR22, ...
                |   opening: None; closing: None; separator: `, `
                |   |
-               |   |-- QUANTIFIER*: 
+               |   |-- EXTRA_VAR*: 
                |       ei = floor(F) 
                |       ei are variables e0, e1, e2 ... 
                |       F is a linear form with integers coefficients divided by an integer. 
@@ -98,71 +103,71 @@ EXAMPLE::
     ...     data = f.read()
     >>> parse_function(data)
     {'pieces': [{'formula': '((((-2/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'subdomains': [{'linear conditions': ['3 * e0 == -1 + b1',
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)'},
+         'linear conditions': ['3 * e0 == -1 + b1',
           'b1 >= 1',
           's <= -2 + b1',
-          '3 * s >= 1 + 2 * b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}]},
+          '3 * s >= 1 + 2 * b1']}]},
       {'formula': '((-2/3 + 2/3 * b1) - floor((b1)/2))',
-       'subdomains': [{'linear conditions': ['s == -1 + b1',
-          '3 * e0 == -1 + b1',
-          'b1 >= 4'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}},
-        {'linear conditions': ['3 * e0 == -1 + b1', 'b1 >= 1', 's >= b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)'}}]},
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)'},
+         'linear conditions': ['s == -1 + b1', '3 * e0 == -1 + b1', 'b1 >= 4']},
+        {'extra variables': {'e0': 'floor((-1 + b1)/3)'},
+         'linear conditions': ['3 * e0 == -1 + b1', 'b1 >= 1', 's >= b1']}]},
       {'formula': '((-1/3 + 2/3 * b1) - floor((b1)/2))',
-       'subdomains': [{'linear conditions': ['s == -1 + b1',
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((-2 + b1)/3)'},
+         'linear conditions': ['s == -1 + b1',
           '3 * e1 == -2 + b1',
           'b1 >= 3',
           '3 * e0 >= -3 + b1',
-          '3 * e0 <= -2 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((-2 + b1)/3)'}},
-        {'linear conditions': ['3 * e1 == -2 + b1',
+          '3 * e0 <= -2 + b1']},
+        {'extra variables': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((-2 + b1)/3)'},
+         'linear conditions': ['3 * e1 == -2 + b1',
           'b1 >= 1',
           's >= b1',
           '3 * e0 >= -3 + b1',
-          '3 * e0 <= -2 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-          'e1': 'floor((-2 + b1)/3)'}}]},
+          '3 * e0 <= -2 + b1']}]},
       {'formula': '(((2/3 * b1 + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'subdomains': [{'linear conditions': ['3 * e1 == b1',
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((b1)/3)'},
+         'linear conditions': ['3 * e1 == b1',
           '3 * s >= 2 * b1',
           's <= -2 + b1',
           '3 * e0 >= -3 + b1',
-          '3 * e0 <= -2 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)', 'e1': 'floor((b1)/3)'}}]},
+          '3 * e0 <= -2 + b1']}]},
       {'formula': '((((-1/3 + 2/3 * b1) + s) - floor((b1)/2)) - floor((b1 + s)/2))',
-       'subdomains': [{'linear conditions': ['3 * e2 == -2 + b1',
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((b1)/3)',
+          'e2': 'floor((-2 + b1)/3)'},
+         'linear conditions': ['3 * e2 == -2 + b1',
           '3 * s >= 2 * b1',
           's <= -2 + b1',
           '3 * e0 >= -3 + b1',
           '3 * e0 <= -2 + b1',
           '3 * e1 <= -1 + b1',
-          '3 * e1 >= -2 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-          'e1': 'floor((b1)/3)',
-          'e2': 'floor((-2 + b1)/3)'}}]},
+          '3 * e1 >= -2 + b1']}]},
       {'formula': '(2/3 * b1 - floor((b1)/2))',
-       'subdomains': [{'linear conditions': ['s == -1 + b1',
+       'subdomains': [{'extra variables': {'e0': 'floor((-1 + b1)/3)',
+          'e1': 'floor((-2 + b1)/3)',
+          'e2': 'floor((-3 + b1)/3)'},
+         'linear conditions': ['s == -1 + b1',
           '3 * e2 == -3 + b1',
           'b1 >= 3',
           '3 * e0 >= -3 + b1',
           '3 * e0 <= -2 + b1',
           '3 * e1 >= -4 + b1',
-          '3 * e1 <= -3 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
+          '3 * e1 <= -3 + b1']},
+        {'extra variables': {'e0': 'floor((-1 + b1)/3)',
           'e1': 'floor((-2 + b1)/3)',
-          'e2': 'floor((-3 + b1)/3)'}},
-        {'linear conditions': ['3 * e2 == b1',
+          'e2': 'floor((b1)/3)'},
+         'linear conditions': ['3 * e2 == b1',
           'b1 >= 1',
           's >= b1',
           '3 * e0 >= -3 + b1',
           '3 * e0 <= -2 + b1',
           '3 * e1 >= -4 + b1',
-          '3 * e1 <= -3 + b1'],
-         'quantifiers': {'e0': 'floor((-1 + b1)/3)',
-          'e1': 'floor((-2 + b1)/3)',
-          'e2': 'floor((b1)/3)'}}]}],
+          '3 * e1 <= -3 + b1']}]}],
      'variables': ['b1', 's']}
        
 doctest with: ``sage -t barvinok.sage``
@@ -177,7 +182,7 @@ Structure of the output:
                 {'formula': STRING,
                  'subdomains': LIST. each item in the list has the following structure:
                                {'linear conditions': LIST OF STRINGS,
-                                 'quantifiers': DICT str -> str}
+                                 'extra variables': DICT str -> str}
                  
                  }
 }
@@ -286,15 +291,15 @@ def parse_subdomain(subdomain):
     EXAMPLES::
         >>> s = 'exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and 5e1 >= -4 + s)'
         >>> parse_subdomain(s)
-        {'linear conditions': ['s >= 1',
-          '5  *  e0 <= -2 + s',
-          '5  *  e0 >= -5 + s',
-          '5  *  e1 <= -1 + s',
-          '5  *  e1 >= -4 + s'],
-         'quantifiers': {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'}}
+        {'extra variables': {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'},
+         'linear conditions': ['s >= 1',
+          '5 * e0 <= -2 + s',
+          '5 * e0 >= -5 + s',
+          '5 * e1 <= -1 + s',
+          '5 * e1 >= -4 + s']}
          
         >>> parse_subdomain('s = 0')
-        {'linear conditions': ['s == 0'], 'quantifiers': {}}
+        {'extra variables': {}, 'linear conditions': ['s == 0']}
     """
     if "exists" in subdomain:
         subdomain = remove_parenthesis(subdomain, prefix="exists (", suffix=")")
@@ -302,7 +307,7 @@ def parse_subdomain(subdomain):
     else:
         quantifiers = None
         all_linear_conditions = subdomain
-    return {'quantifiers': parse_quantifiers(quantifiers),
+    return {'extra variables': parse_quantifiers(quantifiers),
             'linear conditions': parse_all_linear_conditions(all_linear_conditions)}
     
 def parse_domain(all_subdomains):
@@ -310,29 +315,29 @@ def parse_domain(all_subdomains):
     EXAMPLES::
         >>> s = '(exists (e0 = floor((-2 + b1)/4), e1 = floor((b2)/4), e2 = floor((-2 + b2)/4), e3 = floor((-4 + b1)/4): s = -2 + b1 and 4e2 = -2 + b2 and 4e3 = -4 + b1 and b2 >= b1 and 2b2 <= -8 + 3b1 and 4e0 >= -5 + b1 and 4e0 <= -3 + b1 and 4e1 <= -1 + b2 and 4e1 >= -3 + b2)) or (exists (e0 = floor((b2)/4), e1 = floor((-2 + b2)/4), e2 = floor((-2 + b1)/4): s = -2 + b1 and 4e1 = -2 + b2 and 4e2 = -2 + b1 and b2 >= b1 and 2b2 <= -8 + 3b1 and 4e0 <= -1 + b2 and 4e0 >= -3 + b2))'
         >>> parse_domain(s)
-        [{'linear conditions': ['s == -2 + b1',
-           '4  *  e2 == -2 + b2',
-           '4  *  e3 == -4 + b1',
-           'b2 >= b1',
-           '2  *  b2 <= -8 + 3  *  b1',
-           '4  *  e0 >= -5 + b1',
-           '4  *  e0 <= -3 + b1',
-           '4  *  e1 <= -1 + b2',
-           '4  *  e1 >= -3 + b2'],
-          'quantifiers': {'e0': 'floor((-2 + b1)/4)',
-           'e1': 'floor((b2)/4)',
-           'e2': 'floor((-2 + b2)/4)',
-           'e3': 'floor((-4 + b1)/4)'}},
-         {'linear conditions': ['s == -2 + b1',
-           '4  *  e1 == -2 + b2',
-           '4  *  e2 == -2 + b1',
-           'b2 >= b1',
-           '2  *  b2 <= -8 + 3  *  b1',
-           '4  *  e0 <= -1 + b2',
-           '4  *  e0 >= -3 + b2'],
-          'quantifiers': {'e0': 'floor((b2)/4)',
-           'e1': 'floor((-2 + b2)/4)',
-           'e2': 'floor((-2 + b1)/4)'}}]
+        [{'extra variables': {'e0': 'floor((-2 + b1)/4)',
+         'e1': 'floor((b2)/4)',
+         'e2': 'floor((-2 + b2)/4)',
+         'e3': 'floor((-4 + b1)/4)'},
+         'linear conditions': ['s == -2 + b1',
+         '4 * e2 == -2 + b2',
+         '4 * e3 == -4 + b1',
+         'b2 >= b1',
+         '2 * b2 <= -8 + 3 * b1',
+         '4 * e0 >= -5 + b1',
+         '4 * e0 <= -3 + b1',
+         '4 * e1 <= -1 + b2',
+         '4 * e1 >= -3 + b2']},
+         {'extra variables': {'e0': 'floor((b2)/4)',
+         'e1': 'floor((-2 + b2)/4)',
+         'e2': 'floor((-2 + b1)/4)'},
+         'linear conditions': ['s == -2 + b1',
+         '4 * e1 == -2 + b2',
+         '4 * e2 == -2 + b1',
+         'b2 >= b1',
+         '2 * b2 <= -8 + 3 * b1',
+         '4 * e0 <= -1 + b2',
+         '4 * e0 >= -3 + b2']}]
     """
     all_subdomains = all_subdomains.split(' or ')
     all_subdomains = [remove_parenthesis(subdomain) for subdomain in all_subdomains]
@@ -354,7 +359,7 @@ def parse_piece(piece):
     EXAMPLE::
         >>> parse_piece('[s] -> 1 : s = 0')
         {'formula': '1',
-         'subdomains': [{'linear conditions': ['s == 0'], 'quantifiers': {}}],
+         'subdomains': [{'extra variables': {}, 'linear conditions': ['s == 0']}],
          'variables': ['s']}
     """
     quasipolynomial, subdomains = piece.split(' : ', maxsplit=1)

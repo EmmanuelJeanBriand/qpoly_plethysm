@@ -7,7 +7,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)"
                     },
                     "linear conditions": [
@@ -23,7 +23,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)"
                     },
                     "linear conditions": [
@@ -39,7 +39,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)"
                     },
                     "linear conditions": [
@@ -54,7 +54,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)"
                     },
@@ -72,7 +72,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)"
                     },
@@ -92,7 +92,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)",
                         "e2": "floor((-2 + b1)/3)"
@@ -113,7 +113,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)",
                         "e2": "floor((-2 + b1)/3)"
@@ -136,7 +136,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)"
                     },
@@ -154,7 +154,7 @@
         {
             "subdomains": [
                 {
-                    "quantifiers": {
+                    "extra variables": {
                         "e0": "floor((-1 + b1)/3)",
                         "e1": "floor((b1)/3)",
                         "e2": "floor((-2 + b1)/3)"
