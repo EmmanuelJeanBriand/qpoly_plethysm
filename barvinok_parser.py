@@ -73,7 +73,7 @@ EXAMPLE::
                or just:
                ALL_LINEAR_CONDITIONS
                opening: `exists(` ; closing: `)` ; separator: ` : ` (only once).
-               Each subdomain is defined by modular conditions (corresponding to the quantifiers)
+               Each subdomain is defined by modular conditions (corresponding to the extra variables)
                and linear inequalities.
                |
                |-- ALL_EXTRA_VARIABLES: 
@@ -226,21 +226,21 @@ def remove_parenthesis(s, prefix='(', suffix=')'):
     else:
         return s[:]
 
-def parse_quantifiers(quantifiers):
+def parse_extra_vars_def(extra_vars_defs):
     r"""
     EXAMPLES::
-        >>> parse_quantifiers('e0 = floor((-1 + s)/5), e1 = floor((s)/5)')
+        >>> parse_extra_vars_def('e0 = floor((-1 + s)/5), e1 = floor((s)/5)')
         {'e0': 'floor((-1 + s)/5)', 'e1': 'floor((s)/5)'}
         
-        >>> parse_quantifiers(None)
+        >>> parse_extra_vars_def(None)
         {}
     """
-    if quantifiers == None:
+    if extra_vars_defs == None:
         return {}
     else:
-        quantifiers = quantifiers.split(", ")
-        quantifiers = map(lambda s: s.split(" = "), quantifiers)
-        return {name: value for name, value in quantifiers}
+        extra_vars_defs = extra_vars_defs.split(", ")
+        extra_vars_defs = map(lambda s: s.split(" = "), extra_vars_defs)
+        return {name: value for name, value in extra_vars_defs}
 
 def insertMult(string):
     r'''Insert `` * `` between a digit and an alphabetic character. 
@@ -286,7 +286,7 @@ def parse_all_linear_conditions(all_linear_conditions):
 
 def parse_subdomain(subdomain):
     r"""
-    The subdomain may contain quantifiers, or not.
+    The subdomain may contain extra variables definitions, or not.
     
     EXAMPLES::
         >>> s = 'exists (e0 = floor((-1 + s)/5), e1 = floor((s)/5): s >= 1 and 5e0 <= -2 + s and 5e0 >= -5 + s and 5e1 <= -1 + s and 5e1 >= -4 + s)'
@@ -303,11 +303,11 @@ def parse_subdomain(subdomain):
     """
     if "exists" in subdomain:
         subdomain = remove_parenthesis(subdomain, prefix="exists (", suffix=")")
-        quantifiers, all_linear_conditions = subdomain.split(": ")
+        extra_vars_defs, all_linear_conditions = subdomain.split(": ")
     else:
-        quantifiers = None
+        extra_vars_defs = None
         all_linear_conditions = subdomain
-    return {'extra variables': parse_quantifiers(quantifiers),
+    return {'extra variables': parse_extra_vars_def(extra_vars_defs),
             'linear conditions': parse_all_linear_conditions(all_linear_conditions)}
     
 def parse_domain(all_subdomains):
